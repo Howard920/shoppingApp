@@ -7,66 +7,6 @@
 
 import UIKit
 
-struct ColorElement {
-    var color: UIColor{
-        return UIColor(named: String(indexOfAllColor))!
-    }
-    var indexOfAllColor: Int
-}
-
-struct Category{
-    var title: String
-    var image: UIImage
-}
-
-class ViewModel {
-    var colorOfViews = [ColorElement(indexOfAllColor: 4), ColorElement(indexOfAllColor: 0), ColorElement(indexOfAllColor: 1), ColorElement(indexOfAllColor: 2), ColorElement(indexOfAllColor: 3)]
-    var numOfAllColor = 5
-    
-    var categories = [Category(title: "防疫商品", image: UIImage(named: "Candles-icon")!),
-                      Category(title: "冷凍店取", image: UIImage(named: "Candles-icon")!),
-                      Category(title: "箱購飲料", image: UIImage(named: "Candles-icon")!),
-                      Category(title: "甜點蛋糕", image: UIImage(named: "Candles-icon")!),
-                      Category(title: "素食蔬食", image: UIImage(named: "Candles-icon")!),
-                      Category(title: "水產海鮮", image: UIImage(named: "Candles-icon")!),
-                      Category(title: "生鮮肉品", image: UIImage(named: "Candles-icon")!),
-                      Category(title: "3C週邊", image: UIImage(named: "Candles-icon")!),
-                      Category(title: "生活日用", image: UIImage(named: "Candles-icon")!),
-                      Category(title: "餅乾零食", image: UIImage(named: "Candles-icon")!),
-                      Category(title: "熟食小吃", image: UIImage(named: "Candles-icon")!),
-                      Category(title: "保健商品", image: UIImage(named: "Candles-icon")!),
-                      Category(title: "毛小孩", image: UIImage(named: "Candles-icon")!),
-                      Category(title: "家具廚具", image: UIImage(named: "Candles-icon")!),
-                      Category(title: "美妝用品", image: UIImage(named: "Candles-icon")!),
-                      Category(title: "首飾配件", image: UIImage(named: "Candles-icon")!),
-                      Category(title: "服飾", image: UIImage(named: "Candles-icon")!),
-                      Category(title: "包包提袋", image: UIImage(named: "Candles-icon")!),
-                      Category(title: "文創商品", image: UIImage(named: "Candles-icon")!),
-                      Category(title: "文/玩具", image: UIImage(named: "Candles-icon")!),
-    ]
-    
-    func lastImage(){
-        for viewIndex in 0...2{
-            colorOfViews[viewIndex].indexOfAllColor -= 1
-            
-            if colorOfViews[viewIndex].indexOfAllColor < 0{
-                colorOfViews[viewIndex].indexOfAllColor = numOfAllColor - 1
-            }
-            
-        }
-    }
-    
-    func nextImage(){
-        for viewIndex in 0...2{
-            colorOfViews[viewIndex].indexOfAllColor += 1
-            
-            if  colorOfViews[viewIndex].indexOfAllColor > numOfAllColor - 1{
-                colorOfViews[viewIndex].indexOfAllColor = 0
-            }
-        }
-    }
-}
-
 class ViewController: UIViewController {
 
     @IBOutlet weak var adScrollView: UIScrollView!
@@ -75,8 +15,10 @@ class ViewController: UIViewController {
     @IBOutlet var collectionViews: [UICollectionView]!
     @IBOutlet weak var categoryPageControl: UIPageControl!
     @IBOutlet weak var categoryScrollView: UIScrollView!
+    @IBOutlet weak var productCollectionView: ProductCollectionView!
+    @IBOutlet weak var productCollectionViewHeight: NSLayoutConstraint!
     
-    private var viewModel = ViewModel()
+    private var viewModel = WelcomeViewModel()
     private var didScrollViewSet = false
     private var adTimer: Timer!{
         didSet{
@@ -89,6 +31,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         adPageControl.numberOfPages = viewModel.numOfAllColor
         setCollectionViews()
+        productCollectionViewHeight.constant = (((self.view.frame.width - 30) / 2 + 120) + 10) * 3 + 10
     }
 
     override func viewWillLayoutSubviews() {
@@ -96,7 +39,7 @@ class ViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        print(123)
+        
         didScrollViewSet = true
         adTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(adChange), userInfo: nil, repeats: true)
         
@@ -115,7 +58,7 @@ class ViewController: UIViewController {
         )
         
         layout.minimumInteritemSpacing = (fullScreenSize.width - 310)/6
-        print((fullScreenSize.width - 310)/6)
+        
         layout.minimumLineSpacing = 15
         layout.itemSize = CGSize(
             width: 50,
@@ -129,8 +72,12 @@ class ViewController: UIViewController {
         
         collectionViews[0].dataSource = self
         collectionViews[1].dataSource = self
+        collectionViews[0].delegate = self
+        collectionViews[1].delegate = self
     }
 }
+
+//MARK: - UICollectionViewDataSource Methods
 
 extension ViewController: UICollectionViewDataSource{
     
@@ -153,10 +100,11 @@ extension ViewController: UICollectionViewDataSource{
     }
 }
 
+//MARK: - UIScrollViewDelegate Methods
+
 extension ViewController: UIScrollViewDelegate{
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
         
         if scrollView == adScrollView{
             
@@ -169,11 +117,11 @@ extension ViewController: UIScrollViewDelegate{
             if adScrollView.contentOffset.x == 0, didScrollViewSet{
                 
                 viewModel.lastImage()
+                
                 upadteImageColor()
             }
             
             if scrollView.contentOffset.x == adScrollView.bounds.width * 2 {
-
                 viewModel.nextImage()
                 upadteImageColor()
             }
@@ -197,5 +145,12 @@ extension ViewController: UIScrollViewDelegate{
         
         adImages[2].backgroundColor = viewModel.colorOfViews[2].color
         adImages[0].backgroundColor = viewModel.colorOfViews[0].color
+
+    }
+}
+
+extension ViewController: UICollectionViewDelegate{
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "goToCategory", sender: self)
     }
 }
