@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8Ri-SK-Ytm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="keJ-ct-CUE">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -24,6 +24,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ghL-tj-IbF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-997" y="77"/>
+        </scene>
+        <!--Test View Controller-->
+        <scene sceneID="Lsw-6C-9dQ">
+            <objects>
+                <viewController id="keJ-ct-CUE" customClass="TestViewController" customModule="shoppingApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bEb-of-9EH">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lPV-zp-rW6" customClass="PageScrollView" customModule="shoppingApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="390" height="766"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="DgR-mM-E7T"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="DgR-mM-E7T" firstAttribute="trailing" secondItem="lPV-zp-rW6" secondAttribute="trailing" id="9yC-pD-7eG"/>
+                            <constraint firstItem="lPV-zp-rW6" firstAttribute="leading" secondItem="DgR-mM-E7T" secondAttribute="leading" id="as6-Ya-Pbd"/>
+                            <constraint firstItem="DgR-mM-E7T" firstAttribute="bottom" secondItem="lPV-zp-rW6" secondAttribute="bottom" id="eV3-5m-8gh"/>
+                            <constraint firstItem="lPV-zp-rW6" firstAttribute="top" secondItem="DgR-mM-E7T" secondAttribute="top" id="m4g-GJ-hT0"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="pageScrollView" destination="lPV-zp-rW6" id="9Eg-Nc-AzI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="39O-cd-l9M" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="563" y="-599"/>
         </scene>
         <!--首頁-->
         <scene sceneID="tne-QT-ifu">

@@ -24,6 +24,9 @@
 		B0DBDE9B27294C9300609F77 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DBDE9927294C9300609F77 /* ProductCell.swift */; };
 		B0DBDE9C27294C9300609F77 /* ProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0DBDE9A27294C9300609F77 /* ProductCell.xib */; };
 		B0DBDE9E272A8D9900609F77 /* CategoryProductCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DBDE9D272A8D9900609F77 /* CategoryProductCollectionView.swift */; };
+		B0F40A02272AD80300AF8A8A /* PageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F40A01272AD80300AF8A8A /* PageScrollView.swift */; };
+		B0F40A04272AD82600AF8A8A /* PageScrollView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0F40A03272AD82600AF8A8A /* PageScrollView.xib */; };
+		B0F40A09272B956100AF8A8A /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F40A08272B956100AF8A8A /* TestViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +49,9 @@
 		B0DBDE9927294C9300609F77 /* ProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
 		B0DBDE9A27294C9300609F77 /* ProductCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductCell.xib; sourceTree = "<group>"; };
 		B0DBDE9D272A8D9900609F77 /* CategoryProductCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryProductCollectionView.swift; sourceTree = "<group>"; };
+		B0F40A01272AD80300AF8A8A /* PageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageScrollView.swift; sourceTree = "<group>"; };
+		B0F40A03272AD82600AF8A8A /* PageScrollView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PageScrollView.xib; sourceTree = "<group>"; };
+		B0F40A08272B956100AF8A8A /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +117,7 @@
 		B0DBDE8A272947F300609F77 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B0F40A05272AD84D00AF8A8A /* PageScrollView */,
 				B08D789B271FD72000F62A1A /* Main.storyboard */,
 				B0DBDE562727923200609F77 /* CategoryCell.swift */,
 				B0DBDE572727923200609F77 /* CategoryCell.xib */,
@@ -131,6 +138,7 @@
 		B0DBDE8C2729481500609F77 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B0F40A08272B956100AF8A8A /* TestViewController.swift */,
 				B08D7899271FD72000F62A1A /* ViewController.swift */,
 			);
 			path = Controllers;
@@ -146,6 +154,15 @@
 				B0DBDE9A27294C9300609F77 /* ProductCell.xib */,
 			);
 			path = ProductCollectionV;
+			sourceTree = "<group>";
+		};
+		B0F40A05272AD84D00AF8A8A /* PageScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				B0F40A03272AD82600AF8A8A /* PageScrollView.xib */,
+				B0F40A01272AD80300AF8A8A /* PageScrollView.swift */,
+			);
+			path = PageScrollView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -211,6 +228,7 @@
 				B0DBDE9C27294C9300609F77 /* ProductCell.xib in Resources */,
 				B0DBDE9827294A8900609F77 /* ProductCollectionView.xib in Resources */,
 				B0DBDE592727923200609F77 /* CategoryCell.xib in Resources */,
+				B0F40A04272AD82600AF8A8A /* PageScrollView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,6 +239,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0F40A09272B956100AF8A8A /* TestViewController.swift in Sources */,
 				B08D789A271FD72000F62A1A /* ViewController.swift in Sources */,
 				B0DBDE9E272A8D9900609F77 /* CategoryProductCollectionView.swift in Sources */,
 				B0DBDE9627294A6100609F77 /* ProductCollectionView.swift in Sources */,
@@ -231,6 +250,7 @@
 				B0DBDE8E2729484E00609F77 /* ColorElement.swift in Sources */,
 				B0DBDE9B27294C9300609F77 /* ProductCell.swift in Sources */,
 				B0DBDE582727923200609F77 /* CategoryCell.swift in Sources */,
+				B0F40A02272AD80300AF8A8A /* PageScrollView.swift in Sources */,
 				B0DBDE902729486300609F77 /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
