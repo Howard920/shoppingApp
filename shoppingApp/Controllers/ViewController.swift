@@ -9,9 +9,6 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var adScrollView: UIScrollView!
-    @IBOutlet weak var adPageControl: UIPageControl!
-    @IBOutlet var adImages: [UIImageView]!
     @IBOutlet var collectionViews: [UICollectionView]!
     @IBOutlet weak var categoryPageControl: UIPageControl!
     @IBOutlet weak var categoryScrollView: UIScrollView!
@@ -19,36 +16,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var productCollectionViewHeight: NSLayoutConstraint!
     
     private var viewModel = WelcomeViewModel()
-    private var didScrollViewSet = false
-    private var adTimer: Timer!{
-        didSet{
-            oldValue?.invalidate()
-        }
-    }
+
+
     private let fullScreenSize = UIScreen.main.bounds.size
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        adPageControl.numberOfPages = viewModel.numOfAllColor
         setCollectionViews()
         productCollectionViewHeight.constant = (((self.view.frame.width - 30) / 2 + 120) + 10) * 3 + 10
-    }
-
-    override func viewWillLayoutSubviews() {
-        upadteImageColor()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        
-        didScrollViewSet = true
-        adTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(adChange), userInfo: nil, repeats: true)
-        
-    }
-    
-    @objc func adChange(){
-        
-        let offset = CGPoint(x: adImages[1].frame.width * 2 , y: 0)
-        adScrollView.setContentOffset(offset, animated: true)
     }
     
     func setCollectionViews(){
@@ -106,28 +81,6 @@ extension ViewController: UIScrollViewDelegate{
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        if scrollView == adScrollView{
-            
-            if adScrollView.isDragging || adScrollView.isDecelerating{
-                adTimer = nil
-                adTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(adChange), userInfo: nil, repeats: true)
-              
-            }
-            
-            if adScrollView.contentOffset.x == 0, didScrollViewSet{
-                
-                viewModel.lastImage()
-                
-                upadteImageColor()
-            }
-            
-            if scrollView.contentOffset.x == adScrollView.bounds.width * 2 {
-                viewModel.nextImage()
-                upadteImageColor()
-            }
-        }
-        adPageControl.currentPage = viewModel.colorOfViews[1].indexOfAllColor
-        
         if scrollView == categoryScrollView{
             if scrollView.contentOffset.x == 0{
                 categoryPageControl.currentPage = 0
@@ -138,15 +91,6 @@ extension ViewController: UIScrollViewDelegate{
             }
         }
     }
-    
-    func upadteImageColor(){
-        adImages[1].backgroundColor = viewModel.colorOfViews[1].color
-        adScrollView.contentOffset.x = adImages[1].frame.width
-        
-        adImages[2].backgroundColor = viewModel.colorOfViews[2].color
-        adImages[0].backgroundColor = viewModel.colorOfViews[0].color
-
-    }
 }
 
 extension ViewController: UICollectionViewDelegate{
@@ -154,3 +98,4 @@ extension ViewController: UICollectionViewDelegate{
         performSegue(withIdentifier: "goToCategory", sender: self)
     }
 }
+
