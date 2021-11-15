@@ -32,6 +32,9 @@
 		B0DBDE9E272A8D9900609F77 /* CategoryProductCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DBDE9D272A8D9900609F77 /* CategoryProductCollectionView.swift */; };
 		B0F40A02272AD80300AF8A8A /* PageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F40A01272AD80300AF8A8A /* PageScrollView.swift */; };
 		B0F40A04272AD82600AF8A8A /* PageScrollView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0F40A03272AD82600AF8A8A /* PageScrollView.xib */; };
+		B0FF92BB2741EA7900AEA200 /* Favorite.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0FF92BA2741EA7900AEA200 /* Favorite.storyboard */; };
+		B0FF92BE2741EA8100AEA200 /* CollectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FF92BC2741EA8100AEA200 /* CollectionTableViewController.swift */; };
+		B0FF92BF2741EA8100AEA200 /* CollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FF92BD2741EA8100AEA200 /* CollectionTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +65,9 @@
 		B0DBDE9D272A8D9900609F77 /* CategoryProductCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryProductCollectionView.swift; sourceTree = "<group>"; };
 		B0F40A01272AD80300AF8A8A /* PageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageScrollView.swift; sourceTree = "<group>"; };
 		B0F40A03272AD82600AF8A8A /* PageScrollView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PageScrollView.xib; sourceTree = "<group>"; };
+		B0FF92BA2741EA7900AEA200 /* Favorite.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Favorite.storyboard; sourceTree = "<group>"; };
+		B0FF92BC2741EA8100AEA200 /* CollectionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionTableViewController.swift; sourceTree = "<group>"; };
+		B0FF92BD2741EA8100AEA200 /* CollectionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +107,7 @@
 				B08D789E271FD72500F62A1A /* Assets.xcassets */,
 				B0979F22273917B9006C8032 /* Jason */,
 				B0979F17273913D4006C8032 /* Siang */,
+				B0FF92B92741E9B200AEA200 /* Howard */,
 			);
 			path = shoppingApp;
 			sourceTree = "<group>";
@@ -188,6 +195,16 @@
 			path = PageScrollView;
 			sourceTree = "<group>";
 		};
+		B0FF92B92741E9B200AEA200 /* Howard */ = {
+			isa = PBXGroup;
+			children = (
+				B0FF92BA2741EA7900AEA200 /* Favorite.storyboard */,
+				B0FF92BD2741EA8100AEA200 /* CollectionTableViewCell.swift */,
+				B0FF92BC2741EA8100AEA200 /* CollectionTableViewController.swift */,
+			);
+			path = Howard;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -253,6 +270,7 @@
 				B0DBDE9C27294C9300609F77 /* ProductCell.xib in Resources */,
 				B0DBDE9827294A8900609F77 /* ProductCollectionView.xib in Resources */,
 				B0DBDE592727923200609F77 /* CategoryCell.xib in Resources */,
+				B0FF92BB2741EA7900AEA200 /* Favorite.storyboard in Resources */,
 				B0F40A04272AD82600AF8A8A /* PageScrollView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -271,11 +289,13 @@
 				B0DBDE9427294A0200609F77 /* NibOwnerLoadable.swift in Sources */,
 				B08D7896271FD72000F62A1A /* AppDelegate.swift in Sources */,
 				B08D7898271FD72000F62A1A /* SceneDelegate.swift in Sources */,
+				B0FF92BF2741EA8100AEA200 /* CollectionTableViewCell.swift in Sources */,
 				B0979F1F27391588006C8032 /* SearchResultTableViewController.swift in Sources */,
 				B0DBDE92272948C000609F77 /* WelcomeViewModel.swift in Sources */,
 				B0DBDE8E2729484E00609F77 /* ColorElement.swift in Sources */,
 				B0DBDE9B27294C9300609F77 /* ProductCell.swift in Sources */,
 				B0DBDE582727923200609F77 /* CategoryCell.swift in Sources */,
+				B0FF92BE2741EA8100AEA200 /* CollectionTableViewController.swift in Sources */,
 				B0979F1E27391588006C8032 /* SearchTableViewController.swift in Sources */,
 				B0979F2027391588006C8032 /* Products.swift in Sources */,
 				B0F40A02272AD80300AF8A8A /* PageScrollView.swift in Sources */,
