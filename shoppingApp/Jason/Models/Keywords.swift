@@ -13,6 +13,8 @@ struct Keywords {
     static let popularHeaderText = "熱門關鍵字"
     static let clearHistoryText = "清除歷史記錄"
     
+    
+    // cell identifier
     static let segueIdOfSearchResult = "toResultCollectionViewController"
     static let segueIdOfProductsDetail = "toProductsDetailViewController"
 
@@ -23,6 +25,9 @@ struct Keywords {
         }
     }
     static var resultCollectionViewlayoutStyle = "list.dash"    
+    
+    
+    static let reuseCellIdentifierOfProduct = "\(ProductCollectionViewCell.self)"
     static let reuseCellIdentifierOfHorizontalStyle = "ResultAxisHCollectionViewCell"
     static let reuseCellIdentifierOfVerticalStyle = "ResultCollectionViewCell"
 }

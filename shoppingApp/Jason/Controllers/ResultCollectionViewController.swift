@@ -98,13 +98,17 @@ class ResultCollectionViewController: UICollectionViewController {
             keyword = cell.resultNameLabel.text ?? ""
             
         }
-        performSegue(withIdentifier: Keywords.segueIdOfProductsDetail, sender: keyword)
+//        performSegue(withIdentifier: Keywords.segueIdOfProductsDetail, sender: keyword)
+        performSegue(withIdentifier: "toProductViewController", sender: keyword)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let productsDetailTableViewController = segue.destination as! ProductDetailViewController
+        let productController = segue.destination as! ProductViewController
+        productController.title = sender as? String
+//        let productsDetailTableViewController = segue.destination as! ProductDetailViewController
         
-        productsDetailTableViewController.title = sender as? String
+        
+//        productsDetailTableViewController.title = sender as? String
     }
     
 }
