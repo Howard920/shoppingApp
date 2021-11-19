@@ -11,8 +11,11 @@ class Cart1ViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var cartStepView: CartStepView!
+    
+
     @IBOutlet weak var nextStepButton: UIButton!
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         cartStepView.stepBars[0].backgroundColor = UIColor.red
