@@ -10,7 +10,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="RjB-Vf-9jb">
             <objects>
-                <tabBarController id="1z1-b2-zuZ" sceneMemberID="viewController">
+                <tabBarController id="1z1-b2-zuZ" customClass="TabBarController" customModule="shoppingApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xns-xY-bbn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

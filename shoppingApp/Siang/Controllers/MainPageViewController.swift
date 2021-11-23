@@ -7,26 +7,25 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MainPageViewController: UIViewController {
 
-    @IBOutlet var collectionViews: [UICollectionView]!
+    @IBOutlet var catrgoryCollectionViews: [UICollectionView]!
     @IBOutlet weak var categoryPageControl: UIPageControl!
     @IBOutlet weak var categoryScrollView: UIScrollView!
     @IBOutlet weak var productCollectionView: ProductCollectionView!
     @IBOutlet weak var productCollectionViewHeight: NSLayoutConstraint!
     
-    private var viewModel = WelcomeViewModel()
-
-
+    private var viewModel = MainPageViewModel()
     private let fullScreenSize = UIScreen.main.bounds.size
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setCollectionViews()
+        navigationController?.navigationItem
+        setCategoryCollectionViews()
         productCollectionViewHeight.constant = (((UIScreen.main.bounds.width - 30) / 2 + 125) + 10) * 3
     }
     
-    func setCollectionViews(){
+    func setCategoryCollectionViews(){
         
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 15, left: (fullScreenSize.width - 310)/6 + 5, bottom: 15, right: (fullScreenSize.width - 310)/6 + 5
@@ -39,22 +38,22 @@ class ViewController: UIViewController {
             width: 50,
             height: 70
         )
-        collectionViews[0].collectionViewLayout = layout
-        collectionViews[1].collectionViewLayout = layout
+        catrgoryCollectionViews[0].collectionViewLayout = layout
+        catrgoryCollectionViews[1].collectionViewLayout = layout
         
-        collectionViews[0].register(UINib(nibName: "CategoryCell", bundle: nil), forCellWithReuseIdentifier: "CategoryCell")
-        collectionViews[1].register(UINib(nibName: "CategoryCell", bundle: nil), forCellWithReuseIdentifier: "CategoryCell")
+        catrgoryCollectionViews[0].register(UINib(nibName: "CategoryCell", bundle: nil), forCellWithReuseIdentifier: "CategoryCell")
+        catrgoryCollectionViews[1].register(UINib(nibName: "CategoryCell", bundle: nil), forCellWithReuseIdentifier: "CategoryCell")
         
-        collectionViews[0].dataSource = self
-        collectionViews[1].dataSource = self
-        collectionViews[0].delegate = self
-        collectionViews[1].delegate = self
+        catrgoryCollectionViews[0].dataSource = self
+        catrgoryCollectionViews[1].dataSource = self
+        catrgoryCollectionViews[0].delegate = self
+        catrgoryCollectionViews[1].delegate = self
     }
 }
 
 //MARK: - UICollectionViewDataSource Methods
 
-extension ViewController: UICollectionViewDataSource{
+extension MainPageViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
@@ -62,7 +61,7 @@ extension ViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath) as! CategoryCell
-        if collectionView == collectionViews[0]{
+        if collectionView == catrgoryCollectionViews[0]{
             cell.titleLabel.text = viewModel.categories[indexPath.row].title
             cell.imageView.image = viewModel.categories[indexPath.row].image
         }else{
@@ -77,7 +76,7 @@ extension ViewController: UICollectionViewDataSource{
 
 //MARK: - UIScrollViewDelegate Methods
 
-extension ViewController: UIScrollViewDelegate{
+extension MainPageViewController: UIScrollViewDelegate{
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
@@ -93,7 +92,7 @@ extension ViewController: UIScrollViewDelegate{
     }
 }
 
-extension ViewController: UICollectionViewDelegate{
+extension MainPageViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         performSegue(withIdentifier: "goToCategory", sender: self)
     }

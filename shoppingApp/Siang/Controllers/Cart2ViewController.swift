@@ -23,8 +23,9 @@ class Cart2ViewController: UIViewController {
         nextStepButton.layer.cornerRadius = 5
         nextStepButton.clipsToBounds = true
         
-        
     }
+    
+    
     
     @IBAction func nextStepPressed(_ sender: UIButton) {
         performSegue(withIdentifier: "toStep3", sender: nil)
@@ -67,6 +68,7 @@ extension Cart2ViewController: UITableViewDataSource{
         
         return cell
     }
+    
     
     
 }

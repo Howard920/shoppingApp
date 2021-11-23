@@ -10,6 +10,7 @@ import UIKit
 class ProductCollectionView: UIView, NibOwnerLoadable{
     
     @IBOutlet weak var collectionView: UICollectionView!
+    var numberOfItems = 6
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -50,7 +51,7 @@ class ProductCollectionView: UIView, NibOwnerLoadable{
 
 extension ProductCollectionView: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        6
+        numberOfItems
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

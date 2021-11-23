@@ -27,6 +27,9 @@ class Cart1ViewController: UIViewController {
         nextStepButton.clipsToBounds = true
 
     }
+    @IBAction func closeButtonPressed(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
+    }
     @IBAction func nextStepPressed(_ sender: UIButton) {
         performSegue(withIdentifier: "toStep2", sender: nil)
     }

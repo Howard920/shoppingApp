@@ -7,14 +7,16 @@
 
 import UIKit
 
-class CategoryViewController: UIViewController {
+class CategoryProductViewController: UIViewController {
 
-    @IBOutlet weak var collectionVMangeView: CategoryProductCollectionView!
+    @IBOutlet weak var productCollectionView: ProductCollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionVMangeView.collectionView.alwaysBounceVertical = true
-        collectionVMangeView.collectionView.bounces = true
+        productCollectionView.collectionView.alwaysBounceVertical = true
+        productCollectionView.collectionView.bounces = true
+        productCollectionView.collectionView.isScrollEnabled = true
+        productCollectionView.numberOfItems = 12
         // Do any additional setup after loading the view.
     }
     

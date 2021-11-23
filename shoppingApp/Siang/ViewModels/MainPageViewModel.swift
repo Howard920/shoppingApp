@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WelcomeViewModel {
+class MainPageViewModel {
     var colorOfViews = [ColorElement(indexOfAllColor: 4), ColorElement(indexOfAllColor: 0), ColorElement(indexOfAllColor: 1)]
     var numOfAllColor = 5
     
