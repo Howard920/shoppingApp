@@ -14,7 +14,7 @@ class SearchTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadInit()
-        Keywords.historyWords = []
+//        Keywords.historyWords = []
         
     }
 
@@ -47,6 +47,7 @@ class SearchTableViewController: UITableViewController {
          */
         guard !Keywords.historyWords.isEmpty else {return 1}
         return section == 0 ? Keywords.historyWords.count + 1 : 1
+       
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -76,6 +77,7 @@ class SearchTableViewController: UITableViewController {
                 return cell
                 
             } else {
+               
                 let cell = tableView.dequeueReusableCell(withIdentifier: "\(PopularKeywordsTableViewCell.self)", for: indexPath) as! PopularKeywordsTableViewCell
                 // cell的delegate綁定, 熱門關鍵字按鈕點擊才會有反應
                 cell.delegate = self
@@ -88,6 +90,7 @@ class SearchTableViewController: UITableViewController {
     // MARK: -  Cell select
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
         // 如果有歷史搜尋記錄才會做
         if !Keywords.historyWords.isEmpty {
             // 取得"清除歷史記錄"cell的indexPath"

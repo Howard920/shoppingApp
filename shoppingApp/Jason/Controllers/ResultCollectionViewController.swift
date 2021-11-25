@@ -79,7 +79,7 @@ class ResultCollectionViewController: UICollectionViewController {
         } else {
             // two cells in a row
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Keywords.reuseCellIdentifierOfVerticalStyle, for: indexPath) as! ResultCollectionViewCell
-            cell.setup(indexPath)
+            cell.configure(indexPath)
             cell.delegate = self
             return cell
         }
@@ -98,17 +98,14 @@ class ResultCollectionViewController: UICollectionViewController {
             keyword = cell.resultNameLabel.text ?? ""
             
         }
-//        performSegue(withIdentifier: Keywords.segueIdOfProductsDetail, sender: keyword)
+        // 設定選定的商品資料到Products.selectProduct
+        Products.selectProduct = Products.demoRoom[indexPath.row]
         performSegue(withIdentifier: "toProductViewController", sender: keyword)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let productController = segue.destination as! ProductViewController
         productController.title = sender as? String
-//        let productsDetailTableViewController = segue.destination as! ProductDetailViewController
-        
-        
-//        productsDetailTableViewController.title = sender as? String
     }
     
 }

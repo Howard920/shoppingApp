@@ -11,13 +11,14 @@ protocol ResultCollectionViewCellDelegate: AnyObject {
 }
 class ResultCollectionViewCell: UICollectionViewCell {
     weak var delegate: ResultCollectionViewCellDelegate?
+    static let identifier: String = "ResultCollectionViewCell"
 
     @IBOutlet weak var resultImageView: UIImageView!
     @IBOutlet weak var resultNameLabel: UILabel!
     @IBOutlet weak var resultPriceLabel: UILabel!
     @IBOutlet weak var isLikeButton: UIButton!
     
-    func setup(_ indexPath: IndexPath){
+    func configure(_ indexPath: IndexPath){
         resultNameLabel.text = Products.demoRoom[indexPath.row].name
         resultPriceLabel.text = "$ " + Products.demoRoom[indexPath.row].price.description
         resultImageView.image = UIImage(data: Products.demoRoom[indexPath.row].picture!)
