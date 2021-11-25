@@ -20,7 +20,6 @@ class MainPageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationItem
         setCategoryCollectionViews()
         productCollectionViewHeight.constant = (((UIScreen.main.bounds.width - 30) / 2 + 125) + 10) * 3
     }
