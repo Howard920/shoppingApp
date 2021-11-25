@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QYA-Jh-rre">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1z1-b2-zuZ">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -7,9 +7,61 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Tab Bar Controller-->
+        <scene sceneID="RjB-Vf-9jb">
+            <objects>
+                <tabBarController id="1z1-b2-zuZ" customClass="TabBarController" customModule="shoppingApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xns-xY-bbn">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="kvo-vf-qGf" kind="relationship" relationship="viewControllers" id="NKc-jq-Zxw"/>
+                        <segue destination="QYA-Jh-rre" kind="relationship" relationship="viewControllers" id="G5N-aW-IDG"/>
+                        <segue destination="1sO-Un-MUt" kind="relationship" relationship="viewControllers" id="tdy-z6-zja"/>
+                        <segue destination="LRA-pe-1wf" kind="relationship" relationship="viewControllers" id="Q9s-00-gLf"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pYj-Ku-2Wm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2078" y="77"/>
+        </scene>
+        <!--Search-->
+        <scene sceneID="jjO-ak-1is">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Search" id="LRA-pe-1wf" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="zEw-42-lS1"/>
+                    <navigationItem key="navigationItem" id="PW3-6S-Thh"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0TS-LY-RtZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-959" y="277"/>
+        </scene>
+        <!--Cart-->
+        <scene sceneID="GGG-o1-6zR">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Cart" id="1sO-Un-MUt" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="EvV-fq-W8g"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g4l-j6-uAU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-898" y="137"/>
+        </scene>
+        <!--MainPage-->
+        <scene sceneID="0UU-ed-Q7d">
+            <objects>
+                <viewControllerPlaceholder storyboardName="MainPage" id="kvo-vf-qGf" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="sZb-lT-Bhn"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ta8-fl-Qrb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1086" y="-215"/>
+        </scene>
         <!--Favorite-->
         <scene sceneID="NL9-Py-wCj">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7fz-BK-eZS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QYA-Jh-rre" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Favorite" image="heart.circle.fill" catalog="system" id="lxb-pr-XeA"/>
                     <toolbarItems/>
@@ -22,13 +74,13 @@
                         <segue destination="GRf-u1-hbe" kind="relationship" relationship="rootViewController" id="cSd-xV-fb4"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7fz-BK-eZS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="168" y="13"/>
         </scene>
         <!--我的收藏-->
         <scene sceneID="peT-bj-P0q">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="osc-w5-EpZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <tableViewController id="GRf-u1-hbe" customClass="CollectionTableViewController" customModule="shoppingApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="QWi-wf-ycf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -54,6 +106,18 @@
                                                 </imageView>
                                             </subviews>
                                         </stackView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8lV-5c-1vK">
+                                            <rect key="frame" x="341" y="89" width="53" height="30"/>
+                                            <color key="backgroundColor" red="1" green="0.49093938180000002" blue="0.47126869189999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <state key="normal" title="Button"/>
+                                            <buttonConfiguration key="configuration" style="plain" title="購買"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="6"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </button>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="tD5-vD-BF3">
                                             <rect key="frame" x="108" y="32" width="50.5" height="66"/>
                                             <subviews>
@@ -85,26 +149,6 @@
                                                 </label>
                                             </subviews>
                                         </stackView>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3yc-m8-dDk">
-                                            <rect key="frame" x="378" y="11" width="16" height="16"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" title="Button"/>
-                                            <buttonConfiguration key="configuration" style="plain" title="">
-                                                <backgroundConfiguration key="background" image="close"/>
-                                            </buttonConfiguration>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8lV-5c-1vK">
-                                            <rect key="frame" x="341" y="89" width="53" height="30"/>
-                                            <color key="backgroundColor" red="1" green="0.49093938180000002" blue="0.47126869189999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <state key="normal" title="Button"/>
-                                            <buttonConfiguration key="configuration" style="plain" title="購買"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                    <integer key="value" value="6"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="tD5-vD-BF3" firstAttribute="leading" secondItem="VTl-Ip-pti" secondAttribute="trailing" constant="8" symbolic="YES" id="5ZK-Cj-6SH"/>
@@ -132,13 +176,11 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="我的收藏" id="yhb-dx-kkJ"/>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="osc-w5-EpZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1097" y="13"/>
+            <point key="canvasLocation" x="1236" y="-56"/>
         </scene>
     </scenes>
     <resources>
-        <image name="close" width="10" height="10"/>
         <image name="heart.circle.fill" catalog="system" width="128" height="121"/>
     </resources>
 </document>
