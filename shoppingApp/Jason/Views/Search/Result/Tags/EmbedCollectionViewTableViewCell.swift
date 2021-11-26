@@ -18,9 +18,10 @@ class EmbedCollectionViewTableViewCell: UITableViewCell {
         // Initialization code
         
         collectionView.register(LabelCollectionViewCell.nib(), forCellWithReuseIdentifier: LabelCollectionViewCell.identifier)
-                
+        
         collectionView.delegate = self
         collectionView.dataSource = self
+        
     }
     
     static func nib() -> UINib{
@@ -83,4 +84,6 @@ extension EmbedCollectionViewTableViewCell: UICollectionViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         10.0
     }
+    
+    
 }

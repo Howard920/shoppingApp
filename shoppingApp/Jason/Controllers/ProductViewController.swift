@@ -39,6 +39,8 @@ class ProductViewController: UIViewController {
         tableView.register(EmbedCollectionViewTableViewCell.nib(), forCellReuseIdentifier: EmbedCollectionViewTableViewCell.identifier)
         tableView.register(ProductItemInfoTableViewCell.nib(), forCellReuseIdentifier: ProductItemInfoTableViewCell.identifier)
         
+        tableView.register(EmbedProductTableViewCell.self, forCellReuseIdentifier: "EmbedProductTableViewCell")
+        
         // 設定 加入購物車 按鈕的邊框, 邊框顏色, 圓角, 是否開啟圓角
         addToCartButton.layer.cornerRadius = 15
         addToCartButton.clipsToBounds = true
@@ -95,7 +97,7 @@ extension ProductViewController: UITableViewDelegate, UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
         print(#function)
 
-        return 3
+        return 4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -106,9 +108,6 @@ extension ProductViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print(#function)
-
-        
         switch indexPath.section {
         //        switch indexPath.row {
         case 0:
@@ -120,6 +119,9 @@ extension ProductViewController: UITableViewDelegate, UITableViewDataSource{
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: ProductItemInfoTableViewCell.identifier, for: indexPath) as! ProductItemInfoTableViewCell
             return cell
+        case 3:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "\(EmbedProductTableViewCell.self)", for: indexPath) as! EmbedProductTableViewCell
+            return cell
         default:
             return UITableViewCell()
         }
@@ -128,13 +130,19 @@ extension ProductViewController: UITableViewDelegate, UITableViewDataSource{
     // MARK: -  TableView Delegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        print(indexPath)
     }
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 1 {
             return 150
-        } else {
+        
+        } else if indexPath.section == 3{
+            return 300
+        }
+        
+        else {
             return UITableView.automaticDimension
             
         }

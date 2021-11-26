@@ -22,6 +22,8 @@ class SearchTableViewController: UITableViewController {
         // MARK: -  Nib Register
         tableView.register(UINib(nibName: "\(PopularKeywordsTableViewCell.self)", bundle: nil), forCellReuseIdentifier: "\(PopularKeywordsTableViewCell.self)")
         
+        tableView.register(EmbedCollectionViewTableViewCell.nib(), forCellReuseIdentifier: EmbedCollectionViewTableViewCell.identifier)
+        
         // MARK: -  Setting SearchController
         searchController = UISearchController(searchResultsController: nil)
         navigationItem.searchController = searchController
@@ -77,11 +79,7 @@ class SearchTableViewController: UITableViewController {
                 return cell
                 
             } else {
-               
-                let cell = tableView.dequeueReusableCell(withIdentifier: "\(PopularKeywordsTableViewCell.self)", for: indexPath) as! PopularKeywordsTableViewCell
-                // cell的delegate綁定, 熱門關鍵字按鈕點擊才會有反應
-                cell.delegate = self
-                cell.configure(with: Keywords.populayWords)
+                let cell = tableView.dequeueReusableCell(withIdentifier: EmbedCollectionViewTableViewCell.identifier, for: indexPath) as! EmbedCollectionViewTableViewCell
                 return cell
             }
         }
