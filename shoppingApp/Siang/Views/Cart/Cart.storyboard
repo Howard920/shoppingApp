@@ -46,25 +46,16 @@
                                             <action selector="nextStepPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="UVF-U7-L7c"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="guU-gj-cNA">
-                                        <rect key="frame" x="17.999999999999993" y="40" width="110.33333333333331" height="17"/>
-                                        <attributedString key="attributedText">
-                                            <fragment content="小計：">
-                                                <attributes>
-                                                    <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <font key="NSFont" metaFont="system" size="14"/>
-                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                </attributes>
-                                            </fragment>
-                                            <fragment content="NT$ 1,480">
-                                                <attributes>
-                                                    <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="NSColor" red="1" green="0.30196078431372547" blue="0.30980392156862746" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <font key="NSFont" metaFont="system" size="14"/>
-                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                </attributes>
-                                            </fragment>
-                                        </attributedString>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NT$ 1,480" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="guU-gj-cNA">
+                                        <rect key="frame" x="66" y="40" width="67.666666666666686" height="17"/>
+                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
+                                        <color key="textColor" red="1" green="0.30196078431372547" blue="0.30980392156862746" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="小計：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ji-Hy-5f6">
+                                        <rect key="frame" x="18" y="40" width="43" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5.3300000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="aBN-N7-Iid">
@@ -91,13 +82,15 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
+                                    <constraint firstItem="1ji-Hy-5f6" firstAttribute="leading" secondItem="22A-Jm-I0Q" secondAttribute="leading" constant="18" id="0RA-vS-HcW"/>
                                     <constraint firstAttribute="height" constant="64" id="3Te-vL-yki"/>
                                     <constraint firstItem="S0u-J4-zmf" firstAttribute="centerY" secondItem="22A-Jm-I0Q" secondAttribute="centerY" id="Pyy-WL-N3l"/>
                                     <constraint firstItem="aBN-N7-Iid" firstAttribute="top" secondItem="22A-Jm-I0Q" secondAttribute="top" constant="12" id="Tlq-ic-0nn"/>
-                                    <constraint firstItem="guU-gj-cNA" firstAttribute="leading" secondItem="22A-Jm-I0Q" secondAttribute="leading" constant="18" id="Vlw-8r-vIo"/>
+                                    <constraint firstItem="guU-gj-cNA" firstAttribute="leading" secondItem="1ji-Hy-5f6" secondAttribute="trailing" constant="5" id="Vlw-8r-vIo"/>
                                     <constraint firstAttribute="trailing" secondItem="S0u-J4-zmf" secondAttribute="trailing" constant="16" id="dgw-Xn-2zY"/>
                                     <constraint firstItem="aBN-N7-Iid" firstAttribute="leading" secondItem="22A-Jm-I0Q" secondAttribute="leading" constant="16" id="mAB-Mx-bRW"/>
                                     <constraint firstItem="guU-gj-cNA" firstAttribute="top" secondItem="22A-Jm-I0Q" secondAttribute="top" constant="40" id="y26-5h-JkK"/>
+                                    <constraint firstItem="1ji-Hy-5f6" firstAttribute="top" secondItem="22A-Jm-I0Q" secondAttribute="top" constant="40" id="z0M-Kh-Uy0"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -127,6 +120,7 @@
                         <outlet property="cartStepView" destination="c64-MH-Rsq" id="Aus-3u-DeD"/>
                         <outlet property="nextStepButton" destination="S0u-J4-zmf" id="xQ1-AS-N7R"/>
                         <outlet property="tableView" destination="X7l-Ex-hmO" id="xYv-RF-iyy"/>
+                        <outlet property="totalPriceLabel" destination="guU-gj-cNA" id="OeH-rK-nrX"/>
                         <segue destination="VPO-I3-Zex" kind="show" identifier="toStep2" id="FON-cF-h3Q"/>
                     </connections>
                 </viewController>
@@ -156,6 +150,12 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="efx-je-SIG" userLabel="bottomView">
                                 <rect key="frame" x="0.0" y="697" width="390" height="64"/>
                                 <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="小計：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ooC-Ne-8Uo">
+                                        <rect key="frame" x="16" y="40" width="43" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ikl-9G-f3p">
                                         <rect key="frame" x="268" y="14" width="106" height="36"/>
                                         <color key="backgroundColor" red="1" green="0.30196078430000001" blue="0.30980392159999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -172,27 +172,6 @@
                                             <action selector="nextStepPressed:" destination="VPO-I3-Zex" eventType="touchUpInside" id="m93-y7-qJX"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nH7-v8-K7e">
-                                        <rect key="frame" x="17.999999999999993" y="40" width="110.33333333333331" height="17"/>
-                                        <attributedString key="attributedText">
-                                            <fragment content="小計：">
-                                                <attributes>
-                                                    <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <font key="NSFont" metaFont="system" size="14"/>
-                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                </attributes>
-                                            </fragment>
-                                            <fragment content="NT$ 1,480">
-                                                <attributes>
-                                                    <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="NSColor" red="1" green="0.30196078431372547" blue="0.30980392156862746" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <font key="NSFont" metaFont="system" size="14"/>
-                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                </attributes>
-                                            </fragment>
-                                        </attributedString>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5.3300000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="nkF-gL-jP9">
                                         <rect key="frame" x="16.000000000000007" y="12" width="118.66666666666669" height="16"/>
                                         <subviews>
@@ -214,14 +193,22 @@
                                             <constraint firstAttribute="height" constant="16" id="EGr-6k-bnu"/>
                                         </constraints>
                                     </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NT$ 1,480" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OC1-n8-h0v">
+                                        <rect key="frame" x="64" y="40" width="67.666666666666686" height="17"/>
+                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
+                                        <color key="textColor" red="1" green="0.30196078430000001" blue="0.30980392159999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="nH7-v8-K7e" firstAttribute="top" secondItem="efx-je-SIG" secondAttribute="top" constant="40" id="7nZ-zj-sZW"/>
                                     <constraint firstItem="nkF-gL-jP9" firstAttribute="top" secondItem="efx-je-SIG" secondAttribute="top" constant="12" id="Acg-Q0-z09"/>
                                     <constraint firstAttribute="trailing" secondItem="Ikl-9G-f3p" secondAttribute="trailing" constant="16" id="B37-aW-P8i"/>
+                                    <constraint firstItem="ooC-Ne-8Uo" firstAttribute="top" secondItem="efx-je-SIG" secondAttribute="top" constant="40" id="Ect-fK-ThN"/>
                                     <constraint firstItem="Ikl-9G-f3p" firstAttribute="centerY" secondItem="efx-je-SIG" secondAttribute="centerY" id="H85-hd-CGy"/>
-                                    <constraint firstItem="nH7-v8-K7e" firstAttribute="leading" secondItem="efx-je-SIG" secondAttribute="leading" constant="18" id="SkV-Sh-6m5"/>
+                                    <constraint firstItem="OC1-n8-h0v" firstAttribute="leading" secondItem="ooC-Ne-8Uo" secondAttribute="trailing" constant="5" id="UsR-bc-aC6"/>
+                                    <constraint firstItem="OC1-n8-h0v" firstAttribute="top" secondItem="efx-je-SIG" secondAttribute="top" constant="40" id="fqA-pI-Xaf"/>
+                                    <constraint firstItem="ooC-Ne-8Uo" firstAttribute="leading" secondItem="efx-je-SIG" secondAttribute="leading" constant="16" id="kaa-aI-4nI"/>
                                     <constraint firstAttribute="height" constant="64" id="nEv-Yc-PJM"/>
                                     <constraint firstItem="nkF-gL-jP9" firstAttribute="leading" secondItem="efx-je-SIG" secondAttribute="leading" constant="16" id="wGV-ee-VPI"/>
                                 </constraints>
@@ -249,6 +236,7 @@
                         <outlet property="cartStepView" destination="1Mm-7n-Vo8" id="DrV-2r-ITc"/>
                         <outlet property="nextStepButton" destination="Ikl-9G-f3p" id="DtN-74-Jsd"/>
                         <outlet property="tableView" destination="mEr-eD-OWr" id="kuS-vM-FQv"/>
+                        <outlet property="totalPriceLabel" destination="OC1-n8-h0v" id="9Ir-vZ-n2m"/>
                         <segue destination="pkP-hh-GbB" kind="show" identifier="toStep3" id="isH-b4-DRF"/>
                     </connections>
                 </viewController>
@@ -287,19 +275,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gbZ-44-Sby" customClass="CartStepView" customModule="shoppingApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="88" width="390" height="35"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="730-B2-Yry"/>
+                                </constraints>
+                            </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0ia-1k-W5X">
-                                <rect key="frame" x="0.0" y="88" width="390" height="673"/>
+                                <rect key="frame" x="0.0" y="123" width="390" height="638"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="THf-Tf-Jrx">
                                         <rect key="frame" x="0.0" y="0.0" width="390" height="800"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gbZ-44-Sby" customClass="CartStepView" customModule="shoppingApp" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="390" height="35"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="35" id="730-B2-Yry"/>
-                                                </constraints>
-                                            </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="共一項商品，總計 NT$1,480" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g8B-nS-MGc">
                                                 <rect key="frame" x="86.000000000000014" y="65" width="218.33333333333337" height="20.333333333333329"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -391,7 +379,7 @@
                                                 </subviews>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AmB-lE-WGI">
-                                                <rect key="frame" x="20" y="151.33333333333334" width="94" height="24"/>
+                                                <rect key="frame" x="20" y="151.33333333333331" width="94" height="24"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="*">
                                                         <attributes>
@@ -439,30 +427,34 @@
                                                     <backgroundConfiguration key="background"/>
                                                     <color key="baseForegroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="sendBurronPressed:" destination="pkP-hh-GbB" eventType="touchUpInside" id="p5p-Pr-yY2"/>
+                                                </connections>
                                             </button>
                                         </subviews>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstItem="fDB-WE-ldz" firstAttribute="leading" secondItem="fjM-9T-5AA" secondAttribute="leading" id="0Z2-Y6-bkQ"/>
                                             <constraint firstItem="fjM-9T-5AA" firstAttribute="leading" secondItem="AmB-lE-WGI" secondAttribute="leading" id="4Mx-gZ-vPD"/>
                                             <constraint firstItem="YPM-X6-4tf" firstAttribute="leading" secondItem="THf-Tf-Jrx" secondAttribute="leading" constant="20" id="5Ve-rc-gnh"/>
                                             <constraint firstItem="fDB-WE-ldz" firstAttribute="width" secondItem="suR-HF-Bep" secondAttribute="width" id="5YQ-73-hXv"/>
                                             <constraint firstItem="fjM-9T-5AA" firstAttribute="top" secondItem="YPM-X6-4tf" secondAttribute="bottom" constant="47.5" id="8U5-QA-b1q"/>
-                                            <constraint firstAttribute="trailing" secondItem="gbZ-44-Sby" secondAttribute="trailing" id="APF-UE-ZSY"/>
                                             <constraint firstItem="YPM-X6-4tf" firstAttribute="top" secondItem="AmB-lE-WGI" secondAttribute="bottom" constant="10" id="Gir-FL-FtQ"/>
                                             <constraint firstItem="Ozl-cZ-ZFn" firstAttribute="width" secondItem="fDB-WE-ldz" secondAttribute="width" id="L1B-Ez-rL1"/>
                                             <constraint firstItem="Ozl-cZ-ZFn" firstAttribute="top" secondItem="fDB-WE-ldz" secondAttribute="bottom" constant="85" id="MJg-oo-UyM"/>
                                             <constraint firstItem="YPM-X6-4tf" firstAttribute="top" secondItem="g8B-nS-MGc" secondAttribute="bottom" constant="100" id="N2b-mf-9gY"/>
                                             <constraint firstAttribute="height" constant="800" id="Ua3-35-oie"/>
+                                            <constraint firstItem="g8B-nS-MGc" firstAttribute="top" secondItem="THf-Tf-Jrx" secondAttribute="top" constant="65" id="VnR-cB-86y"/>
                                             <constraint firstItem="fDB-WE-ldz" firstAttribute="top" secondItem="fjM-9T-5AA" secondAttribute="bottom" constant="10" id="VwZ-ny-22f"/>
-                                            <constraint firstItem="g8B-nS-MGc" firstAttribute="top" secondItem="gbZ-44-Sby" secondAttribute="bottom" constant="30" id="dPg-WP-hki"/>
                                             <constraint firstItem="fDB-WE-ldz" firstAttribute="height" secondItem="suR-HF-Bep" secondAttribute="height" id="fvD-Lk-MZy"/>
                                             <constraint firstAttribute="trailing" secondItem="YPM-X6-4tf" secondAttribute="trailing" constant="20" id="jx4-r8-ZkZ"/>
-                                            <constraint firstItem="gbZ-44-Sby" firstAttribute="top" secondItem="THf-Tf-Jrx" secondAttribute="top" id="n5D-Yy-kJB"/>
-                                            <constraint firstItem="gbZ-44-Sby" firstAttribute="leading" secondItem="THf-Tf-Jrx" secondAttribute="leading" id="oug-NW-XuP"/>
                                             <constraint firstItem="g8B-nS-MGc" firstAttribute="centerX" secondItem="THf-Tf-Jrx" secondAttribute="centerX" id="tMQ-zj-LuJ"/>
                                             <constraint firstItem="Ozl-cZ-ZFn" firstAttribute="leading" secondItem="fDB-WE-ldz" secondAttribute="leading" id="vXq-QI-eSO"/>
                                             <constraint firstItem="YPM-X6-4tf" firstAttribute="leading" secondItem="AmB-lE-WGI" secondAttribute="leading" id="xuX-M0-HLQ"/>
                                         </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="eZK-49-vcC" appends="YES" id="eTI-0A-IJ5"/>
+                                        </connections>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -480,11 +472,15 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="kxg-g0-k7B"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="kxg-g0-k7B" firstAttribute="trailing" secondItem="0ia-1k-W5X" secondAttribute="trailing" id="21x-q4-JZw"/>
                             <constraint firstItem="kxg-g0-k7B" firstAttribute="bottom" secondItem="0ia-1k-W5X" secondAttribute="bottom" id="It9-W0-Mtg"/>
+                            <constraint firstItem="gbZ-44-Sby" firstAttribute="top" secondItem="kxg-g0-k7B" secondAttribute="top" id="Olz-IG-4CY"/>
                             <constraint firstItem="0ia-1k-W5X" firstAttribute="leading" secondItem="kxg-g0-k7B" secondAttribute="leading" id="WcX-f2-rpI"/>
-                            <constraint firstItem="0ia-1k-W5X" firstAttribute="top" secondItem="kxg-g0-k7B" secondAttribute="top" id="m7W-gf-eJw"/>
+                            <constraint firstItem="0ia-1k-W5X" firstAttribute="top" secondItem="gbZ-44-Sby" secondAttribute="bottom" id="m7W-gf-eJw"/>
+                            <constraint firstItem="gbZ-44-Sby" firstAttribute="leading" secondItem="kxg-g0-k7B" secondAttribute="leading" id="xbq-Ku-RBQ"/>
+                            <constraint firstItem="gbZ-44-Sby" firstAttribute="trailing" secondItem="kxg-g0-k7B" secondAttribute="trailing" id="zY7-Es-Dif"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="資料填寫" id="wyw-7Z-zLW">
@@ -493,16 +489,27 @@
                     <connections>
                         <outlet property="cartStepView" destination="gbZ-44-Sby" id="wNx-d4-E2f"/>
                         <outlet property="emailTextField" destination="fDB-WE-ldz" id="YXG-xx-QfT"/>
+                        <outlet property="lb_order_summary" destination="g8B-nS-MGc" id="eyp-1Q-uw3"/>
+                        <outlet property="scrollView" destination="0ia-1k-W5X" id="EWU-LF-csP"/>
                         <outlet property="sendButton" destination="Ozl-cZ-ZFn" id="MAw-IT-eBm"/>
                         <outletCollection property="stackViews" destination="YPM-X6-4tf" collectionClass="NSMutableArray" id="a55-TJ-yQp"/>
                         <outletCollection property="rows" destination="vxv-QA-n2Y" collectionClass="NSMutableArray" id="njy-TZ-Tok"/>
                         <outletCollection property="rows" destination="sxI-rn-Big" collectionClass="NSMutableArray" id="YxX-Kl-5S7"/>
                         <outletCollection property="rows" destination="suR-HF-Bep" collectionClass="NSMutableArray" id="Qy2-fF-xql"/>
+                        <outletCollection property="textFields" destination="cmu-aR-jdU" collectionClass="NSMutableArray" id="Vzv-Fz-le0"/>
+                        <outletCollection property="textFields" destination="6em-cw-5dT" collectionClass="NSMutableArray" id="Yka-Ti-5Zj"/>
+                        <outletCollection property="textFields" destination="Dg7-Qi-TjD" collectionClass="NSMutableArray" id="wOV-CJ-mse"/>
+                        <outletCollection property="textFields" destination="fDB-WE-ldz" collectionClass="NSMutableArray" id="NRv-9s-m4k"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="et4-n5-WEt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="eZK-49-vcC">
+                    <connections>
+                        <action selector="tapScrollView:" destination="pkP-hh-GbB" id="UZ8-ba-QbV"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2515.9420289855075" y="81.696428571428569"/>
+            <point key="canvasLocation" x="2515.3846153846152" y="81.042654028436019"/>
         </scene>
     </scenes>
     <resources>
