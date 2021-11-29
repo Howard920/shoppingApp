@@ -26,9 +26,6 @@ struct Keywords {
         }
     }
     static var resultCollectionViewlayoutStyle = "list.dash"    
-
-    static let reuseCellIdentifierOfHorizontalStyle = "ResultAxisHCollectionViewCell"
-    static let reuseCellIdentifierOfVerticalStyle = "ResultCollectionViewCell"
 }
 
 enum ProductCellTypes {

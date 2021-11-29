@@ -39,7 +39,7 @@ class ProductViewController: UIViewController {
         tableView.register(EmbedCollectionViewTableViewCell.nib(), forCellReuseIdentifier: EmbedCollectionViewTableViewCell.identifier)
         tableView.register(ProductItemInfoTableViewCell.nib(), forCellReuseIdentifier: ProductItemInfoTableViewCell.identifier)
         
-        tableView.register(EmbedProductTableViewCell.self, forCellReuseIdentifier: "EmbedProductTableViewCell")
+        tableView.register(EmbedProductInTableViewCell.nib(), forCellReuseIdentifier: EmbedProductInTableViewCell.identifier)
         
         // 設定 加入購物車 按鈕的邊框, 邊框顏色, 圓角, 是否開啟圓角
         addToCartButton.layer.cornerRadius = 15
@@ -95,14 +95,10 @@ extension ProductViewController: UITableViewDelegate, UITableViewDataSource{
     // MARK: -  TableView Data Source
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        print(#function)
-
         return 4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(#function, "section", section)
-
         return 1
 
     }
@@ -120,7 +116,8 @@ extension ProductViewController: UITableViewDelegate, UITableViewDataSource{
             let cell = tableView.dequeueReusableCell(withIdentifier: ProductItemInfoTableViewCell.identifier, for: indexPath) as! ProductItemInfoTableViewCell
             return cell
         case 3:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "\(EmbedProductTableViewCell.self)", for: indexPath) as! EmbedProductTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: EmbedProductInTableViewCell.identifier, for: indexPath) as! EmbedProductInTableViewCell
+//            cell.toNewController = self
             return cell
         default:
             return UITableViewCell()
@@ -138,11 +135,10 @@ extension ProductViewController: UITableViewDelegate, UITableViewDataSource{
         if indexPath.section == 1 {
             return 150
         
-        } else if indexPath.section == 3{
-            return 300
-        }
-        
-        else {
+        } else if indexPath.section == 3 {
+            return 550
+
+        } else {
             return UITableView.automaticDimension
             
         }

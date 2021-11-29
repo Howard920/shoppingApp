@@ -11,6 +11,8 @@ class MemberTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.tableFooterView = UIView(frame: CGRect.zero)
+
 
     }
 
@@ -41,21 +43,21 @@ class MemberTableViewController: UITableViewController {
         switch cellTiele {
         //"訂單查詢",
         case "訂單查詢":
-            print("訂單查詢")
+            performSegue(withIdentifier: "BuyListCollectionViewController", sender: nil)
         //"基本資料"
         case "基本資料":
-            print("基本資料")
             performSegue(withIdentifier: "MemberInfo", sender: nil)
         //"修改密碼"
         case "修改密碼":
-            print("修改密碼")
             performSegue(withIdentifier: "ResetPassword", sender: nil)
         //"買過的商品"
         case "買過的商品":
             print("買過的商品")
-//            performSegue(withIdentifier: "ResetPassword", sender: nil)
+            performSegue(withIdentifier: "BuyItemsListViewController", sender: nil)
+
         //"登出"
         case "登出":
+
             let alert = UIAlertController(title: "", message: "您確定要登出？", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
                 print("OK, click")

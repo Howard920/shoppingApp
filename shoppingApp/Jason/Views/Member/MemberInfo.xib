@@ -25,15 +25,10 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="input..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="L7J-hI-vbs">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="請在此輸入..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="L7J-hI-vbs">
                                 <rect key="frame" x="0.0" y="34" width="251" height="52"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="didEnd:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="OtX-jM-dYJ"/>
-                                    <action selector="didEndExit:" destination="KGk-i7-Jjw" eventType="editingDidEndOnExit" id="jNy-e5-UGq"/>
-                                    <action selector="editingDidBegin:" destination="KGk-i7-Jjw" eventType="editingDidBegin" id="Zr8-ED-yYe"/>
-                                </connections>
                             </textField>
                         </subviews>
                     </stackView>

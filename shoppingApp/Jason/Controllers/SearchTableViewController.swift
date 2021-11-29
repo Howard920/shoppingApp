@@ -14,7 +14,8 @@ class SearchTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadInit()
-//        Keywords.historyWords = []
+        
+
         
     }
 
@@ -23,6 +24,8 @@ class SearchTableViewController: UITableViewController {
         tableView.register(UINib(nibName: "\(PopularKeywordsTableViewCell.self)", bundle: nil), forCellReuseIdentifier: "\(PopularKeywordsTableViewCell.self)")
         
         tableView.register(EmbedCollectionViewTableViewCell.nib(), forCellReuseIdentifier: EmbedCollectionViewTableViewCell.identifier)
+        
+        
         
         // MARK: -  Setting SearchController
         searchController = UISearchController(searchResultsController: nil)
@@ -79,7 +82,7 @@ class SearchTableViewController: UITableViewController {
                 return cell
                 
             } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: EmbedCollectionViewTableViewCell.identifier, for: indexPath) as! EmbedCollectionViewTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: EmbedProductInTableViewCell.identifier, for: indexPath) as! EmbedProductInTableViewCell
                 return cell
             }
         }

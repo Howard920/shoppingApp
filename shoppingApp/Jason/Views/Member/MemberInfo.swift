@@ -24,16 +24,4 @@ class MemberInfo: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    @IBAction func editingDidBegin(_ sender: UITextField) {
-    
-    }
-    
-    @IBAction func didEndExit(_ sender: UITextField) {
-    }
-    
-    @IBAction func didEnd(_ sender: Any) {
-        print("didEnd")
-
-    }
-    
 }

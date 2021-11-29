@@ -35,22 +35,23 @@
                     <connections>
                         <segue destination="d3Z-18-ja5" kind="show" identifier="ResetPassword" id="ho2-pn-nIF"/>
                         <segue destination="IeH-4O-msY" kind="show" identifier="MemberInfo" id="crC-IQ-z8K"/>
-                        <segue destination="rKI-lH-Y2H" kind="show" id="DGX-Dm-iuy"/>
+                        <segue destination="rKI-lH-Y2H" kind="show" identifier="BuyListCollectionViewController" id="DGX-Dm-iuy"/>
+                        <segue destination="dtD-UI-jT8" kind="show" identifier="BuyItemsListViewController" id="aor-nr-Ks7"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ACX-t5-nim" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1100" y="101.78571428571428"/>
         </scene>
-        <!--Collection View Controller-->
+        <!--Buy List Collection View Controller-->
         <scene sceneID="wSx-LQ-9l4">
             <objects>
-                <collectionViewController id="rKI-lH-Y2H" sceneMemberID="viewController">
+                <collectionViewController id="rKI-lH-Y2H" customClass="BuyListCollectionViewController" customModule="shoppingApp" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="jkg-cL-xE7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ezB-uF-cOU">
+                        <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ezB-uF-cOU">
                             <size key="itemSize" width="128" height="128"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -178,6 +179,44 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G9a-wa-OCJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2084" y="397"/>
+        </scene>
+        <!--Buy Items List View Controller-->
+        <scene sceneID="v6d-w8-Pj4">
+            <objects>
+                <viewController id="dtD-UI-jT8" customClass="BuyItemsListViewController" customModule="shoppingApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Upc-io-9jn">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="YH3-ja-kxa">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" systemColor="systemGray2Color"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="FOM-B2-VxS">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="RgJ-IS-1NH"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="RgJ-IS-1NH" firstAttribute="trailing" secondItem="YH3-ja-kxa" secondAttribute="trailing" id="FJe-Ly-3Jg"/>
+                            <constraint firstItem="RgJ-IS-1NH" firstAttribute="bottom" secondItem="YH3-ja-kxa" secondAttribute="bottom" id="PtW-iW-MfD"/>
+                            <constraint firstItem="YH3-ja-kxa" firstAttribute="leading" secondItem="RgJ-IS-1NH" secondAttribute="leading" id="h0O-fn-50F"/>
+                            <constraint firstItem="YH3-ja-kxa" firstAttribute="top" secondItem="RgJ-IS-1NH" secondAttribute="top" id="jxO-ZG-ajD"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="9Rz-Pc-YNb"/>
+                    <connections>
+                        <outlet property="collectionView" destination="YH3-ja-kxa" id="8dB-vr-4SJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fiT-aG-H5F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2083" y="1139"/>
         </scene>
         <!--會員-->
         <scene sceneID="gn6-Wb-4dY">
