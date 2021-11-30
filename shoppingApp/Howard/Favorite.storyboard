@@ -1,63 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3Sc-36-dWF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QYA-Jh-rre">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Collection Table View Controller-->
-        <scene sceneID="fkt-hp-hhe">
+        <!--Favorite-->
+        <scene sceneID="NL9-Py-wCj">
             <objects>
-                <tableViewController id="3Sc-36-dWF" customClass="CollectionTableViewController" customModule="shoppingApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="Ao4-SE-JGa">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QYA-Jh-rre" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Favorite" image="heart.circle.fill" catalog="system" id="lxb-pr-XeA"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Cfn-kv-qDw">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="GRf-u1-hbe" kind="relationship" relationship="rootViewController" id="cSd-xV-fb4"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7fz-BK-eZS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="168" y="13"/>
+        </scene>
+        <!--我的收藏-->
+        <scene sceneID="peT-bj-P0q">
+            <objects>
+                <tableViewController id="GRf-u1-hbe" customClass="CollectionTableViewController" customModule="shoppingApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="QWi-wf-ycf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                        <color key="backgroundColor" red="0.99576050039999997" green="0.64211738110000005" blue="0.14701929690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="datacell" rowHeight="130" id="21r-WH-bNi" customClass="CollectionTableViewCell" customModule="shoppingApp" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="datacell" rowHeight="130" id="wDt-wu-j6Y" customClass="CollectionTableViewCell" customModule="shoppingApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44.5" width="414" height="130"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="21r-WH-bNi" id="uHV-MQ-oGe">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wDt-wu-j6Y" id="afn-aB-fcc">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="130"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="dZQ-KW-5CP">
+                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="VTl-Ip-pti">
                                             <rect key="frame" x="20" y="25" width="80" height="80"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Crg-Jk-leC">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4OS-OO-8DA">
                                                     <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="80" id="1nt-1y-TxP"/>
-                                                        <constraint firstAttribute="height" constant="80" id="byL-JZ-7vg"/>
+                                                        <constraint firstAttribute="height" constant="80" id="Smy-qD-RDt"/>
+                                                        <constraint firstAttribute="width" constant="80" id="jGI-N6-owF"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
                                         </stackView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E5h-Gt-TiQ">
-                                            <rect key="frame" x="341" y="89" width="53" height="30"/>
-                                            <color key="backgroundColor" red="1" green="0.49093938180000002" blue="0.47126869189999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <state key="normal" title="Button"/>
-                                            <buttonConfiguration key="configuration" style="plain" title="購買"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                    <integer key="value" value="6"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                        </button>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="5uL-R5-ReK">
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="tD5-vD-BF3">
                                             <rect key="frame" x="108" y="32" width="50.5" height="66"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qTP-fN-fWH">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mGY-5f-Xg3">
                                                     <rect key="frame" x="0.0" y="0.0" width="50.5" height="17"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lqg-Gp-yaU">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K97-uX-vZx">
                                                     <rect key="frame" x="0.0" y="24" width="50.5" height="20.5"/>
                                                     <attributedString key="attributedText">
                                                         <fragment content="Price">
@@ -71,7 +77,7 @@
                                                     </attributedString>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Discount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n8H-Ca-LhU">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Discount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ldb-PL-UNY">
                                                     <rect key="frame" x="0.0" y="51.5" width="50.5" height="14.5"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                     <color key="textColor" red="1" green="0.234888667" blue="0.24703253189999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -79,40 +85,60 @@
                                                 </label>
                                             </subviews>
                                         </stackView>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3yc-m8-dDk">
+                                            <rect key="frame" x="378" y="11" width="16" height="16"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Button"/>
+                                            <buttonConfiguration key="configuration" style="plain" title="">
+                                                <backgroundConfiguration key="background" image="close"/>
+                                            </buttonConfiguration>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8lV-5c-1vK">
+                                            <rect key="frame" x="341" y="89" width="53" height="30"/>
+                                            <color key="backgroundColor" red="1" green="0.49093938180000002" blue="0.47126869189999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <state key="normal" title="Button"/>
+                                            <buttonConfiguration key="configuration" style="plain" title="購買"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="6"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </button>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="5uL-R5-ReK" firstAttribute="centerY" secondItem="uHV-MQ-oGe" secondAttribute="centerY" id="01j-JO-4VJ"/>
-                                        <constraint firstItem="5uL-R5-ReK" firstAttribute="leading" secondItem="uHV-MQ-oGe" secondAttribute="leading" constant="108" id="0sF-wa-D27"/>
-                                        <constraint firstItem="E5h-Gt-TiQ" firstAttribute="trailing" secondItem="uHV-MQ-oGe" secondAttribute="trailingMargin" id="TLs-Jx-UWZ"/>
-                                        <constraint firstItem="5uL-R5-ReK" firstAttribute="centerY" secondItem="dZQ-KW-5CP" secondAttribute="centerY" id="TwM-eD-5X9"/>
-                                        <constraint firstItem="5uL-R5-ReK" firstAttribute="leading" secondItem="dZQ-KW-5CP" secondAttribute="trailing" constant="8" symbolic="YES" id="YaU-yl-gbZ"/>
-                                        <constraint firstItem="E5h-Gt-TiQ" firstAttribute="bottom" secondItem="uHV-MQ-oGe" secondAttribute="bottomMargin" id="c0j-3X-5my"/>
-                                        <constraint firstItem="E5h-Gt-TiQ" firstAttribute="top" secondItem="uHV-MQ-oGe" secondAttribute="topMargin" constant="78" id="jvb-Sa-tEm"/>
-                                        <constraint firstItem="E5h-Gt-TiQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5uL-R5-ReK" secondAttribute="trailing" constant="8" symbolic="YES" id="wXY-ES-Y8X"/>
+                                        <constraint firstItem="tD5-vD-BF3" firstAttribute="leading" secondItem="VTl-Ip-pti" secondAttribute="trailing" constant="8" symbolic="YES" id="5ZK-Cj-6SH"/>
+                                        <constraint firstItem="8lV-5c-1vK" firstAttribute="top" secondItem="afn-aB-fcc" secondAttribute="topMargin" constant="78" id="7hT-j6-uGP"/>
+                                        <constraint firstItem="8lV-5c-1vK" firstAttribute="bottom" secondItem="afn-aB-fcc" secondAttribute="bottomMargin" id="9WH-k6-lls"/>
+                                        <constraint firstItem="tD5-vD-BF3" firstAttribute="leading" secondItem="afn-aB-fcc" secondAttribute="leading" constant="108" id="KwY-ga-8fy"/>
+                                        <constraint firstItem="tD5-vD-BF3" firstAttribute="centerY" secondItem="VTl-Ip-pti" secondAttribute="centerY" id="MXD-q0-PcO"/>
+                                        <constraint firstItem="8lV-5c-1vK" firstAttribute="trailing" secondItem="afn-aB-fcc" secondAttribute="trailingMargin" id="Q3W-1H-0RU"/>
+                                        <constraint firstItem="8lV-5c-1vK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tD5-vD-BF3" secondAttribute="trailing" constant="8" symbolic="YES" id="hS4-e3-1vz"/>
+                                        <constraint firstItem="tD5-vD-BF3" firstAttribute="centerY" secondItem="afn-aB-fcc" secondAttribute="centerY" id="j1l-8c-WQJ"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="DiscountLabel" destination="n8H-Ca-LhU" id="Ect-L4-KD3"/>
-                                    <outlet property="PriceLabel" destination="lqg-Gp-yaU" id="yfI-1s-uld"/>
-                                    <outlet property="nameLabel" destination="qTP-fN-fWH" id="94k-VN-9J7"/>
-                                    <outlet property="productImage" destination="Crg-Jk-leC" id="TWH-Pk-drk"/>
+                                    <outlet property="DiscountLabel" destination="Ldb-PL-UNY" id="7Ds-yW-ua4"/>
+                                    <outlet property="PriceLabel" destination="K97-uX-vZx" id="Y0m-lw-6sg"/>
+                                    <outlet property="nameLabel" destination="mGY-5f-Xg3" id="hOe-Ad-rEk"/>
+                                    <outlet property="productImage" destination="4OS-OO-8DA" id="Zjr-9B-fc6"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="3Sc-36-dWF" id="dhk-KU-vfS"/>
-                            <outlet property="delegate" destination="3Sc-36-dWF" id="uDT-2e-brj"/>
+                            <outlet property="dataSource" destination="GRf-u1-hbe" id="GKb-Tj-gh6"/>
+                            <outlet property="delegate" destination="GRf-u1-hbe" id="yQK-Cq-MaI"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="我的收藏" id="yhb-dx-kkJ"/>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bXm-RG-JTK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="osc-w5-EpZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-85.507246376811594" y="97.767857142857139"/>
+            <point key="canvasLocation" x="1097" y="13"/>
         </scene>
     </scenes>
     <resources>
-        <systemColor name="systemOrangeColor">
-            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
+        <image name="close" width="10" height="10"/>
+        <image name="heart.circle.fill" catalog="system" width="128" height="121"/>
     </resources>
 </document>
