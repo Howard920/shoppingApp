@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProductListCell" id="gTV-IL-0wX" customClass="ProductListCell" customModule="shoppingApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="175" height="300"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="175" height="300"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="productSample" translatesAutoresizingMaskIntoConstraints="NO" id="ZbH-TW-Vlb">
+                        <rect key="frame" x="0.0" y="0.0" width="175" height="175"/>
+                    </imageView>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="ew5-gQ-7Gb">
+                        <rect key="frame" x="5" y="180" width="165" height="120"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[亞尼克]厚。巧克力生乳捲，414g/條，共16條" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3xf-Lo-wc9">
+                                <rect key="frame" x="0.0" y="0.0" width="165" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="NT1,800" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jab-KH-eDu">
+                                <rect key="frame" x="0.0" y="38" width="165" height="40"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.84046703580000004" green="0.076483301820000002" blue="0.1136600748" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aax-XD-JUe">
+                                <rect key="frame" x="0.0" y="80" width="165" height="40"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oJe-Ux-INB">
+                                        <rect key="frame" x="130" y="9" width="35" height="22"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="35" id="Ot7-GM-cBs"/>
+                                        </constraints>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="cart" catalog="system"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8vT-w7-ggl">
+                                        <rect key="frame" x="95" y="9" width="35" height="22"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="35" id="YkP-EL-Tj5"/>
+                                        </constraints>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="heart" catalog="system"/>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="oJe-Ux-INB" firstAttribute="centerY" secondItem="aax-XD-JUe" secondAttribute="centerY" id="2pS-6B-89W"/>
+                                    <constraint firstAttribute="height" constant="40" id="7Qi-LW-573"/>
+                                    <constraint firstItem="8vT-w7-ggl" firstAttribute="centerY" secondItem="aax-XD-JUe" secondAttribute="centerY" id="kuX-L0-3hm"/>
+                                    <constraint firstItem="oJe-Ux-INB" firstAttribute="leading" secondItem="8vT-w7-ggl" secondAttribute="trailing" id="pdh-Bp-Uq5"/>
+                                    <constraint firstAttribute="trailing" secondItem="oJe-Ux-INB" secondAttribute="trailing" id="vJZ-kP-rtj"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="120" id="ckK-KE-WUE"/>
+                        </constraints>
+                    </stackView>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="ew5-gQ-7Gb" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="2w7-IS-xc8"/>
+                <constraint firstAttribute="trailing" secondItem="ew5-gQ-7Gb" secondAttribute="trailing" constant="5" id="Peg-0w-68Z"/>
+                <constraint firstItem="ZbH-TW-Vlb" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="VcI-ZO-SnK"/>
+                <constraint firstAttribute="bottom" secondItem="ew5-gQ-7Gb" secondAttribute="bottom" id="dEx-au-kDw"/>
+                <constraint firstAttribute="trailing" secondItem="ZbH-TW-Vlb" secondAttribute="trailing" id="izM-V8-2PM"/>
+                <constraint firstItem="ZbH-TW-Vlb" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="unL-st-2PX"/>
+                <constraint firstItem="ew5-gQ-7Gb" firstAttribute="top" secondItem="ZbH-TW-Vlb" secondAttribute="bottom" constant="5" id="vvz-LA-CJl"/>
+            </constraints>
+            <size key="customSize" width="329" height="348"/>
+            <connections>
+                <outlet property="cartButton" destination="oJe-Ux-INB" id="UI4-a3-aqN"/>
+                <outlet property="isLikeButton" destination="8vT-w7-ggl" id="cn1-Ay-upF"/>
+                <outlet property="nameLabel" destination="3xf-Lo-wc9" id="zT7-wc-SCN"/>
+                <outlet property="pictureImageView" destination="ZbH-TW-Vlb" id="hvv-kO-8BK"/>
+                <outlet property="priceLabel" destination="Jab-KH-eDu" id="kUs-LH-uv3"/>
+            </connections>
+            <point key="canvasLocation" x="77.536231884057983" y="60.9375"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="cart" catalog="system" width="128" height="102"/>
+        <image name="heart" catalog="system" width="128" height="109"/>
+        <image name="productSample" width="640" height="640"/>
+        <systemColor name="secondarySystemGroupedBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
