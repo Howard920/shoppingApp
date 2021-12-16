@@ -11,22 +11,34 @@ class SearchTableViewController: UITableViewController {
     
     var searchController: UISearchController!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadInit()
         
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
 
-        
+        // 清空labelCellWords內容
+        SearchPage.labelCellWords.removeAll()
+        // 將前十名熱搜關鍵字存入labelCellWords
+        PopulayKeywords.keywords?.forEach({ (keyword) in
+            SearchPage.labelCellWords.append(keyword.name)
+        })
     }
 
     private func loadInit(){
+        // MARK: -  set labelCellTitle
+        PopulayKeywords.keywords = NetWorkHandler.parseJson(SampleData.popularJson)
+
         // MARK: -  Nib Register
-        tableView.register(UINib(nibName: "\(PopularKeywordsTableViewCell.self)", bundle: nil), forCellReuseIdentifier: "\(PopularKeywordsTableViewCell.self)")
-        
         tableView.register(EmbedCollectionViewTableViewCell.nib(), forCellReuseIdentifier: EmbedCollectionViewTableViewCell.identifier)
-        
-        
-        
+    
         // MARK: -  Setting SearchController
         searchController = UISearchController(searchResultsController: nil)
         navigationItem.searchController = searchController
@@ -36,10 +48,9 @@ class SearchTableViewController: UITableViewController {
     }
     
     // MARK: - Table view data source
-    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // 如果歷史搜尋記錄有內容就回傳2, 反之回傳1
-        guard Keywords.historyWords.isEmpty else {
+        guard SearchPage.historyWords.isEmpty else {
             return 2
         }
         return 1
@@ -50,41 +61,51 @@ class SearchTableViewController: UITableViewController {
          依Keywords.historyIsHidden狀態決定是否要計算history的cell數量, 預設section0＝歷史記錄, section1=熱門關鍵字
          如果Keywords.historyIsHidden=true, section 0 = 熱門關鍵字
          */
-        guard !Keywords.historyWords.isEmpty else {return 1}
-        return section == 0 ? Keywords.historyWords.count + 1 : 1
+        guard !SearchPage.historyWords.isEmpty else {return 1}
+        return section == 0 ? SearchPage.historyWords.count + 1 : 1
        
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if Keywords.historyWords.isEmpty {
-            return Keywords.popularHeaderText
+        if SearchPage.historyWords.isEmpty {
+            return SearchPage.popularHeaderText
         } else {
-            return section == 0 ? Keywords.historyHeaderText : Keywords.popularHeaderText
+            return section == 0 ? SearchPage.historyHeaderText : SearchPage.popularHeaderText
         }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if Keywords.historyWords.isEmpty {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "\(PopularKeywordsTableViewCell.self)", for: indexPath) as! PopularKeywordsTableViewCell
-            cell.delegate = self
-            cell.configure(with: Keywords.populayWords)
+        if SearchPage.historyWords.isEmpty {
+            let cell = tableView.dequeueReusableCell(withIdentifier: EmbedCollectionViewTableViewCell.identifier, for: indexPath) as! EmbedCollectionViewTableViewCell
+            cell.backgroundColor = .clear
+            cell.lableDelegate = self
             return cell
             
         } else {
             if indexPath.section == 0 {
                 let cell = UITableViewCell(style: .default, reuseIdentifier: "historycell")
-                if indexPath.row == Keywords.historyWords.count {
-                    cell.textLabel?.text = Keywords.clearHistoryText
+                if indexPath.row == SearchPage.historyWords.count {
+                    cell.textLabel?.text = SearchPage.clearHistoryText
                 } else {
-                    cell.textLabel?.text = Keywords.historyWords[indexPath.row]
+                    cell.textLabel?.text = SearchPage.historyWords[indexPath.row]
                     cell.imageView?.image = UIImage(systemName: "clock.arrow.circlepath")
                 }
                 return cell
                 
             } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: EmbedProductInTableViewCell.identifier, for: indexPath) as! EmbedProductInTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: EmbedCollectionViewTableViewCell.identifier, for: indexPath) as! EmbedCollectionViewTableViewCell
+                cell.backgroundColor = .clear
+                cell.lableDelegate = self
                 return cell
             }
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if SearchPage.historyWords.isEmpty {
+            return 300
+        } else {
+            return (indexPath.section == 0) ? UITableView.automaticDimension : 300
         }
     }
     
@@ -93,31 +114,33 @@ class SearchTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
         // 如果有歷史搜尋記錄才會做
-        if !Keywords.historyWords.isEmpty {
+        if !SearchPage.historyWords.isEmpty {
             // 取得"清除歷史記錄"cell的indexPath"
-            let myIndex = IndexPath(row: Keywords.historyWords.count, section: 0)
+            let myIndex = IndexPath(row: SearchPage.historyWords.count, section: 0)
             // 是否點擊清除歷史記錄Cell
             if indexPath == myIndex{
                 // 將歷史記錄清除
-                Keywords.historyWords = []
+                SearchPage.historyWords = []
                 // 更新tabviewUI
                 tableView.reloadData()
             } else {
                 // 取得點選的Cell
                 let cell = tableView.cellForRow(at: indexPath)
                 // 沒拿到歷史記錄Cell的搜尋關鍵字, 就離開這個function
-                guard let myTitle =  cell?.textLabel?.text else { return }
+                guard let keywords =  cell?.textLabel?.text else { return }
                 // 開始搜尋結果, 把搜尋關鍵字傳到下一頁
-                performSegue(withIdentifier: Keywords.segueIdOfSearchResult, sender: myTitle)
+                performSegue(withIdentifier: SearchPage.segueIdOfSearchResult, sender: keywords)
             }
            
         }
+        
     }
     // MARK: -  prepareForSegue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let detailVC = segue.destination as! ResultCollectionViewController
-        guard let myTitle = sender as? String else {return}
-        detailVC.title = "搜尋： \(myTitle)"
+        guard let keywords = sender as? String else {return}
+        detailVC.userkeywords = keywords
+        detailVC.title = "搜尋： \(keywords)"
     }
 }
 // MARK: -  extension
@@ -137,18 +160,16 @@ extension SearchTableViewController: UISearchResultsUpdating, UISearchBarDelegat
         // 確認SearchBar有輸入關鍵字
         guard keyword.count > 0 else { return }
         // 開啟搜尋結果頁面
-        performSegue(withIdentifier: Keywords.segueIdOfSearchResult, sender: keyword)
+        performSegue(withIdentifier: SearchPage.segueIdOfSearchResult, sender: keyword)
         // 判斷歷史記錄沒有這次搜尋的關鍵字, 才會把關鍵字加入歷史記錄, 然後更新tableviewUI
-        guard !Keywords.historyWords.contains(keyword) else { return }
-        Keywords.historyWords.append(keyword)
+        guard !SearchPage.historyWords.contains(keyword) else { return }
+        SearchPage.historyWords.append(keyword)
         tableView.reloadData()
     }
 }
-// MARK: -  PopularKeywordsTableViewCellDelegate
 
-extension SearchTableViewController: PopularKeywordsTableViewCellDelegate{
-    func didTapButton(with title: String) {
-//        print(title)
-        performSegue(withIdentifier: Keywords.segueIdOfSearchResult, sender: title)
+extension SearchTableViewController: EmbedCollectionViewTableViewCellDelegae{
+    func didTap(_ keyword: String) {
+        performSegue(withIdentifier: SearchPage.segueIdOfSearchResult, sender: keyword)
     }
 }

@@ -20,9 +20,9 @@
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="HlW-I2-3rC">
                         <rect key="frame" x="160" y="10" width="262" height="140"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[亞尼克]厚。巧克力生乳捲，414g/條，共16條" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lg0-ny-wgT">
-                                <rect key="frame" x="0.0" y="0.0" width="262" height="36"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[亞尼克]厚。巧克力生乳捲，414g/條，共16條" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lg0-ny-wgT">
+                                <rect key="frame" x="0.0" y="0.0" width="262" height="48"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -83,6 +83,13 @@
                 <constraint firstItem="HlW-I2-3rC" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="hbG-Iv-gsJ"/>
             </constraints>
             <size key="customSize" width="422" height="162"/>
+            <connections>
+                <outlet property="cartButton" destination="69g-6f-DMR" id="8aD-dz-mLQ"/>
+                <outlet property="isLikeButton" destination="aVD-g7-CfI" id="f1n-0H-NvS"/>
+                <outlet property="nameLabel" destination="lg0-ny-wgT" id="nIc-Wp-ZHd"/>
+                <outlet property="pictureImageView" destination="ZzQ-D0-1FB" id="WQV-6M-OcI"/>
+                <outlet property="priceLabel" destination="A84-60-JTz" id="vCj-Nl-lc7"/>
+            </connections>
             <point key="canvasLocation" x="410.14492753623193" y="0.0"/>
         </collectionViewCell>
     </objects>

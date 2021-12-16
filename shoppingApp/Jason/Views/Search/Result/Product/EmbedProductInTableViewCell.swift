@@ -8,6 +8,7 @@
 import UIKit
 
 class EmbedProductInTableViewCell: UITableViewCell {
+    var showAnotherProduct:(()->Void)?
     
 //    var toNewController: UIViewController? = nil
     
@@ -16,10 +17,8 @@ class EmbedProductInTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         collectionView.register(ProductListCell.nib(), forCellWithReuseIdentifier: ProductListCell.identifier)
-        
         collectionView.delegate = self
         collectionView.dataSource = self
-        
     }
     
     
@@ -34,7 +33,6 @@ class EmbedProductInTableViewCell: UITableViewCell {
         layout?.estimatedItemSize = .zero
         var cellSize: CGSize = .zero
         cellSize.width = UIScreen.main.bounds.width / 2 - 20
-//        cellSize.height = (UIScreen.main.bounds.width - 30) / 2 + 125
         cellSize.height = 300
         return cellSize
      }
@@ -49,18 +47,22 @@ extension EmbedProductInTableViewCell: UICollectionViewDelegate, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return Products.demoRoom.count
+        return SampleData.products.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductListCell.identifier, for: indexPath) as! ProductListCell
-        cell.nameLabel.text = Products.demoRoom[indexPath.row].name
-        cell.priceLabel.text = "$ " +  Products.demoRoom[indexPath.row].price.description
-        if let imgData =  Products.demoRoom[indexPath.row].picture {
-            cell.pictureImageView.image = UIImage(data: imgData)
-        }
-        let isLikeButtonImageName = Products.demoRoom[indexPath.row].isLike ? "heart.fill" : "heart"
-        cell.isLikeButton.imageView?.image = UIImage(systemName: isLikeButtonImageName)
+        cell.nameLabel.text = SampleData.products[indexPath.row].name
+        cell.priceLabel.text = "$ " +  SampleData.products[indexPath.row].price.description
+        // MARK: -  setImage 未完成
+
+//        if let imgData =  SampleData.products[indexPath.row].media_info {
+//            cell.pictureImageView.image = UIImage(data: imgData)
+//        }
+        // MARK: -  set islikeButton 未完成
+
+//        let isLikeButtonImageName = SampleData.products[indexPath.row].isLike ? "heart.fill" : "heart"
+//        cell.isLikeButton.imageView?.image = UIImage(systemName: isLikeButtonImageName)
         
         return cell
         
@@ -69,9 +71,7 @@ extension EmbedProductInTableViewCell: UICollectionViewDelegate, UICollectionVie
     // MARK: -  CollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let controller = ProductViewController()
-//        toNewController?.show(controller, sender: nil)
-        
+        showAnotherProduct?()
         print(indexPath)
     }
     

@@ -24,13 +24,16 @@
                         <rect key="frame" x="5" y="180" width="165" height="120"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[亞尼克]厚。巧克力生乳捲，414g/條，共16條" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3xf-Lo-wc9">
-                                <rect key="frame" x="0.0" y="0.0" width="165" height="36"/>
+                                <rect key="frame" x="0.0" y="0.0" width="165" height="56"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="NT1,800" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jab-KH-eDu">
-                                <rect key="frame" x="0.0" y="38" width="165" height="40"/>
+                                <rect key="frame" x="0.0" y="58" width="165" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="YxF-OK-BLs"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.84046703580000004" green="0.076483301820000002" blue="0.1136600748" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>

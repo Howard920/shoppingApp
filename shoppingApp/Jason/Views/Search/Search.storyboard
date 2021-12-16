@@ -61,13 +61,14 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="ErT-P6-rqV">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="rectangle.grid.2x2" catalog="system" id="Hem-uo-hzV">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="list.dash" catalog="system" id="Hem-uo-hzV">
                             <connections>
                                 <action selector="changeLayout:" destination="nEj-xk-Lhr" id="g2q-5t-9hX"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="cellLayoutBarButton" destination="Hem-uo-hzV" id="t4S-PX-Ekl"/>
                         <segue destination="jKy-g0-3hl" kind="show" identifier="toProductViewController" id="ePM-2f-AcY"/>
                     </connections>
                 </collectionViewController>
@@ -78,7 +79,7 @@
         <!--商品介紹-->
         <scene sceneID="cQE-IA-b1D">
             <objects>
-                <viewController id="jKy-g0-3hl" customClass="ProductViewController" customModule="shoppingApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProductViewController" id="jKy-g0-3hl" customClass="ProductViewController" customModule="shoppingApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Hc9-Zt-Gsf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -96,14 +97,8 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="[美姫饅頭] 蒸的肉桂捲造型饅頭，一盒六入" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ul0-R5-jNU">
-                                            <rect key="frame" x="5" y="405" width="404" height="66"/>
+                                            <rect key="frame" x="5" y="405" width="404" height="53"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NT$ 600" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ttX-A1-hfu">
-                                            <rect key="frame" x="5" y="476" width="404" height="20.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -142,7 +137,7 @@
                                                     </constraints>
                                                     <state key="normal" image="heart" catalog="system"/>
                                                     <connections>
-                                                        <action selector="isLikeButtonClick:" destination="jKy-g0-3hl" eventType="touchUpInside" id="raY-JE-zyQ"/>
+                                                        <action selector="didTapButton:" destination="jKy-g0-3hl" eventType="touchUpInside" id="raY-JE-zyQ"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -151,18 +146,14 @@
                                     <constraints>
                                         <constraint firstItem="QPR-dz-crB" firstAttribute="top" secondItem="pYS-0p-9cD" secondAttribute="bottom" constant="5" id="4S0-QJ-B4e"/>
                                         <constraint firstItem="pYS-0p-9cD" firstAttribute="leading" secondItem="Ghn-d9-VJm" secondAttribute="leading" constant="5" id="8y5-IS-QvN"/>
-                                        <constraint firstAttribute="trailing" secondItem="ttX-A1-hfu" secondAttribute="trailing" constant="5" id="AqF-cH-Tfc"/>
                                         <constraint firstItem="Ul0-R5-jNU" firstAttribute="top" secondItem="dXC-7c-b3G" secondAttribute="bottom" constant="5" id="CqF-1B-RLf"/>
                                         <constraint firstAttribute="trailing" secondItem="QPR-dz-crB" secondAttribute="trailing" constant="5" id="EWn-te-vYM"/>
                                         <constraint firstItem="QPR-dz-crB" firstAttribute="leading" secondItem="Ghn-d9-VJm" secondAttribute="leading" constant="5" id="Hbc-Io-cEo"/>
                                         <constraint firstItem="dXC-7c-b3G" firstAttribute="top" secondItem="Ghn-d9-VJm" secondAttribute="top" id="SUv-zv-YNr"/>
-                                        <constraint firstItem="ttX-A1-hfu" firstAttribute="leading" secondItem="Ghn-d9-VJm" secondAttribute="leading" constant="5" id="TfZ-by-zXi"/>
                                         <constraint firstItem="dXC-7c-b3G" firstAttribute="leading" secondItem="Ghn-d9-VJm" secondAttribute="leading" id="XSo-Wl-okB"/>
                                         <constraint firstAttribute="bottom" secondItem="QPR-dz-crB" secondAttribute="bottom" constant="20" id="Yg3-pZ-6FP"/>
                                         <constraint firstAttribute="trailing" secondItem="dXC-7c-b3G" secondAttribute="trailing" id="ciN-xt-q0k"/>
                                         <constraint firstItem="Ul0-R5-jNU" firstAttribute="leading" secondItem="Ghn-d9-VJm" secondAttribute="leading" constant="5" id="gtZ-Uv-eaG"/>
-                                        <constraint firstItem="ttX-A1-hfu" firstAttribute="top" secondItem="Ul0-R5-jNU" secondAttribute="bottom" constant="5" id="hJ1-nU-gHq"/>
-                                        <constraint firstItem="pYS-0p-9cD" firstAttribute="top" secondItem="ttX-A1-hfu" secondAttribute="bottom" constant="5" id="jIz-05-Lbz"/>
                                         <constraint firstAttribute="trailing" secondItem="pYS-0p-9cD" secondAttribute="trailing" constant="5" id="pFF-zc-AFX"/>
                                         <constraint firstAttribute="trailing" secondItem="Ul0-R5-jNU" secondAttribute="trailing" constant="5" id="weV-B3-SWH"/>
                                     </constraints>
@@ -179,6 +170,9 @@
                                         <state key="normal" title="加入購物車">
                                             <color key="titleColor" systemColor="systemGroupedBackgroundColor"/>
                                         </state>
+                                        <connections>
+                                            <action selector="didTapButton:" destination="jKy-g0-3hl" eventType="touchUpInside" id="G8n-aq-3u4"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kUA-Hv-dQx">
                                         <rect key="frame" x="167.5" y="32" width="157.5" height="36"/>
@@ -187,6 +181,9 @@
                                         <state key="normal" title="立即結帳">
                                             <color key="titleColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                         </state>
+                                        <connections>
+                                            <action selector="didTapButton:" destination="jKy-g0-3hl" eventType="touchUpInside" id="l4M-mh-Yqz"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="23F-bL-5CF">
                                         <rect key="frame" x="335" y="38.5" width="59" height="23.5"/>
@@ -194,6 +191,9 @@
                                         <state key="normal">
                                             <imageReference key="image" image="cart" catalog="system" symbolScale="large"/>
                                         </state>
+                                        <connections>
+                                            <action selector="didTapButton:" destination="jKy-g0-3hl" eventType="touchUpInside" id="AhQ-J9-MUN"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -259,8 +259,8 @@
     <resources>
         <image name="cart" catalog="system" width="128" height="102"/>
         <image name="heart" catalog="system" width="128" height="109"/>
+        <image name="list.dash" catalog="system" width="128" height="85"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
-        <image name="rectangle.grid.2x2" catalog="system" width="128" height="99"/>
         <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
         <image name="steamedBread" width="1125" height="1110"/>
         <systemColor name="labelColor">
