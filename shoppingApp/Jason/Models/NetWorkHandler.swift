@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 struct NetWorkHandler: Codable {
-    static let host = "http://192.168.1.138:8080"
+    static let host = "http://127.0.0.1"
 
     
     static func parseJson<T:Codable>(_ data: Data) -> [T]? {
