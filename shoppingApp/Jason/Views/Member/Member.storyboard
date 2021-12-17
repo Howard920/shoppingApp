@@ -11,7 +11,7 @@
         <!--會員中心-->
         <scene sceneID="wlD-nI-ByA">
             <objects>
-                <tableViewController id="W9G-Wy-z2p" customClass="MemberTableViewController" customModule="shoppingApp" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="MemberTableViewController" id="W9G-Wy-z2p" customClass="MemberTableViewController" customModule="shoppingApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="j8m-TZ-xyM">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -33,15 +33,113 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="會員中心" id="c5a-Yb-7Ip"/>
                     <connections>
-                        <segue destination="d3Z-18-ja5" kind="show" identifier="ResetPassword" id="ho2-pn-nIF"/>
+                        <segue destination="d3Z-18-ja5" kind="show" identifier="ResetPasswordViewController" id="ho2-pn-nIF"/>
                         <segue destination="IeH-4O-msY" kind="show" identifier="MemberInfo" id="crC-IQ-z8K"/>
                         <segue destination="rKI-lH-Y2H" kind="show" identifier="BuyListCollectionViewController" id="DGX-Dm-iuy"/>
                         <segue destination="dtD-UI-jT8" kind="show" identifier="BuyItemsListViewController" id="aor-nr-Ks7"/>
+                        <segue destination="1j4-2m-9d0" kind="show" identifier="LoginRegisterViewController" id="ycO-fP-G4u"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ACX-t5-nim" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1100" y="101.78571428571428"/>
+        </scene>
+        <!--登入 / 註冊-->
+        <scene sceneID="QDi-v3-M2d">
+            <objects>
+                <viewController id="1j4-2m-9d0" customClass="LoginRegisterViewController" customModule="shoppingApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Mxc-EK-jKz">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uAX-Vz-7JP">
+                                <rect key="frame" x="163.5" y="335" width="87" height="33"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="忘記密碼？"/>
+                                <connections>
+                                    <action selector="resetPassword:" destination="1j4-2m-9d0" eventType="touchUpInside" id="dR4-bJ-EjR"/>
+                                </connections>
+                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="lyA-dQ-F9t">
+                                <rect key="frame" x="50" y="217" width="314" height="34"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="bqf-9c-N14">
+                                        <rect key="frame" x="0.0" y="3.5" width="30" height="27.5"/>
+                                        <color key="tintColor" systemColor="labelColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="OY6-r7-YB9"/>
+                                            <constraint firstAttribute="height" constant="30" id="Vmb-DP-Gia"/>
+                                        </constraints>
+                                    </imageView>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="請輸入手機號碼 10碼" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EE0-v4-cUz">
+                                        <rect key="frame" x="38" y="0.0" width="276" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                    </textField>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="EPq-40-c75">
+                                <rect key="frame" x="50" y="271" width="314" height="34"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lock.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="4s6-2m-Fuu">
+                                        <rect key="frame" x="0.0" y="2.5" width="30" height="28.5"/>
+                                        <color key="tintColor" systemColor="labelColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="cc2-e4-jtx"/>
+                                            <constraint firstAttribute="height" constant="30" id="k0M-hi-61F"/>
+                                        </constraints>
+                                    </imageView>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="請輸入8～12位密碼" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="F8I-Tt-Wp3">
+                                        <rect key="frame" x="38" y="0.0" width="276" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="歡迎光臨Happy Shop" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8VE-fZ-Mjg">
+                                <rect key="frame" x="94.5" y="138" width="225" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ji-vQ-3dL">
+                                <rect key="frame" x="50" y="398" width="314" height="41"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="送出"/>
+                                <connections>
+                                    <action selector="commitClick:" destination="1j4-2m-9d0" eventType="touchUpInside" id="oHS-xr-qJW"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="mJJ-lH-5aK"/>
+                        <color key="backgroundColor" systemColor="systemTealColor"/>
+                        <constraints>
+                            <constraint firstItem="lyA-dQ-F9t" firstAttribute="leading" secondItem="mJJ-lH-5aK" secondAttribute="leading" constant="50" id="0y1-gU-iYF"/>
+                            <constraint firstItem="8VE-fZ-Mjg" firstAttribute="centerX" secondItem="Mxc-EK-jKz" secondAttribute="centerX" id="5oD-ER-h8y"/>
+                            <constraint firstItem="mJJ-lH-5aK" firstAttribute="trailing" secondItem="EPq-40-c75" secondAttribute="trailing" constant="50" id="DI2-f5-4nU"/>
+                            <constraint firstItem="6Ji-vQ-3dL" firstAttribute="trailing" secondItem="lyA-dQ-F9t" secondAttribute="trailing" id="I51-oH-7ER"/>
+                            <constraint firstItem="EPq-40-c75" firstAttribute="leading" secondItem="mJJ-lH-5aK" secondAttribute="leading" constant="50" id="SLp-c9-sIu"/>
+                            <constraint firstItem="8VE-fZ-Mjg" firstAttribute="top" secondItem="mJJ-lH-5aK" secondAttribute="top" constant="50" id="Uzd-cc-0rh"/>
+                            <constraint firstItem="6Ji-vQ-3dL" firstAttribute="top" secondItem="uAX-Vz-7JP" secondAttribute="bottom" constant="30" id="VWD-Nd-nt6"/>
+                            <constraint firstItem="mJJ-lH-5aK" firstAttribute="trailing" secondItem="lyA-dQ-F9t" secondAttribute="trailing" constant="50" id="hjC-09-gR9"/>
+                            <constraint firstItem="uAX-Vz-7JP" firstAttribute="centerX" secondItem="Mxc-EK-jKz" secondAttribute="centerX" id="i1K-VH-vEg"/>
+                            <constraint firstItem="uAX-Vz-7JP" firstAttribute="top" secondItem="EPq-40-c75" secondAttribute="bottom" constant="30" id="mMu-vh-Now"/>
+                            <constraint firstItem="lyA-dQ-F9t" firstAttribute="top" secondItem="8VE-fZ-Mjg" secondAttribute="bottom" constant="50" id="muW-mm-ZCo"/>
+                            <constraint firstItem="EPq-40-c75" firstAttribute="top" secondItem="lyA-dQ-F9t" secondAttribute="bottom" constant="20" id="rFm-uv-9Kx"/>
+                            <constraint firstItem="6Ji-vQ-3dL" firstAttribute="leading" secondItem="lyA-dQ-F9t" secondAttribute="leading" id="veH-br-UfR"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="登入 / 註冊" id="4AA-wC-iti"/>
+                    <connections>
+                        <outlet property="commitButton" destination="6Ji-vQ-3dL" id="dWj-Fr-BOG"/>
+                        <outlet property="passwordTextField" destination="F8I-Tt-Wp3" id="dph-Qb-fpC"/>
+                        <outlet property="phoneTextField" destination="EE0-v4-cUz" id="HSw-1t-coH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wnr-KT-Bct" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2083" y="-1605"/>
         </scene>
         <!--Buy List Collection View Controller-->
         <scene sceneID="wSx-LQ-9l4">
@@ -69,10 +167,10 @@
             </objects>
             <point key="canvasLocation" x="2083" y="-927"/>
         </scene>
-        <!--View Controller-->
+        <!--Reset Password View Controller-->
         <scene sceneID="obb-A1-tKl">
             <objects>
-                <viewController id="d3Z-18-ja5" sceneMemberID="viewController">
+                <viewController id="d3Z-18-ja5" customClass="ResetPasswordViewController" customModule="shoppingApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JXe-5D-0x4">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -86,12 +184,12 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="舊密碼" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f6b-N3-hg6">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="舊密碼8~12碼" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f6b-N3-hg6">
                                         <rect key="frame" x="0.0" y="38" width="394" height="36"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="新密碼" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tr2-JB-asC">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="新密碼8~12碼" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tr2-JB-asC">
                                         <rect key="frame" x="0.0" y="94" width="394" height="36"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -106,6 +204,9 @@
                                         <state key="normal" title="確定變更">
                                             <color key="titleColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                         </state>
+                                        <connections>
+                                            <action selector="resetButtonDidTap:" destination="d3Z-18-ja5" eventType="touchUpInside" id="Kan-HY-gX2"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -116,6 +217,9 @@
                                     <constraint firstAttribute="height" constant="50" id="y0S-0F-Ae6"/>
                                 </constraints>
                                 <state key="normal" title="忘記密碼？"/>
+                                <connections>
+                                    <action selector="forgetDidTap:" destination="d3Z-18-ja5" eventType="touchUpInside" id="8Nj-Z7-zYF"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="z1q-TI-uii"/>
@@ -129,6 +233,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="wq3-pD-aYm"/>
+                    <connections>
+                        <outlet property="newPassword" destination="tr2-JB-asC" id="mlH-ir-yu1"/>
+                        <outlet property="password" destination="f6b-N3-hg6" id="ipD-3j-ADG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nJD-Wh-qWq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -180,7 +288,7 @@
             </objects>
             <point key="canvasLocation" x="2084" y="397"/>
         </scene>
-        <!--Buy Items List View Controller-->
+        <!--買過的商品-->
         <scene sceneID="v6d-w8-Pj4">
             <objects>
                 <viewController id="dtD-UI-jT8" customClass="BuyItemsListViewController" customModule="shoppingApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -209,7 +317,7 @@
                             <constraint firstItem="YH3-ja-kxa" firstAttribute="top" secondItem="RgJ-IS-1NH" secondAttribute="top" id="jxO-ZG-ajD"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="9Rz-Pc-YNb"/>
+                    <navigationItem key="navigationItem" title="買過的商品" id="9Rz-Pc-YNb"/>
                     <connections>
                         <outlet property="collectionView" destination="YH3-ja-kxa" id="8dB-vr-4SJ"/>
                     </connections>
@@ -240,7 +348,15 @@
         </scene>
     </scenes>
     <resources>
+        <image name="lock.fill" catalog="system" width="128" height="128"/>
         <image name="person" catalog="system" width="128" height="117"/>
+        <image name="phone.fill" catalog="system" width="128" height="114"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="secondarySystemGroupedBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
@@ -252,6 +368,9 @@
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemTealColor">
+            <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

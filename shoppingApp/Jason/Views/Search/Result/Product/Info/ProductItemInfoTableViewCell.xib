@@ -17,13 +17,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="商品說明" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2CM-CK-sGW">
-                        <rect key="frame" x="10" y="10" width="258" height="20.5"/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                        <rect key="frame" x="10" y="10" width="258" height="24"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gi2-QC-6Zc">
-                        <rect key="frame" x="10" y="40.5" width="258" height="196.5"/>
+                        <rect key="frame" x="10" y="44" width="258" height="193"/>
                         <string key="text">以光泉牛乳為基礎，加上綜合水果汁，能同時吸收到鮮乳及水果的營養，為調味乳飲中的經典口味。
 
 ★以高品質光泉牛乳為基礎
@@ -47,6 +47,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="itemInfo" destination="gi2-QC-6Zc" id="Hsd-BH-XeH"/>
                 <outlet property="itemInfoLabel" destination="gi2-QC-6Zc" id="eiP-Qt-LGW"/>
             </connections>
             <point key="canvasLocation" x="318.84057971014494" y="105.46875"/>

@@ -11,7 +11,7 @@ class ProductItemInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var itemInfoLabel: UILabel!
     
     static let identifier: String = "ProductItemInfoTableViewCell"
-
+    @IBOutlet weak var itemInfo: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

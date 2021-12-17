@@ -23,9 +23,8 @@ class LabelCollectionViewCell: UICollectionViewCell {
         self.backgroundColor = .systemGroupedBackground
         self.layer.cornerRadius = keywordLabel.bounds.height / 4
         self.clipsToBounds = true
+        
     }
-    
-    
 
     static func nib() -> UINib{
         return UINib(nibName: self.identifier, bundle: nil)
@@ -34,5 +33,4 @@ class LabelCollectionViewCell: UICollectionViewCell {
     func configure(_ title: String){
         keywordLabel.text = title
     }
-    
 }
