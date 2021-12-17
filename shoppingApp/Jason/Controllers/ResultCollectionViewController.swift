@@ -18,8 +18,7 @@ class ResultCollectionViewController: UICollectionViewController, UICollectionVi
     override func viewDidLoad() {
         super.viewDidLoad()
         myInit()
-        loadDataFromServer()
-
+//        fetchDataFromServer()
     }
     
     override func viewDidLayoutSubviews() {
@@ -29,10 +28,10 @@ class ResultCollectionViewController: UICollectionViewController, UICollectionVi
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        fetchDataFromServer()
     }
     
-    private func loadDataFromServer(){
-
+    private func fetchDataFromServer(){
         let path = "/search"
         let parameter = "?keywords=\(userkeywords)"
         let apiURL =  NetWorkHandler.host + path + parameter
@@ -70,38 +69,45 @@ class ResultCollectionViewController: UICollectionViewController, UICollectionVi
                 DispatchQueue.main.async {
                     self?.collectionView.reloadData()
                 }
-            }
+            } else { Common.autoDisapperAlert(self!, message: "無法取得資料", duration: 1)}
         }.resume()
     }
     
     
     // MARK: -  cell Button點擊事件
     @objc func likeButtonClick(_ sender: UIButton){
-        if let itemID = resultProductsInfo?[sender.tag].item_id {
+        let row = sender.tag
+        if let itemID = resultProductsInfo?[row].item_id {
             // 如果收藏清單內沒有收藏這個商品，就加入清單。
             if !UserInfo.favoriteList.contains(itemID){
+
                 UserInfo.favoriteList.append(itemID)
                 sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                Common.autoDisapperAlert(self, message: Common.favorite)
                 collectionView.reloadData()
             } else {
                 guard let index = UserInfo.favoriteList.firstIndex(of: itemID) else{return}
                 UserInfo.favoriteList.remove(at: index)
                 sender.setImage(UIImage(systemName: "heart"), for: .normal)
+                Common.autoDisapperAlert(self, message: Common.unfavorite)
                 collectionView.reloadData()
             }
         }
     }
     @objc func cartButtonClick(_ sender: UIButton){
-        if let itemID = resultProductsInfo?[sender.tag].item_id {
+        let row = sender.tag
+        if let itemID = resultProductsInfo?[row].item_id {
             // 如果購物車清單內沒有這個商品，就加入清單。
             if !UserInfo.cartList.contains(itemID){
                 UserInfo.cartList.append(itemID)
                 sender.setImage(UIImage(systemName: "cart.fill"), for: .normal)
+                Common.autoDisapperAlert(self, message: Common.cart)
                 collectionView.reloadData()
             } else {
                 guard let index = UserInfo.cartList.firstIndex(of: itemID) else{return}
                 UserInfo.cartList.remove(at: index)
                 sender.setImage(UIImage(systemName: "cart"), for: .normal)
+                Common.autoDisapperAlert(self, message: Common.uncart)
                 collectionView.reloadData()
             }
         }
@@ -192,12 +198,28 @@ class ResultCollectionViewController: UICollectionViewController, UICollectionVi
         if SearchPage.isCellListLayout {
             // one cell in a row
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductListHAxisCell.identifier, for: indexPath) as! ProductListHAxisCell
-            
+            // 設定cell裡面buttons的tagID
+            cell.isLikeButton.tag = indexPath.row
+            cell.cartButton.tag = indexPath.row
+            // 綁定Button點擊事件
             cell.isLikeButton.addTarget(self, action: #selector(likeButtonClick(_:)), for: .touchUpInside)
             cell.cartButton.addTarget(self, action: #selector(cartButtonClick(_:)), for: .touchUpInside)
             cell.pictureImageView.image = nil
             if let productInfo = resultProductsInfo?[indexPath.row]{
                 cell.configure(productInfo)
+                // 設定Button狀態
+                if UserInfo.cartList.contains(productInfo.item_id){
+                    cell.cartButton.setImage(UIImage(systemName: "cart.fill"), for: .normal)
+
+                } else {
+                    cell.cartButton.setImage(UIImage(systemName: "cart"), for: .normal)
+                }
+                
+                if UserInfo.favoriteList.contains(productInfo.item_id){
+                    cell.isLikeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                } else {
+                    cell.isLikeButton.setImage(UIImage(systemName: "heart"), for: .normal)
+                }
                 
                 // set image
                 if let urlStr = productInfo.media_info,
@@ -218,22 +240,6 @@ class ResultCollectionViewController: UICollectionViewController, UICollectionVi
                             Common.autoDisapperAlert(self, message: "網路異常\(error)", duration: 1)
                         }
                     }
-                }
-                
-                
-                // 設定cell裡面buttons的tagID
-                cell.isLikeButton.tag = indexPath.row
-                cell.cartButton.tag = indexPath.row
-                if UserInfo.cartList.contains(productInfo.item_id){
-                    cell.cartButton.imageView?.image = UIImage(systemName: "cart.fill")
-                } else {
-                    cell.cartButton.imageView?.image = UIImage(systemName: "cart")
-                }
-                
-                if UserInfo.favoriteList.contains(productInfo.item_id){
-                    cell.isLikeButton.imageView?.image = UIImage(systemName: "heart.fill")
-                } else {
-                    cell.isLikeButton.imageView?.image = UIImage(systemName: "heart")
                 }
             }
 
@@ -242,12 +248,30 @@ class ResultCollectionViewController: UICollectionViewController, UICollectionVi
         } else {
             // two cells in a row
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductListCell.identifier, for: indexPath) as! ProductListCell
+            // 設定cell裡面buttons的tagID
+            cell.isLikeButton.tag = indexPath.row
+            cell.cartButton.tag = indexPath.row
+            // 綁定Button點擊事件
             cell.isLikeButton.addTarget(self, action: #selector(likeButtonClick(_:)), for: .touchUpInside)
             cell.cartButton.addTarget(self, action: #selector(cartButtonClick(_:)), for: .touchUpInside)
             cell.pictureImageView.image = nil
 
             if let productInfo = resultProductsInfo?[indexPath.row]{
                 cell.configure(productInfo)
+                // 設定Button狀態
+                if UserInfo.cartList.contains(productInfo.item_id){
+                    cell.cartButton.setImage(UIImage(systemName: "cart.fill"), for: .normal)
+
+                } else {
+                    cell.cartButton.setImage(UIImage(systemName: "cart"), for: .normal)
+                }
+                
+                if UserInfo.favoriteList.contains(productInfo.item_id){
+                    cell.isLikeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                } else {
+                    cell.isLikeButton.setImage(UIImage(systemName: "heart"), for: .normal)
+                }
+                
                 // set image
                 if let urlStr = productInfo.media_info,
                    let url = URL(string: urlStr)  {
@@ -267,21 +291,6 @@ class ResultCollectionViewController: UICollectionViewController, UICollectionVi
                             Common.autoDisapperAlert(self, message: "網路異常\(error)", duration: 1)
                         }
                     }
-                }
-                
-                // 設定cell裡面buttons的tagID
-                cell.isLikeButton.tag = indexPath.row
-                cell.cartButton.tag = indexPath.row
-                if UserInfo.cartList.contains(productInfo.item_id){
-                    cell.cartButton.imageView?.image = UIImage(systemName: "cart.fill")
-                } else {
-                    cell.cartButton.imageView?.image = UIImage(systemName: "cart")
-                }
-                
-                if UserInfo.favoriteList.contains(productInfo.item_id){
-                    cell.isLikeButton.imageView?.image = UIImage(systemName: "heart.fill")
-                } else {
-                    cell.isLikeButton.imageView?.image = UIImage(systemName: "heart")
                 }
             }
             return cell
@@ -292,7 +301,7 @@ class ResultCollectionViewController: UICollectionViewController, UICollectionVi
     // MARK: UICollectionViewDelegate
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let selectedProduct = resultProductsInfo?[indexPath.row]{
-            performSegue(withIdentifier: "toProductViewController", sender: selectedProduct)
+            performSegue(withIdentifier: "ProductViewController", sender: selectedProduct)
         }
     }
     

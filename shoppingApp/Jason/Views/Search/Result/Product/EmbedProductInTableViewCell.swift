@@ -8,7 +8,7 @@
 import UIKit
 
 class EmbedProductInTableViewCell: UITableViewCell {
-    var showAnotherProduct:(()->Void)?
+    var showAnotherProduct:((ProductInfo)->Void)?
     
 //    var toNewController: UIViewController? = nil
     
@@ -54,6 +54,7 @@ extension EmbedProductInTableViewCell: UICollectionViewDelegate, UICollectionVie
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductListCell.identifier, for: indexPath) as! ProductListCell
         cell.nameLabel.text = SampleData.products[indexPath.row].name
         cell.priceLabel.text = "$ " +  SampleData.products[indexPath.row].price.description
+        cell.pictureImageView.image = nil
         // MARK: -  setImage 未完成
 
 //        if let imgData =  SampleData.products[indexPath.row].media_info {
@@ -71,8 +72,8 @@ extension EmbedProductInTableViewCell: UICollectionViewDelegate, UICollectionVie
     // MARK: -  CollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        showAnotherProduct?()
-        print(indexPath)
+        let product = SampleData.products[indexPath.row]
+        showAnotherProduct?(product)
     }
     
     

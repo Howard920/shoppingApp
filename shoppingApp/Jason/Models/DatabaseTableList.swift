@@ -7,10 +7,9 @@
 
 import Foundation
 
-struct PopulayKeywords: Codable{
+struct PopularKeywords: Codable{
     var name: String
     var count: Int
-    static var keywords:[PopulayKeywords]?
 }
 
 struct ProductInfo: Codable, Hashable {

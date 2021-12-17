@@ -10,12 +10,13 @@ import UIKit
 class SearchTableViewController: UITableViewController {
     
     var searchController: UISearchController!
-    
+    var keywords:[PopularKeywords]?
+    var popularCellRow: IndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         loadInit()
-        
+//        fetchDataFromServer()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -23,19 +24,10 @@ class SearchTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        // 清空labelCellWords內容
-        SearchPage.labelCellWords.removeAll()
-        // 將前十名熱搜關鍵字存入labelCellWords
-        PopulayKeywords.keywords?.forEach({ (keyword) in
-            SearchPage.labelCellWords.append(keyword.name)
-        })
+        fetchDataFromServer()
     }
 
     private func loadInit(){
-        // MARK: -  set labelCellTitle
-        PopulayKeywords.keywords = NetWorkHandler.parseJson(SampleData.popularJson)
-
         // MARK: -  Nib Register
         tableView.register(EmbedCollectionViewTableViewCell.nib(), forCellReuseIdentifier: EmbedCollectionViewTableViewCell.identifier)
     
@@ -45,6 +37,55 @@ class SearchTableViewController: UITableViewController {
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchController.searchBar.placeholder = "搜尋..."
+    }
+    
+    // MARK: -  從資料庫下載資料更新UI
+    private func fetchDataFromServer(){
+        let path = "/popular"
+//        let parameter = "?keywords=\(userkeywords)"
+        let apiURL =  NetWorkHandler.host + path
+        guard let url = URL(string: apiURL) else {return}
+        let request = URLRequest(url: url)
+        
+        URLSession.shared.dataTask(with: request) { [weak self] (popularKeywordsData, response, error) in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            if let popularKeywordsData = popularKeywordsData {
+                guard let popularKeywords: [PopularKeywords] = NetWorkHandler.parseJson(popularKeywordsData) else{
+                    if let msg = String(data: popularKeywordsData, encoding: .utf8){
+                        Common.autoDisapperAlert(self!, message: msg, duration: 1)
+                    }
+                    return
+                }
+                // 存入離線資料集
+                self?.keywords = popularKeywords
+                // 清空labelCellWords內容
+                SearchPage.labelCellWords.removeAll()
+                // 將前十名熱搜關鍵字存入labelCellWords
+                self?.keywords?.forEach({ (keyword) in
+                    SearchPage.labelCellWords.append(keyword.name)
+                })
+//                print(SearchPage.labelCellWords)
+                DispatchQueue.main.async {
+                    if let cell = self?.tableView.cellForRow(at: (self?.popularCellRow)!) as? EmbedCollectionViewTableViewCell {
+                        cell.collectionView.reloadData()
+                    }
+                }
+            }
+        }.resume()
+    }
+    // MARK: -  從資料庫下載資料更新UI
+    private func fetchDataFromServer1(){
+        // set labelCellTitle
+        keywords = NetWorkHandler.parseJson(SampleData.popularJson)
+        // 清空labelCellWords內容
+        SearchPage.labelCellWords.removeAll()
+        // 將前十名熱搜關鍵字存入labelCellWords
+        keywords?.forEach({ (keyword) in
+            SearchPage.labelCellWords.append(keyword.name)
+        })
     }
     
     // MARK: - Table view data source
@@ -79,6 +120,7 @@ class SearchTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: EmbedCollectionViewTableViewCell.identifier, for: indexPath) as! EmbedCollectionViewTableViewCell
             cell.backgroundColor = .clear
             cell.lableDelegate = self
+            popularCellRow = indexPath
             return cell
             
         } else {
@@ -96,6 +138,7 @@ class SearchTableViewController: UITableViewController {
                 let cell = tableView.dequeueReusableCell(withIdentifier: EmbedCollectionViewTableViewCell.identifier, for: indexPath) as! EmbedCollectionViewTableViewCell
                 cell.backgroundColor = .clear
                 cell.lableDelegate = self
+                popularCellRow = indexPath
                 return cell
             }
         }

@@ -33,7 +33,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="hAi-IN-MnU"/>
                     <connections>
-                        <segue destination="nEj-xk-Lhr" kind="show" identifier="toResultCollectionViewController" id="h0O-Vp-cfJ"/>
+                        <segue destination="nEj-xk-Lhr" kind="show" identifier="ResultCollectionViewController" id="h0O-Vp-cfJ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KLb-hO-ZXt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -69,7 +69,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="cellLayoutBarButton" destination="Hem-uo-hzV" id="t4S-PX-Ekl"/>
-                        <segue destination="jKy-g0-3hl" kind="show" identifier="toProductViewController" id="ePM-2f-AcY"/>
+                        <segue destination="jKy-g0-3hl" kind="show" identifier="ProductViewController" id="ePM-2f-AcY"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lxq-6c-Cgp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

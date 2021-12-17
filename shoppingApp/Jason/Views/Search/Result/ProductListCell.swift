@@ -31,7 +31,4 @@ class ProductListCell: UICollectionViewCell {
     static func nib() -> UINib{
         return UINib(nibName: self.identifier, bundle: nil)
     }
-    
-    
-
 }

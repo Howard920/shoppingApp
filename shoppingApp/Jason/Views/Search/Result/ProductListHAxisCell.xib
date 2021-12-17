@@ -63,7 +63,7 @@
                             </view>
                         </subviews>
                     </stackView>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="productSample" translatesAutoresizingMaskIntoConstraints="NO" id="ZzQ-D0-1FB">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="productSample" translatesAutoresizingMaskIntoConstraints="NO" id="ZzQ-D0-1FB">
                         <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="150" id="GZc-gc-0sD"/>

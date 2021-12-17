@@ -19,7 +19,7 @@ class ProductViewController: UIViewController {
     @IBOutlet weak var productIsLikeButton: UIButton!
     
     var selectedProduct:ProductInfo?
-    
+    var productImage: UIImage?
     
   
     override func viewDidLoad() {
@@ -45,8 +45,7 @@ class ProductViewController: UIViewController {
         
     }
     
-    private func myInit(){
-        
+    private func myInit(){        
         // set tabview delegate
         tableView.delegate = self
         tableView.dataSource = self
@@ -80,7 +79,7 @@ class ProductViewController: UIViewController {
         productTitleLabel.text = name
         productPriceLabel.text = "$ " + price
         productQuantity.text = "數量：\(quantity)"
-        
+        productPictureImageView.image = nil
         // set image
         if let urlStr = selectedProduct?.media_info,
            let url = URL(string: urlStr)  {
@@ -204,6 +203,7 @@ extension ProductViewController: UITableViewDelegate, UITableViewDataSource{
         //        switch indexPath.row {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: ProductTableViewCell.identifier, for: indexPath) as! ProductTableViewCell
+            
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: EmbedCollectionViewTableViewCell.identifier, for: indexPath) as! EmbedCollectionViewTableViewCell
@@ -225,13 +225,13 @@ extension ProductViewController: UITableViewDelegate, UITableViewDataSource{
             return cell
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: EmbedProductInTableViewCell.identifier, for: indexPath) as! EmbedProductInTableViewCell
-            //            cell.toNewController = self
-            cell.showAnotherProduct = { [weak self] in
+
+            cell.showAnotherProduct = { [weak self] product in
                 if let productVC = UIStoryboard(name: "Search", bundle: nil).instantiateViewController(withIdentifier: "ProductViewController") as? ProductViewController {
                     // 設定為全螢幕模式
                     productVC.modalPresentationStyle = .fullScreen
                     // 開啟商品畫面
-                    productVC.selectedProduct = self?.selectedProduct
+                    productVC.selectedProduct = product
                     self?.navigationController?.pushViewController(productVC, animated: true)
                 }
             }
