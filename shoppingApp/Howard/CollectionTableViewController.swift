@@ -16,8 +16,13 @@ class CollectionTableViewController: UITableViewController
     //產品圖片
     var productImage = ["cafedeadend", "homei", "teakha", "cafeloisl", "petiteoyster", "forkeerestaurant", "posatelier", "bourkestreetbakery", "haighschocolate", "palominoespresso", "upstate", "traif", "grahamavenuemeats", "wafflewolf", "fiveleaves", "cafelore", "confessional", "barrafina", "donostia", "royaloak", "caskpubkitchen"]
     
-    
 //    var productIsVisited = Array(repeating: false, count: 21)
+    
+    
+    @IBOutlet var tableview: UITableView!
+    
+    
+    
     
     override func viewDidLoad()
     {
@@ -57,7 +62,9 @@ class CollectionTableViewController: UITableViewController
         
         cell.nameLabel.text = productName[indexPath.row]
         cell.productImage.image = UIImage(named: productImage[indexPath.row])
-            
+          
+        cell.delegate = self
+        cell.row = indexPath.row
 //        -=-=-=-=-=-=-=-=-=-=-=- 價目表：原價與折扣 -=-=-=-=-=-=-=-=-=-=-=-
 //        cell.PriceLabel.text = price[indexPath.row]
 //        cell.DiscountLabel.text = discount[indexPath.row]
@@ -68,7 +75,8 @@ class CollectionTableViewController: UITableViewController
 
     /*
     // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool
+     {
         // Return false if you do not want the specified item to be editable.
         return true
     }
@@ -104,29 +112,21 @@ class CollectionTableViewController: UITableViewController
     }
     
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
 
+
+}
+
+
+extension CollectionTableViewController: cellDelegate{
+    func deleteItem(row: Int) {
+        
+        productName.remove(at: row)
+        productImage.remove(at: row)
+        price.remove(at: row)
+        discount.remove(at: row)
+        
+        tableview.reloadData()
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
+    
 }

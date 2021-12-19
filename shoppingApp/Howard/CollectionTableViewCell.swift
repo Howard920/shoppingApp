@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol cellDelegate
+{
+    func deleteItem(row:Int)
+}
+
 class CollectionTableViewCell: UITableViewCell
 {
     
@@ -21,6 +26,16 @@ class CollectionTableViewCell: UITableViewCell
 //            productImage.clipsToBounds = true
 //        }
 //    }
+    
+    var row:Int!
+    var delegate:cellDelegate!
+    
+    
+    @IBAction func btn_cancelProduct(_ sender: UIButton) {
+        delegate.deleteItem(row: row)
+    }
+    
+    
     
     override func awakeFromNib()
     {
