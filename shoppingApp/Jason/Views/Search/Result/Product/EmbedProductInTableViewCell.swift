@@ -9,8 +9,7 @@ import UIKit
 
 class EmbedProductInTableViewCell: UITableViewCell {
     var showAnotherProduct:((ProductInfo)->Void)?
-    
-//    var toNewController: UIViewController? = nil
+    var popularItems: [ProductInfo]?
     
     static let identifier: String = "EmbedProductInTableViewCell"
     @IBOutlet weak var collectionView: UICollectionView!
@@ -19,6 +18,10 @@ class EmbedProductInTableViewCell: UITableViewCell {
         collectionView.register(ProductListCell.nib(), forCellWithReuseIdentifier: ProductListCell.identifier)
         collectionView.delegate = self
         collectionView.dataSource = self
+        if popularItems == nil {
+//            print("fetchPopularItemsFromServer")
+            fetchPopularItemsFromServer()
+        }
     }
     
     
@@ -36,6 +39,38 @@ class EmbedProductInTableViewCell: UITableViewCell {
         cellSize.height = 300
         return cellSize
      }
+    
+    
+    private func fetchPopularItemsFromServer(){
+        guard popularItems == nil else {
+//            SearchPage.labelCellWords = categoryTags!.name
+            return
+        }
+        let path = "/popularItems"
+        let apiURL =  NetWorkHandler.host + path
+        guard let url = URL(string: apiURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!) else {return}
+        let request = URLRequest(url: url)
+        
+        URLSession.shared.dataTask(with: request) { [weak self] (popularItemsData, response, error) in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            if let popularItemsData = popularItemsData {
+                guard let popularitems: [ProductInfo] = NetWorkHandler.parseJson(popularItemsData) else{
+                    return
+                }
+                // 存入離線資料集
+                self?.popularItems = popularitems
+                DispatchQueue.main.async {
+                    self?.collectionView.reloadData()
+                }
+                // 更新popularItem Cell
+                
+            } else { print("無法取得資料")}
+        }.resume()
+        
+    }
 }
 
 extension EmbedProductInTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
@@ -46,24 +81,42 @@ extension EmbedProductInTableViewCell: UICollectionViewDelegate, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        return SampleData.products.count
+        return popularItems?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductListCell.identifier, for: indexPath) as! ProductListCell
-        cell.nameLabel.text = SampleData.products[indexPath.row].name
-        cell.priceLabel.text = "$ " +  SampleData.products[indexPath.row].price.description
-        cell.pictureImageView.image = nil
-        // MARK: -  setImage 未完成
+        
+        if let popularItem = popularItems?[indexPath.row]{
+            cell.nameLabel.text = popularItem.name
+            cell.priceLabel.text = "$ " + popularItem.price.description
+            cell.pictureImageView.image = nil
+            // set image
+            if let urlStr = popularItem.media_info,
+               let url = URL(string: urlStr)  {
+                let imageURL = url
+                let imageLoader = ImageLoader()
 
-//        if let imgData =  SampleData.products[indexPath.row].media_info {
-//            cell.pictureImageView.image = UIImage(data: imgData)
-//        }
-        // MARK: -  set islikeButton 未完成
+                imageLoader.loadImage(at: imageURL) { result in
+                    switch result {
+                    case .success(let image):
+                        DispatchQueue.main.async {
+                            cell.pictureImageView.image = image
+                        }
+                    case .failure(.invalidData):
+                        print("資料傳輸失敗")
+                        
+                    case .failure(.networkFailure(let error)):
+                        print("網路異常\(error)")
+                    }
+                }
+            }
+            // MARK: -  set islikeButton 未完成
 
-//        let isLikeButtonImageName = SampleData.products[indexPath.row].isLike ? "heart.fill" : "heart"
-//        cell.isLikeButton.imageView?.image = UIImage(systemName: isLikeButtonImageName)
+    //        let isLikeButtonImageName = SampleData.products[indexPath.row].isLike ? "heart.fill" : "heart"
+    //        cell.isLikeButton.imageView?.image = UIImage(systemName: isLikeButtonImageName)
+            
+        }
         
         return cell
         
@@ -72,7 +125,10 @@ extension EmbedProductInTableViewCell: UICollectionViewDelegate, UICollectionVie
     // MARK: -  CollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let product = SampleData.products[indexPath.row]
+        guard let product =  popularItems?[indexPath.row] else{
+            print("popularItems have no value")
+            return
+        }
         showAnotherProduct?(product)
     }
     

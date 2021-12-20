@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Alert View Controller-->
+        <scene sceneID="CiN-qs-E3q">
+            <objects>
+                <viewController storyboardIdentifier="alert" id="uKO-nz-c3t" customClass="AlertViewController" customModule="shoppingApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="nXB-os-pWu">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xvb-PV-3nZ">
+                                <rect key="frame" x="97" y="384" width="220" height="128"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="    已加入購物車 ！" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BGf-GR-Jah">
+                                        <rect key="frame" x="38.5" y="83.5" width="143.5" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="g3w-B0-A0s">
+                                        <rect key="frame" x="82.5" y="17" width="55" height="54"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="55" id="6e7-nu-Ke3"/>
+                                            <constraint firstAttribute="width" constant="55" id="StC-ZC-TrI"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="BGf-GR-Jah" firstAttribute="centerY" secondItem="xvb-PV-3nZ" secondAttribute="centerY" constant="30" id="Dru-d8-4us"/>
+                                    <constraint firstAttribute="width" constant="220" id="Fka-Y7-5XD"/>
+                                    <constraint firstItem="g3w-B0-A0s" firstAttribute="centerX" secondItem="xvb-PV-3nZ" secondAttribute="centerX" id="NFU-mB-2vC"/>
+                                    <constraint firstItem="BGf-GR-Jah" firstAttribute="centerX" secondItem="xvb-PV-3nZ" secondAttribute="centerX" id="hmb-mu-6JV"/>
+                                    <constraint firstItem="g3w-B0-A0s" firstAttribute="centerY" secondItem="xvb-PV-3nZ" secondAttribute="centerY" constant="-20" id="mMG-Jf-WNu"/>
+                                    <constraint firstAttribute="height" constant="128" id="xJy-Ff-hls"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="1wS-1c-kdJ"/>
+                        <constraints>
+                            <constraint firstItem="xvb-PV-3nZ" firstAttribute="centerX" secondItem="nXB-os-pWu" secondAttribute="centerX" id="Ndx-Yj-t9b"/>
+                            <constraint firstItem="xvb-PV-3nZ" firstAttribute="centerY" secondItem="nXB-os-pWu" secondAttribute="centerY" id="oXE-ke-qyB"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="alertTextLabel" destination="BGf-GR-Jah" id="DfA-dx-Kqb"/>
+                        <outlet property="alertView" destination="xvb-PV-3nZ" id="wSh-yE-ppr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0KI-A9-35j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="967" y="75"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="checkmark.circle" catalog="system" width="128" height="121"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

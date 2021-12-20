@@ -8,20 +8,12 @@
 import Foundation
 import UIKit
 struct NetWorkHandler: Codable {
-    static let host = "http://127.0.0.1"
+    static let host = "http://127.0.0.1:8080"
+//    static let host = "http://api.shopshop.synology.me:5050"
 
     
-    static func parseJson<T:Codable>(_ data: Data) -> [T]? {
-        let decode = JSONDecoder()
-        do {
-            return try decode.decode([T].self, from: data)
-        } catch  {
-            print(error.localizedDescription)
-            return nil
-        }
-    }
     
-    static func parseJson<T:Codable>(getOne data: Data) -> T? {
+    static func parseJson<T:Codable>(_ data: Data) -> T? {
         let decode = JSONDecoder()
         do {
             return try decode.decode(T.self, from: data)

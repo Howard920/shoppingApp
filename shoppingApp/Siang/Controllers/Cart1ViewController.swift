@@ -6,9 +6,10 @@
 //
 
 import UIKit
-var orderSiang: OrderSiang!
+
 class Cart1ViewController: UIViewController {
 
+    @IBOutlet weak var noProductLabel: UILabel!
     @IBOutlet weak var loadingView: LoadingView!
     @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -22,15 +23,15 @@ class Cart1ViewController: UIViewController {
         }
     }
     
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayout()
         setRelationship()
         cartSystem.getCart { [unowned self] in
             DispatchQueue.main.async {
+                tableView.reloadData()
                 loadingView.isHidden = true
+                tableView.isHidden = false
                 totalPrice = cartSystem.cart.price
             }
         }
@@ -41,10 +42,14 @@ class Cart1ViewController: UIViewController {
         cartStepView.stepLabels[0].textColor = UIColor.red
         nextStepButton.layer.cornerRadius = 5
         nextStepButton.clipsToBounds = true
+        noProductLabel.isHidden = cartSystem.cart.product_list.count != 0
+        nextStepButton.isEnabled = cartSystem.cart.product_list.count != 0
+        tableView.isHidden = true
     }
     
     private func setRelationship(){
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.register(UINib(nibName: "Cart1TableViewCell", bundle: nil), forCellReuseIdentifier: "Cart1TableViewCell")
     }
     
@@ -56,7 +61,7 @@ class Cart1ViewController: UIViewController {
     }
 }
 
-extension Cart1ViewController: UITableViewDataSource{
+extension Cart1ViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cartSystem.cart.product_list.count
     }
@@ -69,6 +74,10 @@ extension Cart1ViewController: UITableViewDataSource{
         cell.delegate = self
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        Cooperative.goProductVC(rootVC: self, item: cartSystem.cart.product_list[indexPath.row].item)
     }
     
     
@@ -85,11 +94,44 @@ extension Cart1ViewController: Cart1TableViewCellDelegate{
                     DispatchQueue.main.async {
                         tableView.reloadData()
                         totalPrice = cartSystem.cart.price
+                        noProductLabel.isHidden = cartSystem.cart.product_list.count != 0
+                        nextStepButton.isEnabled = cartSystem.cart.product_list.count != 0
                     }
                 }
             }
         }))
-        alertSheetController.addAction(UIAlertAction(title: "移入收藏", style: .default, handler: nil))
+        alertSheetController.addAction(UIAlertAction(title: "移入收藏", style: .default, handler: { [unowned self] action in
+            
+            var productChanged = cartSystem.cart.product_list[row]
+            productChanged.item_count = 0
+            
+            //add item to favorite list
+            let item_id = productChanged.item.item_id
+            if !UserInfo.favoriteList.contains(item_id){
+                UserInfo.favoriteList.append(item_id)
+            }
+            
+            //delete item
+            cartSystem.updateCartProduct(product: productChanged) { [unowned self] error in
+                if error == nil{
+                    DispatchQueue.main.async {
+                        //present alert
+                        let storyboard = UIStoryboard(name: "Alert", bundle: nil)
+                        let myAlert = storyboard.instantiateViewController(withIdentifier: "alert") as! AlertViewController
+                        myAlert.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+                        myAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+                        myAlert.alertText = "加入收藏 ！"
+                        present(myAlert, animated: true, completion: nil)
+                        
+                        tableView.reloadData()
+                        totalPrice = cartSystem.cart.price
+                        noProductLabel.isHidden = cartSystem.cart.product_list.count != 0
+                        nextStepButton.isEnabled = cartSystem.cart.product_list.count != 0
+                    }
+                }
+            }
+            
+        }))
         alertSheetController.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
         present(alertSheetController, animated: true, completion: nil)
         

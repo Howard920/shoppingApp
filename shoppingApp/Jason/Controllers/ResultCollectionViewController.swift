@@ -13,12 +13,18 @@ class ResultCollectionViewController: UICollectionViewController, UICollectionVi
     @IBOutlet weak var cellLayoutBarButton: UIBarButtonItem!
     var userkeywords:String = ""
     var headerText:String = ""
+    var toSearchCategory = false
     // 離線資料集，符合userkeywords的商品
     var resultProductsInfo:[ProductInfo]?
+    
+    
+    deinit {
+        print(userkeywords + "deinit")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         myInit()
-//        fetchDataFromServer()
     }
     
     override func viewDidLayoutSubviews() {
@@ -32,8 +38,17 @@ class ResultCollectionViewController: UICollectionViewController, UICollectionVi
     }
     
     private func fetchDataFromServer(){
-        let path = "/search"
-        let parameter = "?keywords=\(userkeywords)"
+        guard resultProductsInfo == nil else {
+            return
+        }
+        var path = "/search"
+        var parameter = "?keywords=\(userkeywords)"
+
+        if toSearchCategory {
+            path = "/product"
+            parameter = "?category=\(userkeywords)"
+        }
+        
         let apiURL =  NetWorkHandler.host + path + parameter
         guard let url = URL(string: apiURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!) else {return}
         let request = URLRequest(url: url)
@@ -58,9 +73,10 @@ class ResultCollectionViewController: UICollectionViewController, UICollectionVi
                     return
                 }
                 // 存入離線資料集
-                self?.resultProductsInfo = searchResultData.filter({ (productInfo) -> Bool in
-                    return productInfo.name.contains(self!.userkeywords)
-                })
+                self?.resultProductsInfo = searchResultData
+//                self?.resultProductsInfo = searchResultData.filter({ (productInfo) -> Bool in
+//                    return productInfo.name.contains(self!.userkeywords)
+//                })
                 // 設定SectionTitle
                 if let number = self?.resultProductsInfo?.count{
                     self?.headerText = "\(number)個商品符合"

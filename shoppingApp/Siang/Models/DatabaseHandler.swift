@@ -10,9 +10,6 @@ import UIKit
 
 class DatabaseHandler{
     
-    static var member :MemberCodable!
-    static var cart: OrderCodable!
-
     static func parseJson<T:Codable>(_ data: Data) -> T? {
         let decode = JSONDecoder()
         do {
@@ -21,20 +18,6 @@ class DatabaseHandler{
             print("JSON Data:" + String(data: data, encoding: .utf8)!)
             return nil
         }
-    }
-    static func getMember(){
-        let url = URL(string: "http://127.0.0.1:80/getMember?member_id_phone=0900000000")!
-        let request = URLRequest(url: url)
-        
-        let session = URLSession.shared
-        
-        let task = session.dataTask(with: request) { data, response, error in
-            member = parseJson(data!)
-            if member == nil{
-                fatalError("解析使用者失敗")
-            }
-        }
-        task.resume()
     }
     
     static func getProduct(count: Int, _ completionHandler: @escaping ([ItemCodable], [UIImage?])->Void){
@@ -52,7 +35,7 @@ class DatabaseHandler{
             for (index,item) in items.enumerated(){
                 fetchImage(url: item.media_info) { image in
                     images[index] = image
-                    for i in 0...index{
+                    for i in 0...items.count - 1{
                         if images[i] == nil{
                             return
                         }

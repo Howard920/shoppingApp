@@ -36,7 +36,7 @@ class MemberInfoViewController: UIViewController {
                 return
             }
             if let getMeberData = getMeberData {
-                guard let member: Member = NetWorkHandler.parseJson(getOne: getMeberData) else{return}
+                guard let member: Member = NetWorkHandler.parseJson( getMeberData) else{return}
                 self.member = member
                 DispatchQueue.main.async {
                     self.tableView.reloadData()

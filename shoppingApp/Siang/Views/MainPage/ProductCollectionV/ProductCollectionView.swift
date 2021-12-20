@@ -54,6 +54,7 @@ class ProductCollectionView: UIView, NibOwnerLoadable{
         collectionView.dataSource = self
     }
 }
+ //MARK: - UICollectionViewDataSource Methods
 
 extension ProductCollectionView: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -67,7 +68,6 @@ extension ProductCollectionView: UICollectionViewDataSource{
         
         return cell
     }
-    
     
 }
 
