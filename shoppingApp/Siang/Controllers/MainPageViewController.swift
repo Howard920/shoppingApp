@@ -9,6 +9,7 @@ import UIKit
 
 class MainPageViewController: UIViewController {
 
+    @IBOutlet weak var pageScrollView: PageScrollView!
     @IBOutlet weak var loadingView: LoadingView!
     @IBOutlet weak var containerScrollView: UIScrollView!
     @IBOutlet var categoryCollectionViews: [UICollectionView]!
@@ -18,13 +19,18 @@ class MainPageViewController: UIViewController {
     @IBOutlet weak var productCollectionViewHeight: NSLayoutConstraint!
     
     private let fullScreenSize = UIScreen.main.bounds.size
+    private var categoryTitleSelected: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayout()
         setRelationShip()
         loadData()
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.productCollectionView.collectionView.reloadData()
+        self.pageScrollView.scrollView.contentOffset.x = 0
     }
     
     private func setLayout(){
@@ -63,6 +69,7 @@ class MainPageViewController: UIViewController {
         categoryCollectionViews[1].delegate = self
         
         productCollectionView.cellDelegate = self
+        productCollectionView.collectionView.delegate = self
     }
     
     private func loadData(){
@@ -90,20 +97,15 @@ extension MainPageViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath) as! CategoryCell
-        if collectionView == categoryCollectionViews[0]{
-            cell.titleLabel.text = Constants.categories[indexPath.row].title
-            cell.imageView.image = Constants.categories[indexPath.row].image
-        }else{
-            cell.titleLabel.text = Constants.categories[indexPath.row + 10].title
-            cell.imageView.image = Constants.categories[indexPath.row + 10].image
-        }
-        
+        let categoryIndex = collectionView == categoryCollectionViews[0] ? indexPath.row : indexPath.row + 10
+        cell.titleLabel.text = Constants.categories[categoryIndex].title
+        cell.imageView.image = Constants.categories[categoryIndex].image
         
         return cell
     }
 }
 
-//MARK: - UIScrollViewDelegate Methods
+//MARK: - UIPageControl for categoryScrollView
 
 extension MainPageViewController: UIScrollViewDelegate{
     
@@ -121,46 +123,55 @@ extension MainPageViewController: UIScrollViewDelegate{
     }
 }
 
-//MARK: - UICollectionViewDelegate Methods
+//MARK: - To other pages
 
 extension MainPageViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "goToCategory", sender: self)
+        if collectionView == categoryCollectionViews[0] {
+            let cell = categoryCollectionViews[0].cellForItem(at: indexPath) as! CategoryCell
+            categoryTitleSelected = cell.titleLabel.text
+            performSegue(withIdentifier: "goToCategory", sender: self)
+        }else if collectionView == categoryCollectionViews[1]{
+            let cell = categoryCollectionViews[1].cellForItem(at: indexPath) as! CategoryCell
+            categoryTitleSelected = cell.titleLabel.text
+            performSegue(withIdentifier: "goToCategory", sender: self)
+        }else{
+            Cooperative.goProductVC(rootVC: self, item: productCollectionView.itemData[indexPath.row])
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! CategoryProductViewController
-        
-        if let index = categoryCollectionViews[0].indexPathsForSelectedItems?[0]{
-            let cell = categoryCollectionViews[0].cellForItem(at: index) as! CategoryCell
-            destinationVC.navigationItem.title = cell.titleLabel.text
-        }else{
-            let index = categoryCollectionViews[1].indexPathsForSelectedItems![0]
-            let cell = categoryCollectionViews[1].cellForItem(at: index) as! CategoryCell
-            destinationVC.navigationItem.title = cell.titleLabel.text
-        }
-
+        destinationVC.navigationItem.title = categoryTitleSelected
     }
 }
 
-extension MainPageViewController: ProductCellDelegate{
-    
-    func addingToCart() {
+//MARK: - ProductCellDelegate Methods
 
+extension MainPageViewController: ProductCellDelegate{
+
+    func successfullyAddToCart() {
+        presentAlert(title: "    已加入購物車 ！")
     }
     
-    func successfullyAddToCart() {
+    func productAddToFavorite() {
+        presentAlert(title: "加入收藏 ！")
+    }
+    
+    func productDeleteFromFavorite() {
+        presentAlert(title: "取消收藏 ！")
+    }
+    
+    private func presentAlert(title: String){
         DispatchQueue.main.async {
-            let storyboard = UIStoryboard(name: "MainPage", bundle: nil)
-            let myAlert = storyboard.instantiateViewController(withIdentifier: "alert")
+            let storyboard = UIStoryboard(name: "Alert", bundle: nil)
+            let myAlert = storyboard.instantiateViewController(withIdentifier: "alert") as! AlertViewController
             myAlert.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
             myAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+            myAlert.alertText = title
             self.present(myAlert, animated: true, completion: nil)
         }
     }
     
-    func productAddToFavorite(item_id: Int) {
-        
-    }
 }
 

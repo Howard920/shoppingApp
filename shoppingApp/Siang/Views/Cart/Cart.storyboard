@@ -24,7 +24,7 @@
                                     <constraint firstAttribute="height" constant="36" id="SSg-QJ-VLM"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="144" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="X7l-Ex-hmO">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="144" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="X7l-Ex-hmO">
                                 <rect key="frame" x="0.0" y="124" width="390" height="573"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="22A-Jm-I0Q" userLabel="bottomView">
@@ -101,6 +101,12 @@
                                     <constraint firstAttribute="width" constant="60" id="y2o-qi-nQf"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="購物車沒有商品" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aHh-59-dbu">
+                                <rect key="frame" x="113.33333333333333" y="224" width="163.33333333333337" height="27.666666666666657"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -113,9 +119,11 @@
                             <constraint firstItem="22A-Jm-I0Q" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="QHL-iN-qK8"/>
                             <constraint firstItem="22A-Jm-I0Q" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="UBo-2y-kSV"/>
                             <constraint firstItem="22A-Jm-I0Q" firstAttribute="top" secondItem="X7l-Ex-hmO" secondAttribute="bottom" id="V9B-GE-uqS"/>
+                            <constraint firstItem="aHh-59-dbu" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="YsA-XY-E65"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="c64-MH-Rsq" secondAttribute="trailing" id="ZYC-yT-wG8"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="X7l-Ex-hmO" secondAttribute="trailing" id="swb-t7-eFL"/>
                             <constraint firstItem="c64-MH-Rsq" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="vdT-cl-UJp"/>
+                            <constraint firstItem="aHh-59-dbu" firstAttribute="top" secondItem="c64-MH-Rsq" secondAttribute="bottom" constant="100" id="vs2-S9-gT7"/>
                             <constraint firstItem="X7l-Ex-hmO" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="yI5-ds-rCy"/>
                         </constraints>
                     </view>
@@ -130,6 +138,7 @@
                         <outlet property="cartStepView" destination="c64-MH-Rsq" id="Aus-3u-DeD"/>
                         <outlet property="loadingView" destination="OHK-fD-ZdN" id="oOk-2M-1gt"/>
                         <outlet property="nextStepButton" destination="S0u-J4-zmf" id="xQ1-AS-N7R"/>
+                        <outlet property="noProductLabel" destination="aHh-59-dbu" id="vyR-zM-Cwt"/>
                         <outlet property="tableView" destination="X7l-Ex-hmO" id="xYv-RF-iyy"/>
                         <outlet property="totalPriceLabel" destination="guU-gj-cNA" id="OeH-rK-nrX"/>
                         <segue destination="VPO-I3-Zex" kind="show" identifier="toStep2" id="FON-cF-h3Q"/>
@@ -311,14 +320,28 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vxv-QA-n2Y">
                                                         <rect key="frame" x="0.0" y="0.0" width="350" height="50"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="姓名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hq2-tk-krl">
-                                                                <rect key="frame" x="15.000000000000002" y="0.0" width="26.666666666666671" height="50"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                                <nil key="textColor"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hq2-tk-krl">
+                                                                <rect key="frame" x="15" y="0.0" width="32.666666666666664" height="50"/>
+                                                                <attributedString key="attributedText">
+                                                                    <fragment content="*">
+                                                                        <attributes>
+                                                                            <color key="NSColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <font key="NSFont" size="13" name=".PingFangTC-Regular"/>
+                                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                        </attributes>
+                                                                    </fragment>
+                                                                    <fragment content="姓名">
+                                                                        <attributes>
+                                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <font key="NSFont" size="13" name=".PingFangTC-Regular"/>
+                                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                        </attributes>
+                                                                    </fragment>
+                                                                </attributedString>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="請輸入真實姓名" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cmu-aR-jdU">
-                                                                <rect key="frame" x="71.666666666666657" y="0.0" width="278.33333333333337" height="50"/>
+                                                                <rect key="frame" x="77.666666666666657" y="0.0" width="272.33333333333337" height="50"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
@@ -337,16 +360,30 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sxI-rn-Big">
                                                         <rect key="frame" x="0.0" y="50" width="350" height="50"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="手機" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CDp-Qn-7my">
-                                                                <rect key="frame" x="15.000000000000002" y="0.0" width="28.666666666666671" height="50"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                <nil key="textColor"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CDp-Qn-7my">
+                                                                <rect key="frame" x="15" y="0.0" width="35" height="50"/>
+                                                                <attributedString key="attributedText">
+                                                                    <fragment content="*">
+                                                                        <attributes>
+                                                                            <color key="NSColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <font key="NSFont" size="14" name=".PingFangTC-Regular"/>
+                                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                        </attributes>
+                                                                    </fragment>
+                                                                    <fragment content="手機">
+                                                                        <attributes>
+                                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <font key="NSFont" size="14" name=".PingFangTC-Regular"/>
+                                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                        </attributes>
+                                                                    </fragment>
+                                                                </attributedString>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="輸入有效手機號碼" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6em-cw-5dT">
-                                                                <rect key="frame" x="73.666666666666657" y="0.0" width="276.33333333333337" height="50"/>
+                                                                <rect key="frame" x="80" y="0.0" width="270" height="50"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                <textInputTraits key="textInputTraits"/>
+                                                                <textInputTraits key="textInputTraits" keyboardType="phonePad" smartInsertDeleteType="yes" textContentType="tel"/>
                                                             </textField>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -364,14 +401,28 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="suR-HF-Bep">
                                                         <rect key="frame" x="0.0" y="100" width="350" height="50"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地址" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QNg-oa-eKW">
-                                                                <rect key="frame" x="15.000000000000002" y="0.0" width="26.666666666666671" height="50"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                                <nil key="textColor"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QNg-oa-eKW">
+                                                                <rect key="frame" x="15" y="0.0" width="32.666666666666664" height="50"/>
+                                                                <attributedString key="attributedText">
+                                                                    <fragment content="*">
+                                                                        <attributes>
+                                                                            <color key="NSColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <font key="NSFont" size="13" name=".PingFangTC-Regular"/>
+                                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                        </attributes>
+                                                                    </fragment>
+                                                                    <fragment content="地址">
+                                                                        <attributes>
+                                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <font key="NSFont" size="13" name=".PingFangTC-Regular"/>
+                                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                        </attributes>
+                                                                    </fragment>
+                                                                </attributedString>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="請輸入寄送地址" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dg7-Qi-TjD">
-                                                                <rect key="frame" x="71.666666666666657" y="0.0" width="278.33333333333337" height="50"/>
+                                                                <rect key="frame" x="77.666666666666657" y="0.0" width="272.33333333333337" height="50"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>

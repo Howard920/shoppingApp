@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct MemberCodable: Codable{
     var member_id_phone: String
     var password: String
@@ -53,4 +52,16 @@ struct ItemCodable: Codable{
     var detail: [String:String]
     var vendor_id: Int
     var media_info: URL
+}
+
+enum Payment: String, CaseIterable, Codable{
+    case cash_on_delivery_convenice_store = "超商取貨付款"
+    case apple_pay = "Apple Pay"
+    case credit_card = "信用卡一次付清"
+}
+
+enum Shipment: String, CaseIterable, Codable{
+    case seven_eleven = "7-11取貨"
+    case family_mart = "全家取貨"
+    case home_delivery = "宅配"
 }

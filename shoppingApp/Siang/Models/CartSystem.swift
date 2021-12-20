@@ -20,7 +20,7 @@ class CartSystem{
         let item_id = product.item.item_id
         let item_count = product.item_count
         
-        let url = URL(string: "\(NetWorkHandler.host)/order_product?order_id=\(order_id)&item_id=\(item_id)&item_count=\(item_count)")!
+        let url = URL(string: "http://127.0.0.1:80/order_product?order_id=\(order_id)&item_id=\(item_id)&item_count=\(item_count)")!
         let request = URLRequest(url: url)//待更改
         let task = URLSession.shared.dataTask(with: request) {[unowned self] data, response, error in
             getCart {
@@ -34,7 +34,7 @@ class CartSystem{
     func updateCart(shipment: Shipment?, payment:Payment?, completionHandler: @escaping (Error?)->Void){
         let order_id = cart.order_id
         if shipment != nil{
-            let encodingStr = "\(NetWorkHandler.host)/updateOrder?order_id=\(order_id)&shipment=\(shipment!.rawValue)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            let encodingStr = "http://127.0.0.1:80/updateOrder?order_id=\(order_id)&shipment=\(shipment!.rawValue)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
             let url = URL(string: encodingStr!)!
             let request = URLRequest(url: url)//待更改
             let task = URLSession.shared.dataTask(with: request) {[unowned self] data, response, error in
@@ -46,7 +46,7 @@ class CartSystem{
         }
         
         if payment != nil{
-            let encodingStr = "\(NetWorkHandler.host)/updateOrder?order_id=\(order_id)&payment=\(payment!.rawValue)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            let encodingStr = "http://127.0.0.1:80/updateOrder?order_id=\(order_id)&payment=\(payment!.rawValue)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
             let url = URL(string: encodingStr!)!
             let request = URLRequest(url: url)//待更改
             let task = URLSession.shared.dataTask(with: request) {[unowned self] data, response, error in
@@ -64,9 +64,9 @@ class CartSystem{
         formatter.dateFormat = "yyyy-MM-dd-HH-mm"
         let dateStr = formatter.string(from: Date())
         if mail != nil{
-            encodingStr = "\(NetWorkHandler.host)/updateOrder?order_id=\(cart.order_id)&date=\(dateStr)&name=\(name)&phone=\(phone)&address=\(address)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+            encodingStr = "http://127.0.0.1:80/updateOrder?order_id=\(cart.order_id)&date=\(dateStr)&name=\(name)&phone=\(phone)&address=\(address)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         }else{
-            encodingStr = "\(NetWorkHandler.host)/updateOrder?order_id=\(cart.order_id)date=\(dateStr)&name=\(name)&phone=\(phone)&address=\(address)&mail=\(mail!)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+            encodingStr = "http://127.0.0.1:80/updateOrder?order_id=\(cart.order_id)date=\(dateStr)&name=\(name)&phone=\(phone)&address=\(address)&mail=\(mail!)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         }
         let url = URL(string: encodingStr)!
         let request = URLRequest(url: url)//待更改
@@ -83,7 +83,7 @@ class CartSystem{
     }
     
     func newCart(completionHandler: @escaping ()->Void){
-        let url = URL(string: "\(NetWorkHandler.host)/newCart?member_id_phone=0900000000")!
+        let url = URL(string: "http://127.0.0.1:80/newCart?member_id_phone=\(UserInfo.member_id_phone)")!
         let request = URLRequest(url: url)//待更改
         let task = URLSession.shared.dataTask(with: request) {[unowned self] data, response, error in
             getCart {
@@ -94,12 +94,16 @@ class CartSystem{
     }
     
     func getCart(completionHandler: @escaping ()->Void){
-        let url = URL(string: "\(NetWorkHandler.host)/getCart?member_id_phone=0900000000")!
+        let url = URL(string: "http://127.0.0.1:80/getCart?member_id_phone=\(UserInfo.member_id_phone)")!
         let request = URLRequest(url: url)
         
         let session = URLSession.shared
         
         let task = session.dataTask(with: request) { [unowned self] data, response, error in
+//            guard let newCart = DatabaseHandler.parseJson(data!) as OrderCodable? else{
+//                fatalError()
+//            }
+            
             self.cart = DatabaseHandler.parseJson(data!)
             if self.cart == nil{
                 fatalError("開啟購物車失敗")
@@ -111,7 +115,7 @@ class CartSystem{
             for (index,product) in cart.product_list.enumerated(){
                 DatabaseHandler.fetchImage(url: product.item.media_info) { image in
                     productImages[index] = image
-                    for i in 0...index{
+                    for i in 0...cart.product_list.count - 1{
                         if productImages[i] == nil{
                             return
                         }

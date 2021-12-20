@@ -55,7 +55,10 @@
                                             <constraint firstAttribute="width" constant="35" id="2lN-oG-prg"/>
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" image="heart" catalog="system"/>
+                                        <state key="normal" image="heart.fill" catalog="system"/>
+                                        <connections>
+                                            <action selector="favoriteButtonPressed:" destination="gTV-IL-0wX" eventType="touchUpInside" id="bkK-i2-xiu"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -85,6 +88,8 @@
             </constraints>
             <size key="customSize" width="175" height="293"/>
             <connections>
+                <outlet property="cartButton" destination="CKT-Wz-RgS" id="poH-Tp-GdY"/>
+                <outlet property="favoiteButton" destination="09I-Ml-UmT" id="nVP-vi-xYJ"/>
                 <outlet property="imageView" destination="woE-NI-8Lr" id="dyI-ho-6re"/>
                 <outlet property="priceLabel" destination="H2Q-6e-mXo" id="0Yw-HL-HCx"/>
                 <outlet property="titleLabel" destination="cp6-W7-ZMB" id="LWU-uW-qY2"/>
@@ -94,7 +99,7 @@
     </objects>
     <resources>
         <image name="cart" catalog="system" width="128" height="102"/>
-        <image name="heart" catalog="system" width="128" height="109"/>
+        <image name="heart.fill" catalog="system" width="128" height="109"/>
         <image name="productSample" width="640" height="640"/>
     </resources>
 </document>
