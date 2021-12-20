@@ -302,8 +302,8 @@
 		B0AE72002770582F00440D8F /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				B0AE72012770582F00440D8F /* LoadingView */,
 				B0AE72042770582F00440D8F /* Alert.storyboard */,
+				B0AE72012770582F00440D8F /* LoadingView */,
 				B0AE72052770582F00440D8F /* MainPage */,
 				B0AE72132770582F00440D8F /* Cart */,
 			);

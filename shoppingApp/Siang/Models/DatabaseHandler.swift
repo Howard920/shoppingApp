@@ -21,7 +21,7 @@ class DatabaseHandler{
     }
     
     static func getProduct(count: Int, _ completionHandler: @escaping ([ItemCodable], [UIImage?])->Void){
-        let url = URL(string: "http://127.0.0.1:80/product?count=\(count)")!
+        let url = URL(string: "http://127.0.0.1:8080/product?count=\(count)")!
         let request = URLRequest(url: url)
         
         let session = URLSession.shared
@@ -49,7 +49,7 @@ class DatabaseHandler{
     }
     
     static func getProduct(category: String, count: Int, _ completionHandler: @escaping ([ItemCodable], [UIImage?])->Void){
-        let encodingStr = "http://127.0.0.1:80/product?count=\(count)&category=\(category)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        let encodingStr = "http://127.0.0.1:8080/product?count=\(count)&category=\(category)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         let url = URL(string: encodingStr!)!
 
         let request = URLRequest(url: url)
