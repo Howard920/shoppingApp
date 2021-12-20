@@ -22,7 +22,7 @@ class Common {
         return boundingBox
     }
     
-    static func autoDisapperAlert(_ controller: UIViewController, message: String , duration: Double = 0.5){
+    static func autoDisapperAlert(_ controller: UIViewController, message: String , duration: Double = 0.35){
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         controller.present(alert, animated: true) {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + duration) { [weak controller] in

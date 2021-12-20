@@ -10,6 +10,7 @@ import UIKit
 class AlertViewController: UIViewController {
 
     @IBOutlet weak var alertView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         alertView.layer.cornerRadius = 15

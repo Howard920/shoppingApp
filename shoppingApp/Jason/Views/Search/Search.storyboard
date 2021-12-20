@@ -43,7 +43,7 @@
         <!--Result Collection View Controller-->
         <scene sceneID="Lq4-eg-rfq">
             <objects>
-                <collectionViewController id="nEj-xk-Lhr" customClass="ResultCollectionViewController" customModule="shoppingApp" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="ResultCollectionViewController" id="nEj-xk-Lhr" customClass="ResultCollectionViewController" customModule="shoppingApp" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="thz-4D-wK6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -216,7 +216,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="商品介紹" id="6dj-V7-IlR">
-                        <barButtonItem key="rightBarButtonItem" image="square.and.arrow.up" catalog="system" id="y5p-ex-x1p"/>
+                        <barButtonItem key="rightBarButtonItem" image="square.and.arrow.up" catalog="system" id="y5p-ex-x1p">
+                            <connections>
+                                <action selector="didTapButton:" destination="jKy-g0-3hl" id="F1k-yO-HgY"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -228,6 +232,7 @@
                         <outlet property="productPriceLabel" destination="pYS-0p-9cD" id="VJo-oq-s3n"/>
                         <outlet property="productQuantity" destination="UDE-Fw-vAw" id="55r-zr-BgH"/>
                         <outlet property="productTitleLabel" destination="Ul0-R5-jNU" id="43G-yv-Y7w"/>
+                        <outlet property="shareButton" destination="y5p-ex-x1p" id="fxX-cs-hIp"/>
                         <outlet property="tableView" destination="1cQ-I6-F2b" id="rXg-W3-lSv"/>
                     </connections>
                 </viewController>

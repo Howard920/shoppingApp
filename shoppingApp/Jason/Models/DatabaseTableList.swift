@@ -7,6 +7,10 @@
 
 import Foundation
 
+struct CategoryTags: Codable{
+    var name: [String]
+}
+
 struct PopularKeywords: Codable{
     var name: String
     var count: Int

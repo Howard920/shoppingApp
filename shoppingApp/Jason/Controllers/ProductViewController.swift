@@ -9,6 +9,7 @@ import UIKit
 
 class ProductViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var shareButton: UIBarButtonItem!
     @IBOutlet weak var addToCartButton: UIButton!
     @IBOutlet weak var checkOutButton: UIButton!
     @IBOutlet weak var cartButton: UIButton!
@@ -20,8 +21,9 @@ class ProductViewController: UIViewController {
     
     var selectedProduct:ProductInfo?
     var productImage: UIImage?
-    
-  
+    var categoryTags: CategoryTags?
+    var popularItems: [ProductInfo]?
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         myInit()
@@ -31,15 +33,14 @@ class ProductViewController: UIViewController {
         super.viewWillAppear(animated)
         // hide tab bar
         self.tabBarController?.tabBar.isHidden = true
-        // set labelCellTitle
-        SearchPage.labelCellWords = SearchPage.productWords
+        fetchDataFromServer()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         // show tab bar
         super.viewWillDisappear(animated)
         self.tabBarController?.tabBar.isHidden = false
-        if let vc = navigationController!.viewControllers[1] as? ResultCollectionViewController {
+        if navigationController!.viewControllers.count >= 2, let vc = navigationController!.viewControllers[1] as? ResultCollectionViewController {
             vc.collectionView.reloadData()
         }
         
@@ -54,6 +55,7 @@ class ProductViewController: UIViewController {
         checkOutButton.tag = 1
         cartButton.tag = 2
         productIsLikeButton.tag = 3
+        shareButton.tag = 4
         
         // register cell
         tableView.register(ProductTableViewCell.nib(), forCellReuseIdentifier: ProductTableViewCell.identifier)
@@ -85,7 +87,7 @@ class ProductViewController: UIViewController {
            let url = URL(string: urlStr)  {
             let imageURL = url
             let imageLoader = ImageLoader()
-
+            
             imageLoader.loadImage(at: imageURL) { result in
                 switch result {
                 case .success(let image):
@@ -121,6 +123,11 @@ class ProductViewController: UIViewController {
         if let cartVC = UIStoryboard(name: "Cart", bundle: nil).instantiateViewController(withIdentifier: "Cart") as? UINavigationController {
             // 設定為全螢幕模式
             cartVC.modalPresentationStyle = .fullScreen
+            // 將商品傳送至購物車頁
+            let item: ItemCodable = ItemCodable.init(item_id: selectedProduct!.item_id, name: selectedProduct!.name, price: selectedProduct!.price, quantity: selectedProduct!.quantity ?? 0, detail: selectedProduct!.detail ?? [:], vendor_id: selectedProduct!.vendor_id ?? 0, media_info: URL(string:selectedProduct?.media_info ?? "")!)
+            let orderProduct = OrderProduct(item_count: 0, item: item)
+            cartSystem.updateCartProduct(product: orderProduct) { (_) in
+            }
             // 開啟購物車畫面
             present(cartVC, animated: true, completion: nil)
         }
@@ -177,6 +184,12 @@ class ProductViewController: UIViewController {
                 sender.setImage(UIImage(systemName: "heart"), for: .normal)
             }
             
+        case 4: // share
+            let shareVC = UIActivityViewController(activityItems: [
+                productPictureImageView.image, selectedProduct?.name
+            ],
+            applicationActivities: nil)
+            present(shareVC, animated: true, completion: nil)
         default:
             break
         }
@@ -197,6 +210,23 @@ extension ProductViewController: UITableViewDelegate, UITableViewDataSource{
         return 1
         
     }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 3:
+            return "你可能喜歡的商品："
+        default:
+            return ""
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch section {
+        case 3:
+            return 50
+        default:
+            return 0
+        }
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
@@ -214,7 +244,7 @@ extension ProductViewController: UITableViewDelegate, UITableViewDataSource{
             var detailText:String = ""
             if let detail = selectedProduct?.detail{
                 for (key, value) in detail{
-//                    print(key, value, "\n")
+                    //                    print(key, value, "\n")
                     detailText += key + ": "
                     detailText += value + "\n"
                 }
@@ -225,7 +255,7 @@ extension ProductViewController: UITableViewDelegate, UITableViewDataSource{
             return cell
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: EmbedProductInTableViewCell.identifier, for: indexPath) as! EmbedProductInTableViewCell
-
+            
             cell.showAnotherProduct = { [weak self] product in
                 if let productVC = UIStoryboard(name: "Search", bundle: nil).instantiateViewController(withIdentifier: "ProductViewController") as? ProductViewController {
                     // 設定為全螢幕模式
@@ -249,7 +279,7 @@ extension ProductViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 1 {
-
+            
             return 150
         } else if indexPath.section == 3 {
             return 550
@@ -257,9 +287,59 @@ extension ProductViewController: UITableViewDelegate, UITableViewDataSource{
             return UITableView.automaticDimension
         }
     }
+    
+    private func fetchDataFromServer(){
+        guard categoryTags == nil else {
+            SearchPage.labelCellWords = categoryTags!.name
+            return
+        }
+        let path = "/getProductCategories"
+        guard let item_id = selectedProduct?.item_id else{return}
+        let parameter = "?item_id=\(item_id)"
+        let apiURL =  NetWorkHandler.host + path + parameter
+        guard let url = URL(string: apiURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!) else {return}
+        let request = URLRequest(url: url)
+        
+        URLSession.shared.dataTask(with: request) { [weak self] (tagData, response, error) in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            if let tagData = tagData {
+                guard let tags: CategoryTags = NetWorkHandler.parseJson(tagData) else{
+                    return
+                }
+                // 存入離線資料集
+                self?.categoryTags = tags
+                // 更新tags
+                if let cellWords = self?.categoryTags?.name{
+                    SearchPage.labelCellWords = cellWords
+                    DispatchQueue.main.async {
+                        if let cell = self?.tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? EmbedCollectionViewTableViewCell {
+                            cell.collectionView.reloadData()
+                        }
+                    }
+                }
+               
+            } else { Common.autoDisapperAlert(self!, message: "無法取得資料", duration: 1)}
+        }.resume()
+        
+    }
+    
 }
 extension ProductViewController: EmbedCollectionViewTableViewCellDelegae{
     func didTap(_ keyword: String) {
-        print(keyword)
+        if let productVC = UIStoryboard(name: "Search", bundle: nil).instantiateViewController(withIdentifier: "ResultCollectionViewController") as? ResultCollectionViewController {
+            // 設定為全螢幕模式
+            productVC.modalPresentationStyle = .fullScreen
+            // 傳入商品分類關鍵字
+            productVC.userkeywords = keyword
+            // 開啟從商品分類資料庫找商品
+            productVC.toSearchCategory = true
+            // 更改title
+            productVC.title = "搜尋： \(keyword)"
+            // 開啟商品畫面
+            self.navigationController?.pushViewController(productVC, animated: true)
+        }
     }
 }
