@@ -27,11 +27,11 @@ class BuyListCollectionViewController: UICollectionViewController {
         
         collectionView!.register(BuyListInfoCellCollectionViewCell.nib(), forCellWithReuseIdentifier: BuyListInfoCellCollectionViewCell.identifier)
         // 向Server拿member資料
-        loadDataFromServer()
+        fetchDataFromServer()
     }
     
     
-    private func loadDataFromServer(){
+    private func fetchDataFromServer(){
         let path = "/getOrder"
         let parameter = "?member_id_phone=\(UserInfo.member_id_phone)"
         let apiURL =  NetWorkHandler.host + path + parameter

@@ -62,31 +62,44 @@ class LoginRegisterViewController: UIViewController {
                 return
             }
             if let registerData = registerData {
-                let msg = String(data: registerData, encoding: .utf8)!
-                switch msg {
-                case "註冊成功", "登入成功":
-                    DispatchQueue.main.async {
-                        //                    UserInfo.isLogin = true
-                        // 使用者帳號寫入離線資料
-                        UserInfo.member_id_phone = self.phoneTextField.text!
-                        let alert = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
-                        let action = UIAlertAction(title: "OK", style: .default) { (_) in
-                            self.navigationController?.popToRootViewController(animated: true)
+                
+                guard let member: Member = NetWorkHandler.parseJson(registerData) else {
+                    let msg = String(data: registerData, encoding: .utf8)!
+                    
+                    switch msg {
+                    case "註冊成功":
+                        self.saveMemberInfo(msg)
+                    default:
+                        DispatchQueue.main.async {
+                            Common.autoDisapperAlert(self, message: msg, duration: 1)
                         }
-                        alert.addAction(action)
-                        self.present(alert, animated: true, completion: nil)
+                        
                     }
-                default:
-                    DispatchQueue.main.async {
-                        Common.autoDisapperAlert(self, message: msg, duration: 1)
-                    }
+                    return
                 }
+                self.saveMemberInfo("登入成功", member)
             }
-            
         }.resume()
     }
     
-    
+    private func saveMemberInfo(_ msg:String, _ info: Member?=nil){
+        DispatchQueue.main.async {
+            // 使用者帳號寫入離線資料
+            if let member = info {
+                Common.member = member
+                UserInfo.favoriteList = member.like_list ?? []
+            } else {
+                UserInfo.member_id_phone = self.phoneTextField.text!
+                Common.member = Member(member_id_phone: self.phoneTextField.text!, password: self.passwordTextField.text!)
+            }
+            let alert = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .default) { (_) in
+                self.navigationController?.popToRootViewController(animated: true)
+            }
+            alert.addAction(action)
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
 }
 
 extension LoginRegisterViewController: UITextFieldDelegate{

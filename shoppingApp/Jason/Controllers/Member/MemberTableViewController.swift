@@ -81,9 +81,9 @@ class MemberTableViewController: UITableViewController {
                 if UserInfo.isLogin {
                     let alert = UIAlertController(title: "", message: "您確定要登出？", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
+                        // 清空member內容
+                        Common.member = nil
                         UserInfo.member_id_phone = ""
-//                        UserInfo.isLogin = false
-                        print(UserInfo.isLogin)
                         tableView.reloadData()
                     }
                     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)

@@ -19,30 +19,11 @@ class MemberInfoViewController: UIViewController {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.register(UINib(nibName: "MemberInfo", bundle: nil), forCellReuseIdentifier: "MemberInfo")
-        // 向Server拿member資料
-        loadDataFromServer()
-    }
-    
-    private func loadDataFromServer(){
-        let path = "/getMember"
-        let parameter = "?member_id_phone=\(UserInfo.member_id_phone)"
-        let apiURL =  NetWorkHandler.host + path + parameter
-        let url = URL(string: apiURL)!
-        let request = URLRequest(url: url)
-
-        URLSession.shared.dataTask(with: request) {  (getMeberData, response, error) in
-            if let error = error {
-                print(error.localizedDescription)
-                return
-            }
-            if let getMeberData = getMeberData {
-                guard let member: Member = NetWorkHandler.parseJson( getMeberData) else{return}
-                self.member = member
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            }
-        }.resume()
+       
+        guard let member = Common.member else {
+        return
+        }
+        self.member = member
     }
     
     @IBAction func confirmClick(_ sender: UIButton) {
@@ -84,8 +65,14 @@ class MemberInfoViewController: UIViewController {
                     return
                     
                 }
+                // 更新member
+                Common.member?.name = self.name
+                Common.member?.gender = self.gender
+                Common.member?.birthday = self.birthday
+                Common.member?.address = self.address
+
                 DispatchQueue.main.async {
-                    UserInfo.isLogin = true
+                    
                     let alert = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
                     let action = UIAlertAction(title: "OK", style: .default) { (_) in
                         self.navigationController?.popToRootViewController(animated: true)
