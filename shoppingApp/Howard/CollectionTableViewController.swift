@@ -47,17 +47,17 @@ class CollectionTableViewController: UITableViewController
             (keywordsSearchData,response,error)
             in
             if let keywordsSearchData = keywordsSearchData {
-                guard let searchResultData: [ProductInfo] = NetWorkHandler.parseJson(keywordsSearchData)
-                else{
-                    return
-                }
+                
+                let searchResultData: [ProductInfo]? = NetWorkHandler.parseJson(keywordsSearchData)
+               
                 
                 self.resultProductsInfo = searchResultData
-                print("resultProduct: \(self.resultProductsInfo!)")
                 DispatchQueue.main.async
                 {
                     self.tableview.reloadData()
                 }
+                print("resultProduct: \(self.resultProductsInfo!)")
+                
             }
             print("I finish request to server")
             
@@ -131,8 +131,14 @@ class CollectionTableViewController: UITableViewController
 extension CollectionTableViewController: CellDelegate{
     
     func buyItem(id: Int) {
-        let row = favoriteSystem.favoriteList.firstIndex(of: id)!
-        let item = resultProductsInfo![row]
+//        let row = favoriteSystem.favoriteList.firstIndex(of: id)!
+        var item: ProductInfo!
+        for product in resultProductsInfo!{
+            if product.item_id == id{
+                item = product
+            }
+        }
+        
         
         cartSystem.updateCartProduct(product: OrderProduct(add_time: Date.get_add_time(), item_count: 1, item: ItemCodable(item_id: item.item_id, name: item.name, price: item.price, quantity: item.quantity!, detail: item.detail!, vendor_id: item.vendor_id!, media_info: URL(string: item.media_info!)!))) {
             error
@@ -144,11 +150,11 @@ extension CollectionTableViewController: CellDelegate{
     func deleteItem(id: Int)
     {
         let row = favoriteSystem.favoriteList.firstIndex(of: id)!
-        resultProductsInfo?.remove(at: row)
         favoriteSystem.favoriteList.remove(at: row)
+        loadData()
         DispatchQueue.main.async
         {
-            self.tableview.deleteRows(at: [IndexPath(row: row, section: 0)], with: .automatic)
+//            self.tableview.deleteRows(at: [IndexPath(row: row, section: 0)], with: .automatic)
         }
         
     }
