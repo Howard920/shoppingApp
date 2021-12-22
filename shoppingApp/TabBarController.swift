@@ -9,18 +9,15 @@ import UIKit
 
 class TabBarController: UITabBarController, UITabBarControllerDelegate {
 
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
         // Do any additional setup after loading the view.
     }
     
-    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool
-    {
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         
-        if viewController.restorationIdentifier == "Cart"
-        {
+        if viewController.restorationIdentifier == "Cart"{
             
             let storyboard = UIStoryboard(name: "Cart", bundle: nil)
             let controller = storyboard.instantiateViewController(withIdentifier: "Cart")

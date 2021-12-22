@@ -10,6 +10,7 @@ import UIKit
 protocol cellDelegate
 {
     func deleteItem(row:Int)
+    func buyItem(row:Int)
 }
 
 class CollectionTableViewCell: UITableViewCell
@@ -30,12 +31,29 @@ class CollectionTableViewCell: UITableViewCell
     var row:Int!
     var delegate:cellDelegate!
     
-    
-    @IBAction func btn_cancelProduct(_ sender: UIButton) {
-        delegate.deleteItem(row: row)
+    @IBAction func btn_shop(_ sender: UIButton)
+    {
+        delegate.buyItem(row: row)
     }
     
+    @IBAction func btn_cancelProduct(_ sender: UIButton)
+    {
+        delegate.deleteItem(row: row)
+
+        
+    }
     
+    @IBAction func btn_cart(_ sender: UIButton)
+    {
+        
+//        print(UserInfo.cartList)
+        if !UserInfo.cartList.contains(1)
+        {
+            UserInfo.cartList.append(1)
+            print(UserInfo.cartList)
+        }
+
+    }
     
     override func awakeFromNib()
     {

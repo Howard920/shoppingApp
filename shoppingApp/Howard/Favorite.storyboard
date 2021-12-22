@@ -4,15 +4,14 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Favorite-->
+        <!--我的收藏-->
         <scene sceneID="NL9-Py-wCj">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QYA-Jh-rre" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Favorite" image="heart.circle.fill" catalog="system" id="lxb-pr-XeA"/>
+                    <tabBarItem key="tabBarItem" title="我的收藏" image="heart.circle.fill" catalog="system" id="lxb-pr-XeA"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Cfn-kv-qDw">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -31,10 +30,10 @@
         <scene sceneID="peT-bj-P0q">
             <objects>
                 <tableViewController id="GRf-u1-hbe" customClass="CollectionTableViewController" customModule="shoppingApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="QWi-wf-ycf">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="QWi-wf-ycf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.99576050039999997" green="0.64211738110000005" blue="0.14701929690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="datacell" rowHeight="130" id="wDt-wu-j6Y" customClass="CollectionTableViewCell" customModule="shoppingApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44.5" width="414" height="130"/>
@@ -86,49 +85,47 @@
                                                 </label>
                                             </subviews>
                                         </stackView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8lV-5c-1vK" userLabel="cart">
-                                            <rect key="frame" x="349" y="88.5" width="45" height="30"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="30" id="0tR-kQ-IVW"/>
-                                                <constraint firstAttribute="width" constant="45" id="iUe-9D-0C3"/>
-                                            </constraints>
-                                            <color key="tintColor" name="AccentColor"/>
-                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                            <state key="normal" backgroundImage="cart.circle" catalog="system">
-                                                <attributedString key="attributedTitle"/>
-                                            </state>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                    <integer key="value" value="6"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3yc-m8-dDk">
-                                            <rect key="frame" x="363" y="25" width="16" height="16"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="16" id="PAL-4J-Ym1"/>
-                                                <constraint firstAttribute="width" constant="16" id="R9T-qy-4UR"/>
-                                            </constraints>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3yc-m8-dDk">
+                                            <rect key="frame" x="366" y="11" width="16" height="16"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="plain" title="">
                                                 <backgroundConfiguration key="background" image="close"/>
                                             </buttonConfiguration>
                                             <connections>
-                                                <action selector="btn_cancelProduct:" destination="wDt-wu-j6Y" eventType="touchUpInside" id="ZxK-eY-OlA"/>
+                                                <action selector="btn_cancelProduct:" destination="wDt-wu-j6Y" eventType="touchUpInside" id="K5T-8P-In8"/>
+                                                <action selector="btn_cancelProduct:" destination="GRf-u1-hbe" eventType="touchUpInside" id="m2J-hb-v6K"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8lV-5c-1vK" userLabel="cart">
+                                            <rect key="frame" x="340" y="75.5" width="42" height="28.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="42" id="CZF-sd-2kn"/>
+                                                <constraint firstAttribute="height" constant="29.5" id="bPI-PZ-nr6"/>
+                                            </constraints>
+                                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" backgroundImage="cart.circle" catalog="system"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="6"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="btn_cart:" destination="wDt-wu-j6Y" eventType="touchUpInside" id="uVP-Wo-fcu"/>
+                                                <action selector="btn_shop:" destination="wDt-wu-j6Y" eventType="touchUpInside" id="O66-0Z-TfP"/>
                                             </connections>
                                         </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="tD5-vD-BF3" firstAttribute="leading" secondItem="VTl-Ip-pti" secondAttribute="trailing" constant="8" symbolic="YES" id="5ZK-Cj-6SH"/>
-                                        <constraint firstItem="8lV-5c-1vK" firstAttribute="top" secondItem="afn-aB-fcc" secondAttribute="topMargin" constant="77" id="7hT-j6-uGP"/>
-                                        <constraint firstItem="8lV-5c-1vK" firstAttribute="bottom" secondItem="afn-aB-fcc" secondAttribute="bottomMargin" id="9WH-k6-lls"/>
+                                        <constraint firstItem="8lV-5c-1vK" firstAttribute="top" secondItem="afn-aB-fcc" secondAttribute="topMargin" constant="64" id="7hT-j6-uGP"/>
+                                        <constraint firstItem="8lV-5c-1vK" firstAttribute="bottom" secondItem="afn-aB-fcc" secondAttribute="bottomMargin" constant="-14.5" id="9WH-k6-lls"/>
                                         <constraint firstItem="tD5-vD-BF3" firstAttribute="leading" secondItem="afn-aB-fcc" secondAttribute="leading" constant="108" id="KwY-ga-8fy"/>
                                         <constraint firstItem="tD5-vD-BF3" firstAttribute="centerY" secondItem="VTl-Ip-pti" secondAttribute="centerY" id="MXD-q0-PcO"/>
-                                        <constraint firstItem="8lV-5c-1vK" firstAttribute="trailing" secondItem="afn-aB-fcc" secondAttribute="trailingMargin" id="Q3W-1H-0RU"/>
-                                        <constraint firstItem="3yc-m8-dDk" firstAttribute="trailing" secondItem="afn-aB-fcc" secondAttribute="trailingMargin" constant="-15" id="f9r-xg-fYe"/>
+                                        <constraint firstItem="8lV-5c-1vK" firstAttribute="trailing" secondItem="afn-aB-fcc" secondAttribute="trailingMargin" constant="-12" id="Q3W-1H-0RU"/>
                                         <constraint firstItem="8lV-5c-1vK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tD5-vD-BF3" secondAttribute="trailing" constant="8" symbolic="YES" id="hS4-e3-1vz"/>
                                         <constraint firstItem="tD5-vD-BF3" firstAttribute="centerY" secondItem="afn-aB-fcc" secondAttribute="centerY" id="j1l-8c-WQJ"/>
-                                        <constraint firstItem="3yc-m8-dDk" firstAttribute="top" secondItem="afn-aB-fcc" secondAttribute="topMargin" constant="14" id="lUR-c4-C9u"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -140,26 +137,23 @@
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="GRf-u1-hbe" id="daO-i2-mSt"/>
-                            <outlet property="delegate" destination="GRf-u1-hbe" id="KeQ-rV-4OX"/>
+                            <outlet property="dataSource" destination="GRf-u1-hbe" id="GKb-Tj-gh6"/>
+                            <outlet property="delegate" destination="GRf-u1-hbe" id="yQK-Cq-MaI"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="我的收藏" id="yhb-dx-kkJ"/>
                     <connections>
-                        <outlet property="tableview" destination="QWi-wf-ycf" id="l1k-z5-PP1"/>
+                        <outlet property="tableview" destination="QWi-wf-ycf" id="vuU-JT-lA3"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="osc-w5-EpZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1097" y="13"/>
+            <point key="canvasLocation" x="1095.6521739130435" y="12.723214285714285"/>
         </scene>
     </scenes>
     <resources>
         <image name="cart.circle" catalog="system" width="128" height="121"/>
         <image name="close" width="10" height="10"/>
         <image name="heart.circle.fill" catalog="system" width="128" height="121"/>
-        <namedColor name="AccentColor">
-            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
     </resources>
 </document>

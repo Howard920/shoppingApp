@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8Ri-SK-Ytm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8Ri-SK-Ytm">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -15,7 +15,7 @@
             <objects>
                 <navigationController id="8Ri-SK-Ytm" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="首頁" image="house.fill" catalog="system" id="KD5-Pn-6wP" userLabel="首頁">
-                        <imageReference key="selectedImage" image="location.circle.fill" catalog="system" symbolScale="large"/>
+                        <imageReference key="selectedImage" image="house.fill" catalog="system" symbolScale="large"/>
                     </tabBarItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="2bl-aB-pSQ">
@@ -42,23 +42,23 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Zm-8y-4I0">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1340"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1199"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mdU-a5-xTv" customClass="PageScrollView" customModule="shoppingApp" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="320"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="194"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="320" id="nHa-aa-fVS"/>
+                                                    <constraint firstAttribute="width" secondItem="mdU-a5-xTv" secondAttribute="height" multiplier="1920:900" id="zRq-32-SXX"/>
                                                 </constraints>
                                             </view>
                                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zUX-Td-v6a">
-                                                <rect key="frame" x="0.0" y="320" width="414" height="190"/>
+                                                <rect key="frame" x="0.0" y="194" width="414" height="175"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="dse-W2-xtx">
-                                                        <rect key="frame" x="0.0" y="0.0" width="828" height="190"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="828" height="175"/>
                                                         <subviews>
                                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="TKJ-yP-wB1" userLabel="collectionV1">
-                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="190"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="175"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="T35-6K-Q7Y">
                                                                     <size key="itemSize" width="128" height="128"/>
@@ -69,7 +69,7 @@
                                                                 <cells/>
                                                             </collectionView>
                                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="h7Y-vd-shT">
-                                                                <rect key="frame" x="414" y="0.0" width="414" height="190"/>
+                                                                <rect key="frame" x="414" y="0.0" width="414" height="175"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="l1l-X1-hBq">
                                                                     <size key="itemSize" width="128" height="128"/>
@@ -85,10 +85,10 @@
                                                 <constraints>
                                                     <constraint firstItem="dse-W2-xtx" firstAttribute="trailing" secondItem="L8L-WH-HCk" secondAttribute="trailing" id="E39-bO-IMc"/>
                                                     <constraint firstItem="dse-W2-xtx" firstAttribute="leading" secondItem="L8L-WH-HCk" secondAttribute="leading" id="Eya-Eo-DNg"/>
-                                                    <constraint firstAttribute="height" constant="190" id="Ko4-2b-UgV"/>
+                                                    <constraint firstAttribute="height" constant="175" id="Ko4-2b-UgV"/>
                                                     <constraint firstItem="Vh5-Sw-RrK" firstAttribute="width" secondItem="TKJ-yP-wB1" secondAttribute="width" id="ToO-E2-zSt"/>
                                                     <constraint firstItem="dse-W2-xtx" firstAttribute="top" secondItem="L8L-WH-HCk" secondAttribute="top" id="cV2-jb-OAp"/>
-                                                    <constraint firstItem="dse-W2-xtx" firstAttribute="bottom" secondItem="L8L-WH-HCk" secondAttribute="bottom" constant="190" id="m5t-Kv-kb8"/>
+                                                    <constraint firstItem="dse-W2-xtx" firstAttribute="bottom" secondItem="L8L-WH-HCk" secondAttribute="bottom" id="m5t-Kv-kb8"/>
                                                     <constraint firstItem="Vh5-Sw-RrK" firstAttribute="height" secondItem="TKJ-yP-wB1" secondAttribute="height" id="vHy-m6-VSG"/>
                                                 </constraints>
                                                 <viewLayoutGuide key="contentLayoutGuide" id="L8L-WH-HCk"/>
@@ -98,7 +98,7 @@
                                                 </connections>
                                             </scrollView>
                                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="fOi-6R-EyQ">
-                                                <rect key="frame" x="0.0" y="510" width="414" height="25"/>
+                                                <rect key="frame" x="0.0" y="369" width="414" height="25"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="25" id="lnE-7b-cUW"/>
@@ -107,7 +107,7 @@
                                                 <color key="currentPageIndicatorTintColor" systemColor="systemGrayColor"/>
                                             </pageControl>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K9k-ZA-nXS" customClass="ProductCollectionView" customModule="shoppingApp" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="535" width="414" height="805"/>
+                                                <rect key="frame" x="0.0" y="394" width="414" height="805"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="805" id="An3-yt-qXa"/>
@@ -143,6 +143,14 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="enY-Tu-aBh" userLabel="main content layout"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="Eqg-DU-Czg" userLabel="main frame layout"/>
                             </scrollView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tac-MJ-pxE" customClass="LoadingView" customModule="shoppingApp" customModuleProvider="target">
+                                <rect key="frame" x="177" y="418" width="60" height="60"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="Afd-5u-Y4Y"/>
+                                    <constraint firstAttribute="height" constant="60" id="uId-TM-PaC"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -150,38 +158,28 @@
                             <constraint firstItem="4O3-3z-CbS" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="464-nF-Xdo"/>
                             <constraint firstItem="4O3-3z-CbS" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="7pQ-Yz-hIZ"/>
                             <constraint firstItem="4O3-3z-CbS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="CMa-ki-Gjj"/>
+                            <constraint firstItem="Tac-MJ-pxE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="GpF-Kh-HbV"/>
                             <constraint firstItem="4O3-3z-CbS" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="ooA-4F-8F3"/>
+                            <constraint firstItem="Tac-MJ-pxE" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="rPg-Ig-gmg"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="首頁" id="LXS-AM-krR"/>
                     <connections>
                         <outlet property="categoryPageControl" destination="fOi-6R-EyQ" id="atH-pu-M7D"/>
                         <outlet property="categoryScrollView" destination="zUX-Td-v6a" id="rWD-6k-Wcn"/>
+                        <outlet property="containerScrollView" destination="4O3-3z-CbS" id="esJ-Na-RLU"/>
+                        <outlet property="loadingView" destination="Tac-MJ-pxE" id="ovY-ud-0DN"/>
+                        <outlet property="pageScrollView" destination="mdU-a5-xTv" id="ilD-aF-4dS"/>
                         <outlet property="productCollectionView" destination="K9k-ZA-nXS" id="hbF-D2-KWo"/>
                         <outlet property="productCollectionViewHeight" destination="An3-yt-qXa" id="tub-yQ-wrG"/>
-                        <outletCollection property="catrgoryCollectionViews" destination="TKJ-yP-wB1" collectionClass="NSMutableArray" id="iR1-xA-ahS"/>
-                        <outletCollection property="catrgoryCollectionViews" destination="h7Y-vd-shT" collectionClass="NSMutableArray" id="jlr-Ny-2J7"/>
+                        <outletCollection property="categoryCollectionViews" destination="TKJ-yP-wB1" collectionClass="NSMutableArray" id="iR1-xA-ahS"/>
+                        <outletCollection property="categoryCollectionViews" destination="h7Y-vd-shT" collectionClass="NSMutableArray" id="jlr-Ny-2J7"/>
                         <segue destination="gkB-yI-VTB" kind="show" identifier="goToCategory" id="bpQ-F7-u6Y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-18.46153846153846" y="75.355450236966817"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="hqT-gM-Pqc">
-            <objects>
-                <viewController id="PvU-sR-U8M" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="etq-SN-jqg">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="Oyz-LR-cH1"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ebq-Im-Wrt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1185" y="76"/>
         </scene>
         <!--我是一個分類-->
         <scene sceneID="xI2-Hd-Wlc">
@@ -191,7 +189,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fo9-3a-VvA" customClass="ProductCollectionView" customModule="shoppingApp" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ogw-Ov-fMM" customClass="LoadingView" customModule="shoppingApp" customModuleProvider="target">
+                                <rect key="frame" x="177" y="418" width="60" height="60"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="abv-lV-Dqa"/>
+                                    <constraint firstAttribute="height" constant="60" id="eGM-YZ-Rre"/>
+                                </constraints>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fo9-3a-VvA" customClass="ProductCollectionView" customModule="shoppingApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
@@ -202,12 +208,15 @@
                             <constraint firstItem="Fo9-3a-VvA" firstAttribute="top" secondItem="b9b-2I-phP" secondAttribute="top" id="AdN-5E-hYr"/>
                             <constraint firstItem="Fo9-3a-VvA" firstAttribute="leading" secondItem="b9b-2I-phP" secondAttribute="leading" id="HgZ-8R-DGa"/>
                             <constraint firstItem="b9b-2I-phP" firstAttribute="trailing" secondItem="Fo9-3a-VvA" secondAttribute="trailing" id="Nfu-K9-9ne"/>
+                            <constraint firstItem="Ogw-Ov-fMM" firstAttribute="centerX" secondItem="rbh-Hz-loo" secondAttribute="centerX" id="Z7Z-AL-3iD"/>
                             <constraint firstItem="b9b-2I-phP" firstAttribute="bottom" secondItem="Fo9-3a-VvA" secondAttribute="bottom" id="g4w-DD-m6t"/>
+                            <constraint firstItem="Ogw-Ov-fMM" firstAttribute="centerY" secondItem="rbh-Hz-loo" secondAttribute="centerY" id="v8o-xp-ci8"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="我是一個分類" id="TQq-ry-hUO"/>
                     <connections>
                         <outlet property="ProductCollectionView" destination="Fo9-3a-VvA" id="YjL-1E-Lnc"/>
+                        <outlet property="loadingView" destination="Ogw-Ov-fMM" id="NwO-aA-PmQ"/>
                         <outlet property="productCollectionView" destination="Fo9-3a-VvA" id="e9P-oS-vbO"/>
                     </connections>
                 </viewController>
@@ -218,7 +227,6 @@
     </scenes>
     <resources>
         <image name="house.fill" catalog="system" width="128" height="106"/>
-        <image name="location.circle.fill" catalog="system" width="128" height="121"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

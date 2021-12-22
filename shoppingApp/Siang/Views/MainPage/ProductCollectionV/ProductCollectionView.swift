@@ -10,8 +10,10 @@ import UIKit
 class ProductCollectionView: UIView, NibOwnerLoadable{
     
     @IBOutlet weak var collectionView: UICollectionView!
-    var numberOfItems = 6
-    
+    var itemData = [ItemCodable]()
+    var imageData = [UIImage?]()
+    weak var cellDelegate: ProductCellDelegate?
+   
     override init(frame: CGRect) {
         super.init(frame: frame)
         customInit()
@@ -28,7 +30,11 @@ class ProductCollectionView: UIView, NibOwnerLoadable{
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        setLayout()
+        setRelationShip()
+    }
+    
+    private func setLayout(){
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
         
@@ -39,27 +45,29 @@ class ProductCollectionView: UIView, NibOwnerLoadable{
             width: (UIScreen.main.bounds.width - 30) / 2 ,
             height: (UIScreen.main.bounds.width - 30) / 2 + 125
         )
-        
         collectionView.collectionViewLayout = layout
-
+    }
+    
+    private func setRelationShip(){
         collectionView.register(UINib(nibName: "ProductCell", bundle: nil), forCellWithReuseIdentifier: "ProductCell")
 
         collectionView.dataSource = self
-        
     }
 }
+ //MARK: - UICollectionViewDataSource Methods
 
 extension ProductCollectionView: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        numberOfItems
+        itemData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let row = indexPath.row
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductCell", for: indexPath) as! ProductCell
+        cell.setItemCell(item: itemData[row], image: imageData[row], delegate: cellDelegate)
         
         return cell
     }
-    
     
 }
 

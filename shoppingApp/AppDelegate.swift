@@ -1,9 +1,4 @@
-//
-//  AppDelegate.swift
-//  shoppingApp
-//
-//  Created by 杜襄 on 2021/10/20.
-//
+
 
 import UIKit
 
@@ -14,6 +9,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        cartSystem.getCart {
+
+        }
+
+        favoriteSystem.getFavoriteList { error in }
+        
         return true
     }
 

@@ -12,17 +12,37 @@ class Cart2ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var cartStepView: CartStepView!
     @IBOutlet weak var nextStepButton: UIButton!
+    @IBOutlet weak var totalPriceLabel: UILabel!
+    var totalPrice: Int = 0{
+        didSet{
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            totalPriceLabel?.text = "NT$ " + formatter.string(from: NSNumber(value: totalPrice))!
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.dataSource = self
-        tableView.delegate = self
+        setDefaultValue()
+        setLayout()
+        setRelationship()
+    }
+    
+    func setDefaultValue(){
+        totalPrice = cartSystem.cart.price
+    }
+    
+    func setLayout(){
         cartStepView.stepLabels[1].textColor = UIColor.red
         cartStepView.stepBars[1].backgroundColor = UIColor.red
-        tableView.register(UINib(nibName: "Cart2TableViewCell", bundle: nil), forCellReuseIdentifier: "Cart2TableViewCell")
         nextStepButton.layer.cornerRadius = 5
         nextStepButton.clipsToBounds = true
-        
+    }
+    
+    func setRelationship(){
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(UINib(nibName: "Cart2TableViewCell", bundle: nil), forCellReuseIdentifier: "Cart2TableViewCell")
     }
     
     
@@ -56,15 +76,32 @@ extension Cart2ViewController: UITableViewDataSource{
 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 1{
-            return 2
+        if section == 0{
+            return Payment.allCases.count
         }else{
-            return 5
+            return Shipment.allCases.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cart2TableViewCell")!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cart2TableViewCell") as! Cart2TableViewCell
+        cell.delegate = self
+        cell.indexPath = indexPath
+        if indexPath.section == 0{
+            cell.lb_title.text = Payment.allCases[indexPath.row].rawValue
+            if Payment.allCases[indexPath.row] == cartSystem.cart.payment{
+                cell.is_btn_selected = true
+            }else{
+                cell.is_btn_selected = false
+            }
+        }else{
+            cell.lb_title.text = Shipment.allCases[indexPath.row].rawValue
+            if Shipment.allCases[indexPath.row] == cartSystem.cart.shipment{
+                cell.is_btn_selected = true
+            }else{
+                cell.is_btn_selected = false
+            }
+        }
         
         return cell
     }
@@ -74,5 +111,37 @@ extension Cart2ViewController: UITableViewDataSource{
 }
 
 extension Cart2ViewController: UITableViewDelegate{
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        cell_btn_select(at: indexPath)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension Cart2ViewController: Cart2TableViewCellDelegate{
+    
+    func cell_btn_select(at indexPath: IndexPath) {
+        if indexPath.section == 0{
+            cartSystem.updateCart(shipment: nil, payment: Payment.allCases[indexPath.row]) { [weak self] error in
+                if error == nil{
+                    DispatchQueue.main.async {
+                        self?.tableView.reloadData()
+                    }
+                }else{
+                    fatalError()
+                }
+            }
+        }else{
+            cartSystem.updateCart(shipment: Shipment.allCases[indexPath.row], payment: nil) { [weak self] error in
+                if error == nil{
+                    DispatchQueue.main.async {
+                        self?.tableView.reloadData()
+                    }
+                }else{
+                    fatalError()
+                }
+            }
+        }
+    }
+    
     
 }
