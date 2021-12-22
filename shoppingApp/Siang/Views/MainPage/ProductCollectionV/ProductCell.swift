@@ -66,13 +66,13 @@ class ProductCell: UICollectionViewCell {
     @IBAction func favoriteButtonPressed(_ sender: Any) {
         let item_id = item.item_id
         if isFavorite{
-            let index = UserInfo.favoriteList.firstIndex(of: item_id)!
-            UserInfo.favoriteList.remove(at: index)
+            let index = favoriteSystem.favoriteList.firstIndex(of: item_id)!
+            favoriteSystem.favoriteList.remove(at: index)
             favoiteButton.setImage(UIImage(systemName: "heart"), for: .normal)
             favoiteButton.imageView?.tintColor = .black
             delegate?.productDeleteFromFavorite()
         }else{
-            UserInfo.favoriteList.append(item_id)
+            favoriteSystem.favoriteList.append(item_id)
             favoiteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
             favoiteButton.imageView?.tintColor = .systemPink
             delegate?.productAddToFavorite()
