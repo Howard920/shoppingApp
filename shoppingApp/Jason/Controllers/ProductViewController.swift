@@ -37,6 +37,7 @@ class ProductViewController: UIViewController {
         // hide tab bar
         self.tabBarController?.tabBar.isHidden = true
         fetchDataFromServer()
+        updateCartLabel()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -126,13 +127,6 @@ class ProductViewController: UIViewController {
         if let cartVC = UIStoryboard(name: "Cart", bundle: nil).instantiateViewController(withIdentifier: "Cart") as? UINavigationController {
             // 設定為全螢幕模式
             cartVC.modalPresentationStyle = .fullScreen
-            // 將商品傳送至購物車頁
-            Common.addItemToCart(selectedProduct!)
-
-//            let item: ItemCodable = ItemCodable.init(item_id: selectedProduct!.item_id, name: selectedProduct!.name, price: selectedProduct!.price, quantity: selectedProduct!.quantity ?? 0, detail: selectedProduct!.detail ?? [:], vendor_id: selectedProduct!.vendor_id ?? 0, media_info: URL(string:selectedProduct?.media_info ?? "")!)
-//            let orderProduct = OrderProduct(add_time: Date.get_add_time(), item_count: 1, item: item)
-//            cartSystem.updateCartProduct(product: orderProduct) { (_) in
-//            }
             // 開啟購物車畫面
             present(cartVC, animated: true, completion: nil)
         }
@@ -165,28 +159,41 @@ class ProductViewController: UIViewController {
         case 0: // 0=addToCart
             if !UserInfo.cartList.contains(itemId){
                 UserInfo.cartList.append(itemId)
+                // 將商品傳送至購物車頁
                 Common.autoDisapperAlert(self, message: Common.cart)
+//                Common.addItemToCart(selectedProduct!)
+                let item: ItemCodable = ItemCodable.init(
+                    item_id: selectedProduct!.item_id,
+                    name: selectedProduct!.name,
+                    price: selectedProduct!.price,
+                    quantity: selectedProduct!.quantity ?? 0,
+                    detail: selectedProduct!.detail ?? [:],
+                    vendor_id: selectedProduct!.vendor_id ?? 0,
+                    media_info: URL(string:selectedProduct!.media_info ?? "")!)
+                let orderProduct = OrderProduct(add_time: Date.get_add_time(), item_count: 1, item: item)
+                cartSystem.updateCartProduct(product: orderProduct) { (_) in
+                    // 更新購物車數字/////
+                    DispatchQueue.main.async {
+                        self.updateCartLabel()
+
+                    }
+                }
+                
             } else {
-//                guard let index = UserInfo.cartList.firstIndex(of: itemId) else{return}
-//                UserInfo.cartList.remove(at: index)
                 Common.autoDisapperAlert(self, message: Common.cart)
             }
-            
             // 更新購物車數字
             updateCartLabel()
+           
            
         case 1: //checkOutButton button
             if !UserInfo.cartList.contains(itemId){
                 UserInfo.cartList.append(itemId)
-//                Common.autoDisapperAlert(self, message: Common.cart, duration: 0.1)
-            } else {
-//                guard let index = UserInfo.cartList.firstIndex(of: itemId) else{return}
-//                UserInfo.cartList.remove(at: index)
-//                Common.autoDisapperAlert(self, message: Common.cart, duration: 0.1)
+                // 將商品傳送至購物車頁
+                Common.addItemToCart(selectedProduct!)
+                // 更新購物車數字
+                updateCartLabel()
             }
-            
-            // 更新購物車數字
-            updateCartLabel()
             // checkOutButton button
             showCartViewController()
             
