@@ -7,10 +7,10 @@
 
 import UIKit
 
-protocol cellDelegate
+protocol CellDelegate
 {
-    func deleteItem(row:Int)
-    func buyItem(row:Int)
+    func deleteItem(id:Int)
+    func buyItem(id:Int)
 }
 
 class CollectionTableViewCell: UITableViewCell
@@ -20,40 +20,23 @@ class CollectionTableViewCell: UITableViewCell
     @IBOutlet var PriceLabel: UILabel!
     @IBOutlet var DiscountLabel: UILabel!
     @IBOutlet var productImage: UIImageView!
-//    {   //設定圖片為『圓形』
-//        didSet        //以程式碼方式控制 圓角半徑
-//        {             //將半徑設為：圖片寬度的一半(1/2)
-//            productImage.layer.cornerRadius = productImage.bounds.height / 2
-//            productImage.clipsToBounds = true
-//        }
-//    }
+
+    var item_id: Int!
+    var delegate:CellDelegate!
     
-    var row:Int!
-    var delegate:cellDelegate!
     
     @IBAction func btn_shop(_ sender: UIButton)
     {
-        delegate.buyItem(row: row)
+        delegate.buyItem(id: item_id)
     }
     
     @IBAction func btn_cancelProduct(_ sender: UIButton)
     {
-        delegate.deleteItem(row: row)
+        delegate.deleteItem(id: item_id)
 
         
     }
     
-//    @IBAction func btn_cart(_ sender: UIButton)
-//    {
-//
-////        print(UserInfo.cartList)
-//        if !UserInfo.cartList.contains(1)
-//        {
-//            UserInfo.cartList.append(1)
-//            print(UserInfo.cartList)
-//        }
-//
-//    }
     
     override func awakeFromNib()
     {

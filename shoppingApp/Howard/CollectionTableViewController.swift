@@ -94,6 +94,7 @@ class CollectionTableViewController: UITableViewController
         {
             cell.nameLabel.text = item.name
             cell.PriceLabel.text = String(item.price)
+            cell.item_id = item.item_id
             
             DatabaseHandler.fetchImage(url: URL(string: item.media_info!)!) {
                 image
@@ -108,7 +109,6 @@ class CollectionTableViewController: UITableViewController
         }
           
         cell.delegate = self
-        cell.row = indexPath.row
 //        -=-=-=-=-=-=-=-=-=-=-=- 價目表：原價與折扣 -=-=-=-=-=-=-=-=-=-=-=-
 //        cell.PriceLabel.text = price[indexPath.row]
 //        cell.DiscountLabel.text = discount[indexPath.row]
@@ -121,28 +121,29 @@ class CollectionTableViewController: UITableViewController
     {
         if editingStyle == .delete
         {
-            deleteItem(row: indexPath.row)
+            let cell = tableView.cellForRow(at: indexPath) as! CollectionTableViewCell
+            deleteItem(id: cell.item_id)
         }
     }
 }
 
 
-extension CollectionTableViewController: cellDelegate{
+extension CollectionTableViewController: CellDelegate{
     
-    func buyItem(row: Int) {
-        
+    func buyItem(id: Int) {
+        let row = favoriteSystem.favoriteList.firstIndex(of: id)!
         let item = resultProductsInfo![row]
         
         cartSystem.updateCartProduct(product: OrderProduct(add_time: Date.get_add_time(), item_count: 1, item: ItemCodable(item_id: item.item_id, name: item.name, price: item.price, quantity: item.quantity!, detail: item.detail!, vendor_id: item.vendor_id!, media_info: URL(string: item.media_info!)!))) {
             error
             in
-            self.deleteItem(row: row)
+            self.deleteItem(id: id)
         }
     }
     
-    func deleteItem(row: Int)
+    func deleteItem(id: Int)
     {
-        
+        let row = favoriteSystem.favoriteList.firstIndex(of: id)!
         resultProductsInfo?.remove(at: row)
         favoriteSystem.favoriteList.remove(at: row)
         DispatchQueue.main.async

@@ -27,9 +27,14 @@ class Cart1ViewController: UIViewController {
         super.viewDidLoad()
         setLayout()
         setRelationship()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         cartSystem.getCart { [unowned self] in
             cartSystem.reloadCartImages {
                 DispatchQueue.main.async {
+                    print(cartSystem.productImages)
                     tableView.reloadData()
                     loadingView.isHidden = true
                     tableView.isHidden = false
@@ -65,10 +70,11 @@ class Cart1ViewController: UIViewController {
 
 extension Cart1ViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cartSystem.cart.product_list.count
+        return cartSystem.productImages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print(1)
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cart1TableViewCell") as! Cart1TableViewCell
         cell.setItem(orderProduct: cartSystem.cart.product_list[indexPath.row],
                      image: cartSystem.productImages[indexPath.row],
