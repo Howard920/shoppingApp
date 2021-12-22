@@ -12,7 +12,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         cartSystem.getCart {
-            print(cartSystem.cart)
+
         }
         favoriteSystem.getFavoriteList { error in
             

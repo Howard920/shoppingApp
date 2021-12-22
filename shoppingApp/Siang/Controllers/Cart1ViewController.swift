@@ -34,7 +34,6 @@ class Cart1ViewController: UIViewController {
         cartSystem.getCart { [unowned self] in
             cartSystem.reloadCartImages {
                 DispatchQueue.main.async {
-                    print(cartSystem.productImages)
                     tableView.reloadData()
                     loadingView.isHidden = true
                     tableView.isHidden = false

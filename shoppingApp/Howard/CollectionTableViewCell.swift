@@ -18,7 +18,6 @@ class CollectionTableViewCell: UITableViewCell
     
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var PriceLabel: UILabel!
-    @IBOutlet var DiscountLabel: UILabel!
     @IBOutlet var productImage: UIImageView!
 
     var item_id: Int!

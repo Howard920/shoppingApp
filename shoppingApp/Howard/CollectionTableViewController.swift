@@ -55,9 +55,7 @@ class CollectionTableViewController: UITableViewController
                 DispatchQueue.main.async
                 {
                     self.tableview.reloadData()
-                }
-                print("resultProduct: \(self.resultProductsInfo!)")
-                
+                }                
             }
             print("I finish request to server")
             
