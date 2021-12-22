@@ -117,7 +117,7 @@ class ProductViewController: UIViewController {
     // MARK: -  Update Cart Lable
     private func updateCartLabel(){
         let label = view.viewWithTag(999) as! UILabel
-        label.text = UserInfo.cartList.count.description
+        label.text = cartSystem.cart.product_list.count.description
     }
     
     // MARK: -  show CartViewController
@@ -127,10 +127,12 @@ class ProductViewController: UIViewController {
             // 設定為全螢幕模式
             cartVC.modalPresentationStyle = .fullScreen
             // 將商品傳送至購物車頁
-            let item: ItemCodable = ItemCodable.init(item_id: selectedProduct!.item_id, name: selectedProduct!.name, price: selectedProduct!.price, quantity: selectedProduct!.quantity ?? 0, detail: selectedProduct!.detail ?? [:], vendor_id: selectedProduct!.vendor_id ?? 0, media_info: URL(string:selectedProduct?.media_info ?? "")!)
-            let orderProduct = OrderProduct(add_time: Date.get_add_time(), item_count: 1, item: item)
-            cartSystem.updateCartProduct(product: orderProduct) { (_) in
-            }
+            Common.addItemToCart(selectedProduct!)
+
+//            let item: ItemCodable = ItemCodable.init(item_id: selectedProduct!.item_id, name: selectedProduct!.name, price: selectedProduct!.price, quantity: selectedProduct!.quantity ?? 0, detail: selectedProduct!.detail ?? [:], vendor_id: selectedProduct!.vendor_id ?? 0, media_info: URL(string:selectedProduct?.media_info ?? "")!)
+//            let orderProduct = OrderProduct(add_time: Date.get_add_time(), item_count: 1, item: item)
+//            cartSystem.updateCartProduct(product: orderProduct) { (_) in
+//            }
             // 開啟購物車畫面
             present(cartVC, animated: true, completion: nil)
         }
@@ -149,7 +151,7 @@ class ProductViewController: UIViewController {
         badgeCount.font = badgeCount.font.withSize(12)
         badgeCount.backgroundColor = .red
         badgeCount.tag = 999
-        badgeCount.text = UserInfo.cartList.count.description
+        badgeCount.text = cartSystem.cart.product_list.count.description
         return badgeCount
     }
     
