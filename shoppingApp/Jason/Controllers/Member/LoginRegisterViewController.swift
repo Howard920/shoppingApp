@@ -69,6 +69,11 @@ class LoginRegisterViewController: UIViewController {
                     switch msg {
                     case "註冊成功":
                         self.saveMemberInfo(msg)
+                        cartSystem.newCart {
+                            cartSystem.getCart {
+                                
+                            }
+                        }
                     default:
                         DispatchQueue.main.async {
                             Common.autoDisapperAlert(self, message: msg, duration: 1)
@@ -78,6 +83,7 @@ class LoginRegisterViewController: UIViewController {
                     return
                 }
                 self.saveMemberInfo("登入成功", member)
+                
             }
         }.resume()
     }
@@ -99,6 +105,9 @@ class LoginRegisterViewController: UIViewController {
             }
             alert.addAction(action)
             self.present(alert, animated: true, completion: nil)
+            cartSystem.getCart {
+                
+            }
         }
     }
 }

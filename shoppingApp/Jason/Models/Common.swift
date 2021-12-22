@@ -89,12 +89,13 @@ struct UserInfo {
     static var member_id_phone = "0900000000"{
         didSet{
             isLogin = member_id_phone.isEmpty ? false : true
-            cartSystem.getCart {
+            if isLogin{
                 
+                favoriteSystem.getFavoriteList { error in
+                    
+                }
             }
-            favoriteSystem.getFavoriteList { error in
-                
-            }
+            
         }
     }
 }

@@ -44,9 +44,14 @@ class FavoriteSystem{
                 completionHandler(myError.parseError)
                 return
             }
-            if self.favoriteList != member.like_list!{
-                self.favoriteList = member.like_list!
+            if member.like_list == nil{
+                self.favoriteList = []
+            }else{
+                if self.favoriteList != member.like_list!{
+                    self.favoriteList = member.like_list!
+                }
             }
+            
             completionHandler(nil)
         }
         task.resume()
