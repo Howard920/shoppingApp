@@ -83,10 +83,13 @@ class ProductListCell: UICollectionViewCell {
             msg = Common.cart
         } else {
             UserInfo.cartList.append(product.item_id)
+            Common.addItemToCart(product)
             msg = Common.cart
 
         }
         favoriteItemToChange?(msg)
         
     }
+    
+    
 }

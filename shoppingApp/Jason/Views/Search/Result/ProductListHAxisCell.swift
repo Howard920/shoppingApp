@@ -85,6 +85,8 @@ class ProductListHAxisCell: UICollectionViewCell {
 
         } else {
             UserInfo.cartList.append(product.item_id)
+            Common.addItemToCart(product)
+
             msg = Common.cart
 
         }

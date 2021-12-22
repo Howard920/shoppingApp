@@ -25,6 +25,22 @@ class Common {
         }
     }
     
+    static func addItemToCart(_ product: ProductInfo){
+        let item: ItemCodable = ItemCodable.init(
+            item_id: product.item_id,
+            name: product.name,
+            price: product.price,
+            quantity: product.quantity ?? 0,
+            detail: product.detail ?? [:],
+            vendor_id: product.vendor_id ?? 0,
+            media_info: URL(string:product.media_info ?? "")!)
+        let orderProduct = OrderProduct(add_time: Date.get_add_time(), item_count: 1, item: item)
+        cartSystem.updateCartProduct(product: orderProduct) { (_) in
+        }
+        
+        
+    }
+    
     static func saveMember(){
         member?.member_id_phone =  UserInfo.member_id_phone
         member?.like_list = UserInfo.favoriteList
