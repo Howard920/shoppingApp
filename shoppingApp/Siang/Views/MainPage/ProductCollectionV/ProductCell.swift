@@ -24,7 +24,7 @@ class ProductCell: UICollectionViewCell {
     var item: ItemCodable!
     weak var delegate: ProductCellDelegate?
     var isFavorite: Bool{
-        UserInfo.favoriteList.contains(item.item_id)
+        favoriteSystem.favoriteList.contains(item.item_id)
     }
     
 
