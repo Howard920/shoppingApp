@@ -28,14 +28,19 @@ class CategoryProductViewController: UIViewController, UICollectionViewDelegate{
     
     @IBAction func layoutButtonPressed(_ sender: UIBarButtonItem) {
         
-        if sender.image == UIImage(systemName: "list.dash"){
-            sender.image = UIImage(systemName: "rectangle.grid.2x2")
-            productCollectionView.collectionView.setCollectionViewLayout(productCollectionView.layoutList, animated: false)
-        }else{
+        productCollectionView.isLayoutGrid = !productCollectionView.isLayoutGrid
+        
+        if productCollectionView.isLayoutGrid{
             sender.image = UIImage(systemName: "list.dash")
+            productCollectionView.collectionView.reloadData()
             productCollectionView.collectionView.setCollectionViewLayout(productCollectionView.layoutGrid, animated: false)
+
+        }else{
+            sender.image = UIImage(systemName: "rectangle.grid.2x2")
+            productCollectionView.collectionView.reloadData()
+            productCollectionView.collectionView.setCollectionViewLayout(productCollectionView.layoutList, animated: false)
         }
-        productCollectionView.collectionView.reloadData()
+        
 
     }
     

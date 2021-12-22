@@ -13,6 +13,7 @@ class ProductCollectionView: UIView, NibOwnerLoadable{
     var itemData = [ItemCodable]()
     var imageData = [UIImage?]()
     weak var cellDelegate: ProductCellDelegate?
+    var isLayoutGrid = true
     let layoutList = UICollectionViewFlowLayout()
     let layoutGrid = UICollectionViewFlowLayout()
    
@@ -75,7 +76,7 @@ extension ProductCollectionView: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let row = indexPath.row
-        let identifier = collectionView.collectionViewLayout == layoutGrid ? "ProductCell":"ProductCell2"
+        let identifier = isLayoutGrid ? "ProductCell":"ProductCell2"
             
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! ProductCell
         cell.setItemCell(item: itemData[row], image: imageData[row], delegate: cellDelegate)
