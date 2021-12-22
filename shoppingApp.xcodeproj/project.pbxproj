@@ -477,12 +477,12 @@
 		FF732F44276BB79500D24A4B /* Member */ = {
 			isa = PBXGroup;
 			children = (
-				FF732F45276BB79500D24A4B /* BuyListInfoCellCollectionViewCell.xib */,
 				FF732F46276BB79500D24A4B /* Member.storyboard */,
-				FF732F47276BB79500D24A4B /* BuyListInfoCellCollectionViewCell.swift */,
-				FF732F48276BB79500D24A4B /* BuyListHeaderCollectionReusableView.xib */,
-				FF732F49276BB79500D24A4B /* MemberInfo.swift */,
 				FF732F4A276BB79500D24A4B /* BuyListHeaderCollectionReusableView.swift */,
+				FF732F48276BB79500D24A4B /* BuyListHeaderCollectionReusableView.xib */,
+				FF732F45276BB79500D24A4B /* BuyListInfoCellCollectionViewCell.xib */,
+				FF732F47276BB79500D24A4B /* BuyListInfoCellCollectionViewCell.swift */,
+				FF732F49276BB79500D24A4B /* MemberInfo.swift */,
 				FF732F4B276BB79500D24A4B /* MemberInfo.xib */,
 			);
 			path = Member;
@@ -779,7 +779,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9M4278K6XP;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = shoppingApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -798,7 +798,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9M4278K6XP;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = shoppingApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

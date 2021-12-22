@@ -10,7 +10,10 @@ import UIKit
 class EmbedProductInTableViewCell: UITableViewCell {
     var showAnotherProduct:((ProductInfo)->Void)?
     var popularItems: [ProductInfo]?
-    
+    weak var viewcontroller: UIViewController?
+    deinit {
+        print("EmbedProductInTableViewCell deinit")
+    }
     static let identifier: String = "EmbedProductInTableViewCell"
     @IBOutlet weak var collectionView: UICollectionView!
     override func awakeFromNib() {
@@ -88,9 +91,12 @@ extension EmbedProductInTableViewCell: UICollectionViewDelegate, UICollectionVie
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductListCell.identifier, for: indexPath) as! ProductListCell
         
         if let popularItem = popularItems?[indexPath.row]{
-            cell.nameLabel.text = popularItem.name
-            cell.priceLabel.text = "$ " + popularItem.price.description
-            cell.pictureImageView.image = nil
+            cell.configure(popularItem)
+            cell.favoriteItemToChange = { [weak self] msg in
+                guard let self = self else{return}
+                self.collectionView.reloadItems(at: [indexPath])
+                Common.autoDisapperAlert(self.viewcontroller!, message: msg)
+            }
             // set image
             if let urlStr = popularItem.media_info,
                let url = URL(string: urlStr)  {
@@ -111,11 +117,6 @@ extension EmbedProductInTableViewCell: UICollectionViewDelegate, UICollectionVie
                     }
                 }
             }
-            // MARK: -  set islikeButton 未完成
-
-    //        let isLikeButtonImageName = SampleData.products[indexPath.row].isLike ? "heart.fill" : "heart"
-    //        cell.isLikeButton.imageView?.image = UIImage(systemName: isLikeButtonImageName)
-            
         }
         
         return cell

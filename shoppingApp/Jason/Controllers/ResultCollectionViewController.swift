@@ -6,8 +6,6 @@
 //
 
 import UIKit
-
-
 class ResultCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout{
     
     @IBOutlet weak var cellLayoutBarButton: UIBarButtonItem!
@@ -16,8 +14,7 @@ class ResultCollectionViewController: UICollectionViewController, UICollectionVi
     var toSearchCategory = false
     // 離線資料集，符合userkeywords的商品
     var resultProductsInfo:[ProductInfo]?
-    
-    
+
     deinit {
         print(userkeywords + "deinit")
     }
@@ -74,9 +71,6 @@ class ResultCollectionViewController: UICollectionViewController, UICollectionVi
                 }
                 // 存入離線資料集
                 self?.resultProductsInfo = searchResultData
-//                self?.resultProductsInfo = searchResultData.filter({ (productInfo) -> Bool in
-//                    return productInfo.name.contains(self!.userkeywords)
-//                })
                 // 設定SectionTitle
                 if let number = self?.resultProductsInfo?.count{
                     self?.headerText = "\(number)個商品符合"
@@ -88,47 +82,6 @@ class ResultCollectionViewController: UICollectionViewController, UICollectionVi
             } else { Common.autoDisapperAlert(self!, message: "無法取得資料", duration: 1)}
         }.resume()
     }
-    
-    
-    // MARK: -  cell Button點擊事件
-    @objc func likeButtonClick(_ sender: UIButton){
-        let row = sender.tag
-        if let itemID = resultProductsInfo?[row].item_id {
-            // 如果收藏清單內沒有收藏這個商品，就加入清單。
-            if !UserInfo.favoriteList.contains(itemID){
-
-                UserInfo.favoriteList.append(itemID)
-                sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-                Common.autoDisapperAlert(self, message: Common.favorite)
-                collectionView.reloadData()
-            } else {
-                guard let index = UserInfo.favoriteList.firstIndex(of: itemID) else{return}
-                UserInfo.favoriteList.remove(at: index)
-                sender.setImage(UIImage(systemName: "heart"), for: .normal)
-                Common.autoDisapperAlert(self, message: Common.unfavorite)
-                collectionView.reloadData()
-            }
-        }
-    }
-    @objc func cartButtonClick(_ sender: UIButton){
-        let row = sender.tag
-        if let itemID = resultProductsInfo?[row].item_id {
-            // 如果購物車清單內沒有這個商品，就加入清單。
-            if !UserInfo.cartList.contains(itemID){
-                UserInfo.cartList.append(itemID)
-                sender.setImage(UIImage(systemName: "cart.fill"), for: .normal)
-                Common.autoDisapperAlert(self, message: Common.cart)
-                collectionView.reloadData()
-            } else {
-                guard let index = UserInfo.cartList.firstIndex(of: itemID) else{return}
-                UserInfo.cartList.remove(at: index)
-                sender.setImage(UIImage(systemName: "cart"), for: .normal)
-                Common.autoDisapperAlert(self, message: Common.uncart)
-                collectionView.reloadData()
-            }
-        }
-    }
-    
     
     func myInit(){
         // 隠藏navigationBar的返回鈕的文字
@@ -211,32 +164,27 @@ class ResultCollectionViewController: UICollectionViewController, UICollectionVi
     
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        
+        
+        
+        
         if SearchPage.isCellListLayout {
             // one cell in a row
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductListHAxisCell.identifier, for: indexPath) as! ProductListHAxisCell
             // 設定cell裡面buttons的tagID
             cell.isLikeButton.tag = indexPath.row
             cell.cartButton.tag = indexPath.row
-            // 綁定Button點擊事件
-            cell.isLikeButton.addTarget(self, action: #selector(likeButtonClick(_:)), for: .touchUpInside)
-            cell.cartButton.addTarget(self, action: #selector(cartButtonClick(_:)), for: .touchUpInside)
-            cell.pictureImageView.image = nil
-            if let productInfo = resultProductsInfo?[indexPath.row]{
-                cell.configure(productInfo)
-                // 設定Button狀態
-                if UserInfo.cartList.contains(productInfo.item_id){
-                    cell.cartButton.setImage(UIImage(systemName: "cart.fill"), for: .normal)
 
-                } else {
-                    cell.cartButton.setImage(UIImage(systemName: "cart"), for: .normal)
+            if let productInfo = resultProductsInfo?[indexPath.row]{
+                // cell init
+                cell.configure(productInfo)
+                cell.favoriteItemToChange = { [weak self] msg in
+                    guard let self = self else{return}
+                    self.collectionView.reloadItems(at: [indexPath])
+                    Common.autoDisapperAlert(self, message: msg)
                 }
-                
-                if UserInfo.favoriteList.contains(productInfo.item_id){
-                    cell.isLikeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-                } else {
-                    cell.isLikeButton.setImage(UIImage(systemName: "heart"), for: .normal)
-                }
-                
+
                 // set image
                 if let urlStr = productInfo.media_info,
                    let url = URL(string: urlStr)  {
@@ -251,7 +199,7 @@ class ResultCollectionViewController: UICollectionViewController, UICollectionVi
                             }
                         case .failure(.invalidData):
                             Common.autoDisapperAlert(self, message: "資料傳輸失敗", duration: 1)
-                            
+
                         case .failure(.networkFailure(let error)):
                             Common.autoDisapperAlert(self, message: "網路異常\(error)", duration: 1)
                         }
@@ -260,34 +208,23 @@ class ResultCollectionViewController: UICollectionViewController, UICollectionVi
             }
 
             return cell
-            
+
         } else {
             // two cells in a row
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductListCell.identifier, for: indexPath) as! ProductListCell
             // 設定cell裡面buttons的tagID
             cell.isLikeButton.tag = indexPath.row
             cell.cartButton.tag = indexPath.row
-            // 綁定Button點擊事件
-            cell.isLikeButton.addTarget(self, action: #selector(likeButtonClick(_:)), for: .touchUpInside)
-            cell.cartButton.addTarget(self, action: #selector(cartButtonClick(_:)), for: .touchUpInside)
-            cell.pictureImageView.image = nil
 
             if let productInfo = resultProductsInfo?[indexPath.row]{
+                // cell init
                 cell.configure(productInfo)
-                // 設定Button狀態
-                if UserInfo.cartList.contains(productInfo.item_id){
-                    cell.cartButton.setImage(UIImage(systemName: "cart.fill"), for: .normal)
+                cell.favoriteItemToChange = { [weak self] msg in
+                    guard let self = self else{return}
+                    self.collectionView.reloadItems(at: [indexPath])
+                    Common.autoDisapperAlert(self, message: msg)
+                }
 
-                } else {
-                    cell.cartButton.setImage(UIImage(systemName: "cart"), for: .normal)
-                }
-                
-                if UserInfo.favoriteList.contains(productInfo.item_id){
-                    cell.isLikeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-                } else {
-                    cell.isLikeButton.setImage(UIImage(systemName: "heart"), for: .normal)
-                }
-                
                 // set image
                 if let urlStr = productInfo.media_info,
                    let url = URL(string: urlStr)  {
@@ -302,7 +239,7 @@ class ResultCollectionViewController: UICollectionViewController, UICollectionVi
                             }
                         case .failure(.invalidData):
                             Common.autoDisapperAlert(self, message: "資料傳輸失敗", duration: 1)
-                            
+
                         case .failure(.networkFailure(let error)):
                             Common.autoDisapperAlert(self, message: "網路異常\(error)", duration: 1)
                         }

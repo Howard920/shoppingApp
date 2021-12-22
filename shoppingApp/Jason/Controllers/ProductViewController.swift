@@ -24,6 +24,9 @@ class ProductViewController: UIViewController {
     var categoryTags: CategoryTags?
     var popularItems: [ProductInfo]?
         
+    deinit {
+        print("ProductViewController deinit")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         myInit()
@@ -152,23 +155,38 @@ class ProductViewController: UIViewController {
     
     // MARK: -  Button Event
     @IBAction func didTapButton(_ sender: UIButton) {
+        print(sender.tag)
         // 取得商品編號
         let itemId = selectedProduct!.item_id
         // 以button的tag號碼區別誰被按下
         switch sender.tag {
-        case 0, 1: // 0=addToCart , 1=checkOutButton button
+        case 0: // 0=addToCart
             if !UserInfo.cartList.contains(itemId){
                 UserInfo.cartList.append(itemId)
+                Common.autoDisapperAlert(self, message: Common.cart)
             } else {
-                guard let index = UserInfo.cartList.firstIndex(of: itemId) else{return}
-                UserInfo.cartList.remove(at: index)
+//                guard let index = UserInfo.cartList.firstIndex(of: itemId) else{return}
+//                UserInfo.cartList.remove(at: index)
+                Common.autoDisapperAlert(self, message: Common.cart)
             }
+            
+            // 更新購物車數字
+            updateCartLabel()
+           
+        case 1: //checkOutButton button
+            if !UserInfo.cartList.contains(itemId){
+                UserInfo.cartList.append(itemId)
+//                Common.autoDisapperAlert(self, message: Common.cart, duration: 0.1)
+            } else {
+//                guard let index = UserInfo.cartList.firstIndex(of: itemId) else{return}
+//                UserInfo.cartList.remove(at: index)
+//                Common.autoDisapperAlert(self, message: Common.cart, duration: 0.1)
+            }
+            
             // 更新購物車數字
             updateCartLabel()
             // checkOutButton button
-            if sender.tag == 1 {
-                showCartViewController()
-            }
+            showCartViewController()
             
         case 2: // cart button
             showCartViewController()
@@ -178,10 +196,13 @@ class ProductViewController: UIViewController {
             if !UserInfo.favoriteList.contains(itemId){
                 UserInfo.favoriteList.append(itemId)
                 sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                Common.autoDisapperAlert(self, message: Common.favorite)
             } else {
                 guard let index = UserInfo.favoriteList.firstIndex(of: itemId) else{return}
                 UserInfo.favoriteList.remove(at: index)
                 sender.setImage(UIImage(systemName: "heart"), for: .normal)
+                Common.autoDisapperAlert(self, message: Common.unfavorite)
+
             }
             
         case 4: // share
@@ -215,7 +236,7 @@ extension ProductViewController: UITableViewDelegate, UITableViewDataSource{
         case 3:
             return "你可能喜歡的商品："
         default:
-            return ""
+            return nil
         }
     }
     
@@ -255,7 +276,7 @@ extension ProductViewController: UITableViewDelegate, UITableViewDataSource{
             return cell
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: EmbedProductInTableViewCell.identifier, for: indexPath) as! EmbedProductInTableViewCell
-            
+            cell.viewcontroller = self
             cell.showAnotherProduct = { [weak self] product in
                 if let productVC = UIStoryboard(name: "Search", bundle: nil).instantiateViewController(withIdentifier: "ProductViewController") as? ProductViewController {
                     // 設定為全螢幕模式

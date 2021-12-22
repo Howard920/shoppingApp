@@ -13,8 +13,30 @@ class Common {
     static let unfavorite = "取消收藏"
     static let cart = "加入購物車"
     static let uncart = "從購物車移除"
+    static let user = UserDefaults.standard
+    static var member:Member?{
+        didSet{
+            if let member_id_phone = member?.member_id_phone {
+                UserInfo.member_id_phone = member_id_phone
+            }
+            if let favoriteList = member?.like_list {
+                UserInfo.favoriteList = favoriteList
+            }
+        }
+    }
     
-    
+    static func saveMember(){
+        member?.member_id_phone =  UserInfo.member_id_phone
+        member?.like_list = UserInfo.favoriteList
+        guard let member = try? JSONEncoder().encode(member) else {return}
+        user.setValue(member, forKey: "member")
+    }
+    static func getMember() -> Member?{
+        guard let readMember =  user.object(forKey: "member") as? Data else {return nil}
+        print("readMember", readMember)
+        let member = try? JSONDecoder().decode(Member.self, from: readMember)
+        return member
+    }
     // 利用String類別的bonudingRect方法來取得文字的高度, 寬度
     static func getStringSize(withText text: String, width: CGFloat, font: UIFont) -> CGSize {
         let constraintRect: CGSize = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
@@ -46,9 +68,7 @@ enum TypeOfButton: Int {
 
 struct UserInfo {
     static var cartList:[Int] = []
-    static var favoriteList: [Int] = []
-    //    static var selectedProduct: ProductInfo?
-    //    static var productLayoutStyle = ""
+    static var favoriteList: [Int] = [] 
     static var isLogin = false
     static var member_id_phone = "0900000000"{
         didSet{

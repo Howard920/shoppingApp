@@ -43,6 +43,9 @@
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="cart" catalog="system"/>
+                                        <connections>
+                                            <action selector="cartButtonDidTap:" destination="gTV-IL-0wX" eventType="touchUpInside" id="M08-yb-ONR"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aVD-g7-CfI">
                                         <rect key="frame" x="192" y="9" width="35" height="22"/>
@@ -51,6 +54,9 @@
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="heart" catalog="system"/>
+                                        <connections>
+                                            <action selector="favoriteButtonDidTap:" destination="gTV-IL-0wX" eventType="touchUpInside" id="cHq-cd-aaC"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>

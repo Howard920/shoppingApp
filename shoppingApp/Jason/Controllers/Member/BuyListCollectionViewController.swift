@@ -10,9 +10,13 @@ import UIKit
 class BuyListCollectionViewController: UICollectionViewController {
     
     var infoButtonState:[Bool] = []
+    var returnList:[ReturnItems]?
+    var itemShipmentState:[Int:[String]]=[:]
     var orderInfo:[OrderInfo] = []{
         didSet{
             infoButtonState = Array(repeating: false, count: orderInfo.count)
+            setItemState()
+            applyReturnItems(isCheck: true)
         }
     }
     
@@ -27,11 +31,95 @@ class BuyListCollectionViewController: UICollectionViewController {
         
         collectionView!.register(BuyListInfoCellCollectionViewCell.nib(), forCellWithReuseIdentifier: BuyListInfoCellCollectionViewCell.identifier)
         // 向Server拿member資料
-        loadDataFromServer()
+        fetchDataFromServer()
+    }
+    private func setItemState(_ indexPath: IndexPath? = nil, _ itemState: String? = nil){
+        guard let indexPath = indexPath, let itemState = itemState else {
+            var state:[String] = []
+            for (index, orders) in orderInfo.enumerated(){
+                state = Array(repeating: "已送達", count: orders.product_list.count)
+                itemShipmentState[index] = state
+            }
+            return
+        }
+        itemShipmentState[indexPath.section]?[indexPath.row] = itemState
+        
+        print(itemShipmentState)
     }
     
     
-    private func loadDataFromServer(){
+    private func applyReturnItems(isCheck:Bool=false, indexPath: IndexPath=IndexPath.init(), order_id: Int=0, item_id: Int=0, item_count:Int=0){
+        let path = "/returnItems"
+        var parameter = "?member_id_phone=\(UserInfo.member_id_phone)"
+        // 檢查有無退貨記錄
+        if isCheck{
+            parameter += "&check=1"
+        } else { // 新增退貨
+            parameter += "&order_id=\(order_id)&item_id=\(item_id)&item_count=\(item_count)"
+        }
+        let apiURL =  NetWorkHandler.host + path + parameter
+        let url = URL(string: apiURL)!
+        let request = URLRequest(url: url)
+        
+        URLSession.shared.dataTask(with: request) { [weak self] (data, response, error) in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            guard let data = data else{return}
+            // 查詢退貨
+            if let returnList: [ReturnItems] = NetWorkHandler.parseJson(data){
+                self?.returnList = returnList
+                if indexPath.isEmpty{
+                    print("indexPath  empty", indexPath)
+                    DispatchQueue.main.async {
+                        self?.collectionView.reloadData()
+                    }
+                }else {
+                    print("indexPath not empty", indexPath)
+                    DispatchQueue.main.async {
+                        self?.collectionView.reloadItems(at: [indexPath])
+                    }
+                }
+                
+            // 新增退貨
+            }else{
+                if let returnItem: ReturnItems = NetWorkHandler.parseJson(data){
+                    if self?.returnList != nil{
+                        self?.returnList?.append(returnItem)
+                    }else {
+                        self?.returnList = [returnItem]
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self?.collectionView.reloadItems(at: [indexPath])
+                        self?.applyReturnItems(isCheck: true, indexPath: indexPath)
+                    }
+                }else{
+                    if let msg = String(data: data, encoding: .utf8){
+                        guard let self = self else{return}
+                        switch msg {
+//                        case "退貨已提交":
+//                            break
+                        case "無退貨記錄":
+                            break
+                        case "已送件申請", "退貨已提交":
+                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) {
+                                self.collectionView.reloadItems(at: [indexPath])
+                                let alert = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
+                                self.present(alert, animated: true, completion: nil)
+                                self.dismiss(animated: true, completion: nil)
+                            }
+                        default:
+                            break
+                        }
+                    }
+                }
+            }
+        }.resume()
+    }
+    
+    private func fetchDataFromServer(){
         let path = "/getOrder"
         let parameter = "?member_id_phone=\(UserInfo.member_id_phone)"
         let apiURL =  NetWorkHandler.host + path + parameter
@@ -119,12 +207,19 @@ class BuyListCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BuyListInfoCellCollectionViewCell.identifier, for: indexPath) as! BuyListInfoCellCollectionViewCell
         // 取出每個商品資訊
-        let product = orderInfo[indexPath.section].product_list[indexPath.row]
-        cell.nameLabel.text = product.item.name
-        cell.priceLabel.text = product.item.price.description
-        cell.itemSpec.text = "無"
-        cell.numberOfItemLabel.text = product.item_count.description
-        cell.shipmentStateLabel.text = "已送達"
+        let order = orderInfo[indexPath.section]
+        let product = order.product_list[indexPath.row]
+//        let itemsState = itemShipmentState[indexPath.section]
+        let returnItem = returnList?.filter({ (returnItem) -> Bool in
+            print(returnItem)
+            return order.order_id == returnItem.order_id && product.item.item_id == returnItem.item_id
+        }).first
+        print("itemsState", returnItem?.state)
+        let itemState = returnItem?.state ?? "已送達"
+        cell.configure(product, itemState)
+        cell.returnEvent = { [weak self] in
+            self?.applyReturnItems(indexPath: indexPath, order_id: order.order_id, item_id: product.item.item_id, item_count: product.item_count)
+        }
         return cell
     }
     

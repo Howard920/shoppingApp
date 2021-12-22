@@ -8,10 +8,8 @@
 import UIKit
 
 class BuyItemsListViewController: UIViewController {
-    //    var items:Set<ProductInfo> = []
-//    var products:[ProductInfo] = []
     var resultProductsInfo:[ProductInfo]?
-
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
@@ -114,30 +112,14 @@ extension BuyItemsListViewController: UICollectionViewDataSource, UICollectionVi
             cell.isLikeButton.tag = indexPath.row
             cell.cartButton.tag = indexPath.row
             if let productInfo = resultProductsInfo?[indexPath.row]{
+                // cell init
                 cell.configure(productInfo)
-                cell.nameLabel.text = productInfo.name
-                cell.priceLabel.text = "$" +  productInfo.price.description
-                // 設定Button狀態
-                if UserInfo.cartList.contains(productInfo.item_id){
-                    cell.cartButton.setImage(UIImage(systemName: "cart.fill"), for: .normal)
-
-                } else {
-                    cell.cartButton.setImage(UIImage(systemName: "cart"), for: .normal)
-                }
-                
-                if UserInfo.favoriteList.contains(productInfo.item_id){
-                    cell.isLikeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-                } else {
-                    cell.isLikeButton.setImage(UIImage(systemName: "heart"), for: .normal)
+                cell.favoriteItemToChange = { [weak self] msg in
+                    guard let self = self else{return}
+                    self.collectionView.reloadItems(at: [indexPath])
+                    Common.autoDisapperAlert(self, message: msg)
                 }
             }
-            
-            
-            // 綁定Button點擊事件
-            cell.isLikeButton.addTarget(self, action: #selector(likeButtonClick(_:)), for: .touchUpInside)
-            cell.cartButton.addTarget(self, action: #selector(cartButtonClick(_:)), for: .touchUpInside)
-            cell.pictureImageView.image = nil
-     
             // fetch image from web
             if let url = resultProductsInfo?[indexPath.row].media_info!,
                let myURL = URL(string: url){
@@ -157,46 +139,5 @@ extension BuyItemsListViewController: UICollectionViewDataSource, UICollectionVi
         
         return cell
     }
-    
-    
-    // MARK: -  cell Button點擊事件
-    @objc func likeButtonClick(_ sender: UIButton){
-        let row = sender.tag
-        if let itemID = resultProductsInfo?[row].item_id {
-            // 如果收藏清單內沒有收藏這個商品，就加入清單。
-            if !UserInfo.favoriteList.contains(itemID){
-
-                UserInfo.favoriteList.append(itemID)
-                sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-                Common.autoDisapperAlert(self, message: Common.favorite)
-                collectionView.reloadData()
-            } else {
-                guard let index = UserInfo.favoriteList.firstIndex(of: itemID) else{return}
-                UserInfo.favoriteList.remove(at: index)
-                sender.setImage(UIImage(systemName: "heart"), for: .normal)
-                Common.autoDisapperAlert(self, message: Common.unfavorite)
-                collectionView.reloadData()
-            }
-        }
-    }
-    @objc func cartButtonClick(_ sender: UIButton){
-        let row = sender.tag
-        if let itemID = resultProductsInfo?[row].item_id {
-            // 如果購物車清單內沒有這個商品，就加入清單。
-            if !UserInfo.cartList.contains(itemID){
-                UserInfo.cartList.append(itemID)
-                sender.setImage(UIImage(systemName: "cart.fill"), for: .normal)
-                Common.autoDisapperAlert(self, message: Common.cart)
-                collectionView.reloadData()
-            } else {
-                guard let index = UserInfo.cartList.firstIndex(of: itemID) else{return}
-                UserInfo.cartList.remove(at: index)
-                sender.setImage(UIImage(systemName: "cart"), for: .normal)
-                Common.autoDisapperAlert(self, message: Common.uncart)
-                collectionView.reloadData()
-            }
-        }
-    }
-
     
 }
