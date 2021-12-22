@@ -17,7 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="175" height="293"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="productSample" translatesAutoresizingMaskIntoConstraints="NO" id="woE-NI-8Lr">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="woE-NI-8Lr">
                         <rect key="frame" x="0.0" y="0.0" width="175" height="168"/>
                     </imageView>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="gf7-Mu-KKI">
@@ -100,6 +100,5 @@
     <resources>
         <image name="cart" catalog="system" width="128" height="102"/>
         <image name="heart.fill" catalog="system" width="128" height="109"/>
-        <image name="productSample" width="640" height="640"/>
     </resources>
 </document>

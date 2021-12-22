@@ -2,34 +2,73 @@ import UIKit
 
 class CollectionTableViewController: UITableViewController
 {
-    //產品項目
-    var productName = ["Cafe Deadend", "Homei", "Teakha", "Cafe Loisl", "Petite Oyster", "For Kee Restaurant", "Po's Atelier", "Bourke Street Bakery", "Haigh's Chocolate", "Palomino Espresso", "Upstate", "Traif", "Graham Avenue Meats", "Waffle & Wolf", "Five Leaves", "Cafe Lore", "Confessional", "Barrafina", "Donostia", "Royal Oak", "CASK Pub and Kitchen"]
+    var resultProductsInfo:[ProductInfo]?
+    @IBOutlet var tableview: UITableView!
     
-//    var price = ["原價目表:price_Data"]
-    var price = ["123", "513", "234", "123", "523", "312", "424", "75", "33", "14", "11", "12", "13", "14", "151", "616", "713", "819", "190", "200", "121"]
+    
+    
+    
+    @IBAction func btn_cancelProduct(_ sender: UIButton)
+    {
+        
+    }
 
-    
-//    var discount = ["折扣價:discount_Data"]
-    var discount = ["13", "14", "151", "616", "713", "819", "190", "200", "121","123", "513", "234", "123", "523", "312", "424", "75", "33", "14", "11", "12"]
-    
-    
-    //產品圖片
-    var productImage = ["cafedeadend", "homei", "teakha", "cafeloisl", "petiteoyster", "forkeerestaurant", "posatelier", "bourkestreetbakery", "haighschocolate", "palominoespresso", "upstate", "traif", "grahamavenuemeats", "wafflewolf", "fiveleaves", "cafelore", "confessional", "barrafina", "donostia", "royaloak", "caskpubkitchen"]
-    
-    
-//    var productIsVisited = Array(repeating: false, count: 21)
-    
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        loadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadData()
+    }
+    
+    private func loadData(){
+        
+        let server_place:String = "\(NetWorkHandler.host)/searchItem?item_id=\(favoriteSystem.favoriteList.map{String($0)}.joined(separator: ","))"
+        print(favoriteSystem.favoriteList)
+        
+        
+        let server_url:URL = URL(string: server_place)!
+        let request:URLRequest = URLRequest(url: server_url)
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        // step2: create Session
+        let session:URLSession = URLSession.shared
+
+
+        // step3: create the TASK that you want to do in the session
+        var work:URLSessionDataTask
+        work = session.dataTask(
+        with: request,
+        completionHandler:
+            {
+            (keywordsSearchData,response,error)
+            in
+            if let keywordsSearchData = keywordsSearchData {
+                guard let searchResultData: [ProductInfo] = NetWorkHandler.parseJson(keywordsSearchData)
+                else{
+                    return
+                }
+                
+                self.resultProductsInfo = searchResultData
+                print("resultProduct: \(self.resultProductsInfo!)")
+                DispatchQueue.main.async
+                {
+                    self.tableview.reloadData()
+                }
+            }
+            print("I finish request to server")
+            
+        }
+        )
+        // step4: executive the TASK
+        
+        work.resume()
     }
 
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int
@@ -40,11 +79,8 @@ class CollectionTableViewController: UITableViewController
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        // #warning Incomplete implementation, return the number of rows
-        
-        //計算目前產品個數
-//        print(productName.count)
-        return productName.count
+        resultProductsInfo?.count ?? 0
+
     }
 
     
@@ -52,27 +88,32 @@ class CollectionTableViewController: UITableViewController
     {
         
         let cellIdentifier = "datacell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as!CollectionTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CollectionTableViewCell
 
-        
-        cell.nameLabel.text = productName[indexPath.row]
-        cell.productImage.image = UIImage(named: productImage[indexPath.row])
+        if let item:ProductInfo = resultProductsInfo?[indexPath.row]
+        {
+            cell.nameLabel.text = item.name
+            cell.PriceLabel.text = String(item.price)
             
+            DatabaseHandler.fetchImage(url: URL(string: item.media_info!)!) {
+                image
+                in
+                DispatchQueue.main.async
+                {
+                    cell.productImage.image = image
+                }
+            }
+            
+            
+        }
+          
+        cell.delegate = self
+        cell.row = indexPath.row
 //        -=-=-=-=-=-=-=-=-=-=-=- 價目表：原價與折扣 -=-=-=-=-=-=-=-=-=-=-=-
 //        cell.PriceLabel.text = price[indexPath.row]
 //        cell.DiscountLabel.text = discount[indexPath.row]
-        
         return cell
     }
-    
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
 
     
     // Override to support editing the table view.
@@ -80,53 +121,34 @@ class CollectionTableViewController: UITableViewController
     {
         if editingStyle == .delete
         {
-            // Delete the row from the data source
-//            tableView.deleteRows(at: [indexPath], with: .fade)
-            productName.remove(at: indexPath.row)
-            productImage.remove(at: indexPath.row)
-            price.remove(at: indexPath.row)
-            discount.remove(at: indexPath.row)
-//            被刪除的產品名稱 與上方的刪除狀態擇一使用
-//            print("產品：\(productName.remove(at: indexPath.row))已被移除")
-            print("目前產品個數:\(productName.count)")
-            for name in productName
-            {
-                print(name)
-            }
+            deleteItem(row: indexPath.row)
         }
+    }
+}
 
-        else if editingStyle == .insert
-        {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+
+extension CollectionTableViewController: cellDelegate{
+    
+    func buyItem(row: Int) {
+        
+        let item = resultProductsInfo![row]
+        
+        cartSystem.updateCartProduct(product: OrderProduct(add_time: Date.get_add_time(), item_count: 1, item: ItemCodable(item_id: item.item_id, name: item.name, price: item.price, quantity: item.quantity!, detail: item.detail!, vendor_id: item.vendor_id!, media_info: URL(string: item.media_info!)!))) {
+            error
+            in
+            self.deleteItem(row: row)
         }
-        //更新資料異動後的畫面
-        tableView.reloadData()
     }
     
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    func deleteItem(row: Int)
+    {
+        
+        resultProductsInfo?.remove(at: row)
+        favoriteSystem.favoriteList.remove(at: row)
+        DispatchQueue.main.async
+        {
+            self.tableview.deleteRows(at: [IndexPath(row: row, section: 0)], with: .automatic)
+        }
+        
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

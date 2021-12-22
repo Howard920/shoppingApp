@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QYA-Jh-rre">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QYA-Jh-rre">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Favorite-->
+        <!--我的收藏-->
         <scene sceneID="NL9-Py-wCj">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QYA-Jh-rre" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Favorite" image="heart.circle.fill" catalog="system" id="lxb-pr-XeA"/>
+                    <tabBarItem key="tabBarItem" title="我的收藏" image="heart.circle.fill" catalog="system" id="lxb-pr-XeA"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Cfn-kv-qDw">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -30,10 +30,10 @@
         <scene sceneID="peT-bj-P0q">
             <objects>
                 <tableViewController id="GRf-u1-hbe" customClass="CollectionTableViewController" customModule="shoppingApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="QWi-wf-ycf">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="QWi-wf-ycf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.99576050039999997" green="0.64211738110000005" blue="0.14701929690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="datacell" rowHeight="130" id="wDt-wu-j6Y" customClass="CollectionTableViewCell" customModule="shoppingApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44.5" width="414" height="130"/>
@@ -86,33 +86,43 @@
                                             </subviews>
                                         </stackView>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3yc-m8-dDk">
-                                            <rect key="frame" x="378" y="11" width="16" height="16"/>
+                                            <rect key="frame" x="366" y="11" width="16" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="plain" title="">
                                                 <backgroundConfiguration key="background" image="close"/>
                                             </buttonConfiguration>
+                                            <connections>
+                                                <action selector="btn_cancelProduct:" destination="wDt-wu-j6Y" eventType="touchUpInside" id="K5T-8P-In8"/>
+                                                <action selector="btn_cancelProduct:" destination="GRf-u1-hbe" eventType="touchUpInside" id="m2J-hb-v6K"/>
+                                            </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8lV-5c-1vK">
-                                            <rect key="frame" x="341" y="89" width="53" height="30"/>
-                                            <color key="backgroundColor" red="1" green="0.49093938180000002" blue="0.47126869189999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <state key="normal" title="Button"/>
-                                            <buttonConfiguration key="configuration" style="plain" title="購買"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8lV-5c-1vK" userLabel="cart">
+                                            <rect key="frame" x="340" y="75.5" width="42" height="28.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="42" id="CZF-sd-2kn"/>
+                                                <constraint firstAttribute="height" constant="29.5" id="bPI-PZ-nr6"/>
+                                            </constraints>
+                                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" backgroundImage="cart.circle" catalog="system"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                     <integer key="value" value="6"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="btn_shop:" destination="wDt-wu-j6Y" eventType="touchUpInside" id="O66-0Z-TfP"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="tD5-vD-BF3" firstAttribute="leading" secondItem="VTl-Ip-pti" secondAttribute="trailing" constant="8" symbolic="YES" id="5ZK-Cj-6SH"/>
-                                        <constraint firstItem="8lV-5c-1vK" firstAttribute="top" secondItem="afn-aB-fcc" secondAttribute="topMargin" constant="78" id="7hT-j6-uGP"/>
-                                        <constraint firstItem="8lV-5c-1vK" firstAttribute="bottom" secondItem="afn-aB-fcc" secondAttribute="bottomMargin" id="9WH-k6-lls"/>
+                                        <constraint firstItem="8lV-5c-1vK" firstAttribute="top" secondItem="afn-aB-fcc" secondAttribute="topMargin" constant="64" id="7hT-j6-uGP"/>
+                                        <constraint firstItem="8lV-5c-1vK" firstAttribute="bottom" secondItem="afn-aB-fcc" secondAttribute="bottomMargin" constant="-14.5" id="9WH-k6-lls"/>
                                         <constraint firstItem="tD5-vD-BF3" firstAttribute="leading" secondItem="afn-aB-fcc" secondAttribute="leading" constant="108" id="KwY-ga-8fy"/>
                                         <constraint firstItem="tD5-vD-BF3" firstAttribute="centerY" secondItem="VTl-Ip-pti" secondAttribute="centerY" id="MXD-q0-PcO"/>
-                                        <constraint firstItem="8lV-5c-1vK" firstAttribute="trailing" secondItem="afn-aB-fcc" secondAttribute="trailingMargin" id="Q3W-1H-0RU"/>
+                                        <constraint firstItem="8lV-5c-1vK" firstAttribute="trailing" secondItem="afn-aB-fcc" secondAttribute="trailingMargin" constant="-12" id="Q3W-1H-0RU"/>
                                         <constraint firstItem="8lV-5c-1vK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tD5-vD-BF3" secondAttribute="trailing" constant="8" symbolic="YES" id="hS4-e3-1vz"/>
                                         <constraint firstItem="tD5-vD-BF3" firstAttribute="centerY" secondItem="afn-aB-fcc" secondAttribute="centerY" id="j1l-8c-WQJ"/>
                                     </constraints>
@@ -131,13 +141,17 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="我的收藏" id="yhb-dx-kkJ"/>
+                    <connections>
+                        <outlet property="tableview" destination="QWi-wf-ycf" id="vuU-JT-lA3"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="osc-w5-EpZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1097" y="13"/>
+            <point key="canvasLocation" x="1095.6521739130435" y="12.723214285714285"/>
         </scene>
     </scenes>
     <resources>
+        <image name="cart.circle" catalog="system" width="128" height="121"/>
         <image name="close" width="10" height="10"/>
         <image name="heart.circle.fill" catalog="system" width="128" height="121"/>
     </resources>

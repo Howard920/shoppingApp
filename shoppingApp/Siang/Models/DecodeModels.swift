@@ -7,6 +7,13 @@
 
 import Foundation
 
+extension Date{
+    static func get_add_time() -> String{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyyMMddHHmmss"
+        return formatter.string(from: Date())
+    }
+}
 struct MemberCodable: Codable{
     var member_id_phone: String
     var password: String
@@ -40,6 +47,7 @@ struct OrderCodable: Codable{
 }
 
 struct OrderProduct: Codable{
+    var add_time: String
     var item_count: Int
     var item: ItemCodable
 }

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+//ellStyleButtonImageName = isCellListLayout ? "rectangle.grid.2x2" : "list.dash"
 class CategoryProductViewController: UIViewController, UICollectionViewDelegate{
 
     @IBOutlet weak var productCollectionView: ProductCollectionView!
@@ -26,10 +26,29 @@ class CategoryProductViewController: UIViewController, UICollectionViewDelegate{
         self.productCollectionView.collectionView.reloadData()
     }
     
+    @IBAction func layoutButtonPressed(_ sender: UIBarButtonItem) {
+        
+        productCollectionView.isLayoutGrid = !productCollectionView.isLayoutGrid
+        
+        if productCollectionView.isLayoutGrid{
+            sender.image = UIImage(systemName: "list.dash")
+            productCollectionView.collectionView.reloadData()
+            productCollectionView.collectionView.setCollectionViewLayout(productCollectionView.layoutGrid, animated: false)
+
+        }else{
+            sender.image = UIImage(systemName: "rectangle.grid.2x2")
+            productCollectionView.collectionView.reloadData()
+            productCollectionView.collectionView.setCollectionViewLayout(productCollectionView.layoutList, animated: false)
+        }
+        
+
+    }
+    
     private func loadData(){
-        DatabaseHandler.getProduct(category: navigationItem.title! ,count: 10) { [weak self] items, images in
+        DatabaseHandler.getProduct(category: navigationItem.title! ,count: 10) { [weak self] items in
             self?.productCollectionView.itemData = items
-            self?.productCollectionView.imageData = images
+//            self?.productCollectionView.imageData = images
+            self?.productCollectionView.imageData = [UIImage?](repeating: nil, count: items.count)
             DispatchQueue.main.async {
                 self?.productCollectionView.collectionView.reloadData()
                 self?.loadingView.isHidden = true

@@ -28,11 +28,13 @@ class Cart1ViewController: UIViewController {
         setLayout()
         setRelationship()
         cartSystem.getCart { [unowned self] in
-            DispatchQueue.main.async {
-                tableView.reloadData()
-                loadingView.isHidden = true
-                tableView.isHidden = false
-                totalPrice = cartSystem.cart.price
+            cartSystem.reloadCartImages {
+                DispatchQueue.main.async {
+                    tableView.reloadData()
+                    loadingView.isHidden = true
+                    tableView.isHidden = false
+                    totalPrice = cartSystem.cart.price
+                }
             }
         }
     }
@@ -89,7 +91,7 @@ extension Cart1ViewController: Cart1TableViewCellDelegate{
         alertSheetController.addAction(UIAlertAction(title: "刪除商品", style: .destructive, handler: { [unowned self] action in
             var productChanged = cartSystem.cart.product_list[row]
             productChanged.item_count = 0
-            cartSystem.updateCartProduct(product: productChanged) { [unowned self] error in
+            cartSystem.deleteCartProduct(at: row) { [unowned self] error in
                 if error == nil{
                     DispatchQueue.main.async {
                         tableView.reloadData()
@@ -107,12 +109,12 @@ extension Cart1ViewController: Cart1TableViewCellDelegate{
             
             //add item to favorite list
             let item_id = productChanged.item.item_id
-            if !UserInfo.favoriteList.contains(item_id){
-                UserInfo.favoriteList.append(item_id)
+            if !favoriteSystem.favoriteList.contains(item_id){
+                favoriteSystem.favoriteList.append(item_id)
             }
             
             //delete item
-            cartSystem.updateCartProduct(product: productChanged) { [unowned self] error in
+            cartSystem.deleteCartProduct(at: row) { [unowned self] error in
                 if error == nil{
                     DispatchQueue.main.async {
                         //present alert

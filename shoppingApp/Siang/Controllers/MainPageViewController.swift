@@ -74,10 +74,11 @@ class MainPageViewController: UIViewController {
     
     private func loadData(){
         //載入12個商品的資料
-        DatabaseHandler.getProduct(count: 12) { [weak self] items, images in
+        DatabaseHandler.getProduct(count: 12) { [weak self] items in
             DispatchQueue.main.async {
                 self?.productCollectionView.itemData = items
-                self?.productCollectionView.imageData = images
+//                self?.productCollectionView.imageData = images
+                self?.productCollectionView.imageData = [UIImage?](repeating: nil, count: items.count)
                 self?.productCollectionView.collectionView.reloadData()
                 self?.loadingView.isHidden = true
                 self?.containerScrollView.isHidden = false
