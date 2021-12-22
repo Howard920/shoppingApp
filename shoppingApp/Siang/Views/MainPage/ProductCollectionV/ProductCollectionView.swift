@@ -13,6 +13,8 @@ class ProductCollectionView: UIView, NibOwnerLoadable{
     var itemData = [ItemCodable]()
     var imageData = [UIImage?]()
     weak var cellDelegate: ProductCellDelegate?
+    let layoutList = UICollectionViewFlowLayout()
+    let layoutGrid = UICollectionViewFlowLayout()
    
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,22 +37,32 @@ class ProductCollectionView: UIView, NibOwnerLoadable{
     }
     
     private func setLayout(){
-        let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
         
-        layout.minimumInteritemSpacing = 10
+        layoutGrid.sectionInset = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+        
+        layoutGrid.minimumInteritemSpacing = 10
 
-        layout.minimumLineSpacing = 10
-        layout.itemSize = CGSize(
+        layoutGrid.minimumLineSpacing = 10
+        layoutGrid.itemSize = CGSize(
             width: (UIScreen.main.bounds.width - 30) / 2 ,
             height: (UIScreen.main.bounds.width - 30) / 2 + 125
         )
-        collectionView.collectionViewLayout = layout
+        collectionView.collectionViewLayout = layoutGrid
+        
+        layoutList.sectionInset = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+        
+        layoutList.minimumInteritemSpacing = 0
+
+        layoutList.minimumLineSpacing = 0
+        layoutList.itemSize = CGSize(
+            width: UIScreen.main.bounds.width - 10,
+            height: 150
+        )
     }
     
     private func setRelationShip(){
         collectionView.register(UINib(nibName: "ProductCell", bundle: nil), forCellWithReuseIdentifier: "ProductCell")
-
+        collectionView.register(UINib(nibName: "ProductCell2", bundle: nil), forCellWithReuseIdentifier: "ProductCell2")
         collectionView.dataSource = self
     }
 }
@@ -63,7 +75,9 @@ extension ProductCollectionView: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let row = indexPath.row
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductCell", for: indexPath) as! ProductCell
+        let identifier = collectionView.collectionViewLayout == layoutGrid ? "ProductCell":"ProductCell2"
+            
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! ProductCell
         cell.setItemCell(item: itemData[row], image: imageData[row], delegate: cellDelegate)
         
         if self.imageData[row] == nil{

@@ -14,6 +14,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         cartSystem.getCart {
 
         }
+        favoriteSystem.getFavoriteList { error in
+            
+        }
         // 載入Member資料, 若無就為nil
         return true
     }

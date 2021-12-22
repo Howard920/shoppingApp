@@ -109,8 +109,8 @@ extension Cart1ViewController: Cart1TableViewCellDelegate{
             
             //add item to favorite list
             let item_id = productChanged.item.item_id
-            if !UserInfo.favoriteList.contains(item_id){
-                UserInfo.favoriteList.append(item_id)
+            if !favoriteSystem.favoriteList.contains(item_id){
+                favoriteSystem.favoriteList.append(item_id)
             }
             
             //delete item

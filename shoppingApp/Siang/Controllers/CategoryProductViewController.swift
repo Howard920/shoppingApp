@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+//ellStyleButtonImageName = isCellListLayout ? "rectangle.grid.2x2" : "list.dash"
 class CategoryProductViewController: UIViewController, UICollectionViewDelegate{
 
     @IBOutlet weak var productCollectionView: ProductCollectionView!
@@ -24,6 +24,19 @@ class CategoryProductViewController: UIViewController, UICollectionViewDelegate{
     
     override func viewWillAppear(_ animated: Bool) {
         self.productCollectionView.collectionView.reloadData()
+    }
+    
+    @IBAction func layoutButtonPressed(_ sender: UIBarButtonItem) {
+        
+        if sender.image == UIImage(systemName: "list.dash"){
+            sender.image = UIImage(systemName: "rectangle.grid.2x2")
+            productCollectionView.collectionView.setCollectionViewLayout(productCollectionView.layoutList, animated: false)
+        }else{
+            sender.image = UIImage(systemName: "list.dash")
+            productCollectionView.collectionView.setCollectionViewLayout(productCollectionView.layoutGrid, animated: false)
+        }
+        productCollectionView.collectionView.reloadData()
+
     }
     
     private func loadData(){

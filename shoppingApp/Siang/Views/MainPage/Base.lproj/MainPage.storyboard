@@ -213,7 +213,13 @@
                             <constraint firstItem="Ogw-Ov-fMM" firstAttribute="centerY" secondItem="rbh-Hz-loo" secondAttribute="centerY" id="v8o-xp-ci8"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="我是一個分類" id="TQq-ry-hUO"/>
+                    <navigationItem key="navigationItem" title="我是一個分類" id="TQq-ry-hUO">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="list.dash" catalog="system" id="NgU-CR-pqq">
+                            <connections>
+                                <action selector="layoutButtonPressed:" destination="gkB-yI-VTB" id="MUC-WA-8DZ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="ProductCollectionView" destination="Fo9-3a-VvA" id="YjL-1E-Lnc"/>
                         <outlet property="loadingView" destination="Ogw-Ov-fMM" id="NwO-aA-PmQ"/>
@@ -227,6 +233,7 @@
     </scenes>
     <resources>
         <image name="house.fill" catalog="system" width="128" height="106"/>
+        <image name="list.dash" catalog="system" width="128" height="85"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
