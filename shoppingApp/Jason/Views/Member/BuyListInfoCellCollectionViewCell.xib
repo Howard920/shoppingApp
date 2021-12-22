@@ -91,7 +91,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已送達" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qEN-Pq-oFY">
                                         <rect key="frame" x="0.0" y="76.5" width="52" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" systemColor="systemRedColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -230,6 +230,9 @@
                                     <constraint firstAttribute="height" constant="30" id="Rys-QV-Jyp"/>
                                 </constraints>
                                 <state key="normal" title="我要退貨"/>
+                                <connections>
+                                    <action selector="returnItemButtonTap:" destination="gTV-IL-0wX" eventType="touchUpInside" id="hna-Gf-F4R"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6eL-5j-YpZ"/>
@@ -271,7 +274,7 @@
                 <outlet property="nameLabel" destination="40N-bB-NYH" id="kd6-E7-Z9m"/>
                 <outlet property="numberOfItemLabel" destination="yIc-hy-uVU" id="yEy-3g-bmP"/>
                 <outlet property="priceLabel" destination="8VS-v5-pzb" id="2jw-UM-uOe"/>
-                <outlet property="returnItem" destination="6Gm-ep-Dzv" id="heQ-QE-Ny4"/>
+                <outlet property="returnItemButton" destination="6Gm-ep-Dzv" id="heQ-QE-Ny4"/>
                 <outlet property="shipmentStateLabel" destination="qEN-Pq-oFY" id="oTW-xk-jBU"/>
             </connections>
             <point key="canvasLocation" x="414.49275362318843" y="163.39285714285714"/>

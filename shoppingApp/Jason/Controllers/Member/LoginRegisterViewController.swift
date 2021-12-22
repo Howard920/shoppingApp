@@ -88,6 +88,7 @@ class LoginRegisterViewController: UIViewController {
             if let member = info {
                 Common.member = member
                 UserInfo.favoriteList = member.like_list ?? []
+                
             } else {
                 UserInfo.member_id_phone = self.phoneTextField.text!
                 Common.member = Member(member_id_phone: self.phoneTextField.text!, password: self.passwordTextField.text!)

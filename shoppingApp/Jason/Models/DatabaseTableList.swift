@@ -7,6 +7,14 @@
 
 import Foundation
 
+struct ReturnItems: Codable{
+    var member_id_phone: String
+    var order_id: Int
+    var item_id: Int
+    var item_count: Int
+    var state: String?
+}
+
 struct CategoryTags: Codable{
     var name: [String]
 }
