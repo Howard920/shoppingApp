@@ -27,9 +27,10 @@ class CategoryProductViewController: UIViewController, UICollectionViewDelegate{
     }
     
     private func loadData(){
-        DatabaseHandler.getProduct(category: navigationItem.title! ,count: 10) { [weak self] items, images in
+        DatabaseHandler.getProduct(category: navigationItem.title! ,count: 10) { [weak self] items in
             self?.productCollectionView.itemData = items
-            self?.productCollectionView.imageData = images
+//            self?.productCollectionView.imageData = images
+            self?.productCollectionView.imageData = [UIImage?](repeating: nil, count: items.count)
             DispatchQueue.main.async {
                 self?.productCollectionView.collectionView.reloadData()
                 self?.loadingView.isHidden = true

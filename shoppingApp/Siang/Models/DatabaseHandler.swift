@@ -20,7 +20,7 @@ class DatabaseHandler{
         }
     }
     
-    static func getProduct(count: Int, _ completionHandler: @escaping ([ItemCodable], [UIImage?])->Void){
+    static func getProduct(count: Int, _ completionHandler: @escaping ([ItemCodable])->Void){
         let url = URL(string: "http://127.0.0.1:8080/product?count=\(count)")!
         let request = URLRequest(url: url)
         
@@ -30,25 +30,13 @@ class DatabaseHandler{
             guard let items = parseJson(data!) as [ItemCodable]? else{
                 fatalError("解析產品資料失敗")
             }
-            
-            var images = [UIImage?](repeating: nil, count: count)
-            for (index,item) in items.enumerated(){
-                fetchImage(url: item.media_info) { image in
-                    images[index] = image
-                    for i in 0...items.count - 1{
-                        if images[i] == nil{
-                            return
-                        }
-                    }
-                    completionHandler(items, images)
-                }
-            }
+            completionHandler(items)
             
         }
         task.resume()
     }
     
-    static func getProduct(category: String, count: Int, _ completionHandler: @escaping ([ItemCodable], [UIImage?])->Void){
+    static func getProduct(category: String, count: Int, _ completionHandler: @escaping ([ItemCodable])->Void){
         let encodingStr = "http://127.0.0.1:8080/product?count=\(count)&category=\(category)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         let url = URL(string: encodingStr!)!
 
@@ -60,20 +48,7 @@ class DatabaseHandler{
             guard let items = parseJson(data!) as [ItemCodable]? else{
                 fatalError("解析產品資料失敗")
             }
-            
-            var images = [UIImage?](repeating: nil, count: count)
-            for (index,item) in items.enumerated(){
-                fetchImage(url: item.media_info) { image in
-                    images[index] = image
-                    for i in 0...index{
-                        if images[i] == nil{
-                            return
-                        }
-                    }
-                    completionHandler(items, images)
-                }
-            }
-            
+            completionHandler(items)
         }
         task.resume()
     }

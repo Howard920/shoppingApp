@@ -54,7 +54,7 @@ class ProductCell: UICollectionViewCell {
     
     @IBAction func cartButtonPressed(_ sender: UIButton) {
         
-        cartSystem.updateCartProduct(product: OrderProduct(item_count: 1, item: self.item)) {[weak self] error in
+        cartSystem.updateCartProduct(product: OrderProduct(add_time: Date.get_add_time(), item_count: 1, item: self.item)) {[weak self] error in
             if error == nil{
                 self?.delegate?.successfullyAddToCart()
             }else{

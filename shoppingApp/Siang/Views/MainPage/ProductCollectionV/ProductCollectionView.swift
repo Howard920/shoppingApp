@@ -66,6 +66,16 @@ extension ProductCollectionView: UICollectionViewDataSource{
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductCell", for: indexPath) as! ProductCell
         cell.setItemCell(item: itemData[row], image: imageData[row], delegate: cellDelegate)
         
+        if self.imageData[row] == nil{
+            DatabaseHandler.fetchImage(url: itemData[row].media_info) { [weak self] image in
+                DispatchQueue.main.async {
+                    self?.imageData[row] = image
+                    self?.collectionView.reloadItems(at: [indexPath])
+                }
+               
+            }
+        }
+        
         return cell
     }
     

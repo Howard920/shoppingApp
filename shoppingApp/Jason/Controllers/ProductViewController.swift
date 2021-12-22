@@ -128,7 +128,7 @@ class ProductViewController: UIViewController {
             cartVC.modalPresentationStyle = .fullScreen
             // 將商品傳送至購物車頁
             let item: ItemCodable = ItemCodable.init(item_id: selectedProduct!.item_id, name: selectedProduct!.name, price: selectedProduct!.price, quantity: selectedProduct!.quantity ?? 0, detail: selectedProduct!.detail ?? [:], vendor_id: selectedProduct!.vendor_id ?? 0, media_info: URL(string:selectedProduct?.media_info ?? "")!)
-            let orderProduct = OrderProduct(item_count: 0, item: item)
+            let orderProduct = OrderProduct(add_time: Date.get_add_time(), item_count: 0, item: item)
             cartSystem.updateCartProduct(product: orderProduct) { (_) in
             }
             // 開啟購物車畫面

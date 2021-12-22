@@ -14,13 +14,33 @@ class CartSystem{
     var productImages = [UIImage?]()
     var cart:OrderCodable!
     
+    
+    func deleteCartProduct(at row: Int, completionHandler: @escaping (Error?)->Void){
+        
+        let order_id = cart.order_id
+        let item_id = cart.product_list[row].item.item_id
+        let item_count = 0
+        
+        let url = URL(string: "http://127.0.0.1:8080/order_product?order_id=\(order_id)&item_id=\(item_id)&item_count=\(item_count)")!
+        let request = URLRequest(url: url)//待更改
+        let task = URLSession.shared.dataTask(with: request) {[unowned self] data, response, error in
+            getCart {
+                productImages.remove(at: row)
+                completionHandler(error)
+            }
+        }
+        
+        task.resume()
+    }
+    
     func updateCartProduct(product: OrderProduct, completionHandler: @escaping (Error?)->Void){
         
         let order_id = cart.order_id
         let item_id = product.item.item_id
         let item_count = product.item_count
+        let add_time = product.add_time
         
-        let url = URL(string: "http://127.0.0.1:8080/order_product?order_id=\(order_id)&item_id=\(item_id)&item_count=\(item_count)")!
+        let url = URL(string: "http://127.0.0.1:8080/order_product?order_id=\(order_id)&item_id=\(item_id)&item_count=\(item_count)&add_time=\(add_time)")!
         let request = URLRequest(url: url)//待更改
         let task = URLSession.shared.dataTask(with: request) {[unowned self] data, response, error in
             getCart {
@@ -108,23 +128,43 @@ class CartSystem{
             if self.cart == nil{
                 fatalError("開啟購物車失敗")
             }
-            if cart.product_list.count == 0{
-                completionHandler()
-            }
-            productImages = [UIImage?](repeating: nil, count: cart.product_list.count)
-            for (index,product) in cart.product_list.enumerated(){
-                DatabaseHandler.fetchImage(url: product.item.media_info) { image in
-                    productImages[index] = image
-                    for i in 0...cart.product_list.count - 1{
-                        if productImages[i] == nil{
-                            return
-                        }
-                    }
-                    completionHandler()
-                }
-            }
+            completionHandler()
+//            if cart.product_list.count == 0{
+//                completionHandler()
+//            }
+//            productImages = [UIImage?](repeating: nil, count: cart.product_list.count)
+//            for (index,product) in cart.product_list.enumerated(){
+//                DatabaseHandler.fetchImage(url: product.item.media_info) { image in
+//                    productImages[index] = image
+//                    for i in 0...cart.product_list.count - 1{
+//                        if productImages[i] == nil{
+//                            return
+//                        }
+//                    }
+//                    completionHandler()
+//                }
+//            }
         }
         
         task.resume()
+    }
+    
+    func reloadCartImages(completionHandler: @escaping ()->Void){
+        if cart.product_list.count == 0{
+            completionHandler()
+        }
+        productImages = [UIImage?](repeating: nil, count: cart.product_list.count)
+        for (index,product) in cart.product_list.enumerated(){
+            DatabaseHandler.fetchImage(url: product.item.media_info) { [unowned self] image in
+                productImages[index] = image
+                for i in 0...cart.product_list.count - 1{
+                    if productImages[i] == nil{
+                        return
+                    }
+                }
+                completionHandler()
+            }
+        }
+
     }
 }
