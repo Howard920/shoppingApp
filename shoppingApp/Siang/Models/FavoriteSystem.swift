@@ -20,12 +20,11 @@ class FavoriteSystem{
     let userDefault = UserDefaults.standard
     var favoriteList = [Int](){
         didSet{
-//            userDefault.setValue(favoriteList, forKey: "favoriteList")
-            print(favoriteList)
+            print(UserInfo.isLogin)
             updateFavoiteList { error in
                 if error == nil{
                     self.getFavoriteList { error in
-                        print("online: \(self.favoriteList)")
+//                        print("list: \(self.favoriteList)")
                     }
                 }
             }
@@ -34,6 +33,17 @@ class FavoriteSystem{
     
     
     func getFavoriteList(completionHandler: @escaping (Error?)->Void){
+        if !UserInfo.isLogin{
+            if let list = userDefault.value(forKey: "favoriteList") as? [Int]{
+                if favoriteList != list{
+                    favoriteList = list
+                    print(list)
+                }
+                completionHandler(nil)
+            }
+            return
+        }
+        
         let url = URL(string: "\(NetWorkHandler.host)/getMember?member_id_phone=\(UserInfo.member_id_phone)")!
         let request = URLRequest(url: url)
         
@@ -58,6 +68,11 @@ class FavoriteSystem{
     }
     
     func updateFavoiteList(completionHandler: @escaping (Error?)->Void){
+        if !UserInfo.isLogin{
+            userDefault.setValue(favoriteList, forKey: "favoriteList")
+            completionHandler(nil)
+            return
+        }
         
         var likeListStr = "\(favoriteList)"
         likeListStr = likeListStr.replacingOccurrences(of: " ", with: "", options: .literal, range: nil)

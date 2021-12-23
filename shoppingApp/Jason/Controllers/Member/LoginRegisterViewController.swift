@@ -69,11 +69,7 @@ class LoginRegisterViewController: UIViewController {
                     switch msg {
                     case "註冊成功":
                         self.saveMemberInfo(msg)
-                        cartSystem.newCart {
-                            cartSystem.getCart {
-                                
-                            }
-                        }
+                        
                     default:
                         DispatchQueue.main.async {
                             Common.autoDisapperAlert(self, message: msg, duration: 1)
@@ -105,9 +101,18 @@ class LoginRegisterViewController: UIViewController {
             }
             alert.addAction(action)
             self.present(alert, animated: true, completion: nil)
-            cartSystem.getCart {
-                
+            if msg == "登入成功"{
+                cartSystem.getCart {
+                    
+                }
+            }else if msg == "註冊成功"{
+                cartSystem.newCart {
+                    cartSystem.getCart {
+                        
+                    }
+                }
             }
+            
         }
     }
 }

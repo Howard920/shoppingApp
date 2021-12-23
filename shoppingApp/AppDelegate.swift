@@ -11,12 +11,14 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        UserInfo.isLogin = true
         cartSystem.getCart {
 
         }
         favoriteSystem.getFavoriteList { error in
             
         }
+        
         // 載入Member資料, 若無就為nil
         return true
     }

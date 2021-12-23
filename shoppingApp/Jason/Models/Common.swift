@@ -84,17 +84,19 @@ enum TypeOfButton: Int {
 
 struct UserInfo {
     static var cartList:[Int] = []
-    static var favoriteList: [Int] = [] 
+    static var favoriteList: [Int] = [] {
+            didSet {
+                favoriteSystem.favoriteList = favoriteList
+            }
+        }
     static var isLogin = false
     static var member_id_phone = "0900000000"{
         didSet{
             isLogin = member_id_phone.isEmpty ? false : true
-            if isLogin{
                 
                 favoriteSystem.getFavoriteList { error in
                     
                 }
-            }
             
         }
     }

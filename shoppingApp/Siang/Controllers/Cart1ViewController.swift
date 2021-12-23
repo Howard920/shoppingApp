@@ -73,7 +73,6 @@ extension Cart1ViewController: UITableViewDataSource, UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print(1)
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cart1TableViewCell") as! Cart1TableViewCell
         cell.setItem(orderProduct: cartSystem.cart.product_list[indexPath.row],
                      image: cartSystem.productImages[indexPath.row],

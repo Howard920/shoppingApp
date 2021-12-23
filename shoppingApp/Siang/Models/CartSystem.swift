@@ -17,13 +17,23 @@ class CartSystem{
     
     func deleteCartProduct(at row: Int, completionHandler: @escaping (Error?)->Void){
         
+        if !UserInfo.isLogin{
+            return
+        }
         let order_id = cart.order_id
         let item_id = cart.product_list[row].item.item_id
         let item_count = 0
-        
+       
         let url = URL(string: "\(NetWorkHandler.host)/order_product?order_id=\(order_id)&item_id=\(item_id)&item_count=\(item_count)")!
         let request = URLRequest(url: url)//待更改
         let task = URLSession.shared.dataTask(with: request) {[unowned self] data, response, error in
+            
+            if UserInfo.cartList.contains(item_id){
+                if let index = UserInfo.cartList.firstIndex(of: item_id){
+                    UserInfo.cartList.remove(at: index)
+                }
+            }
+            
             getCart {
                 productImages.remove(at: row)
                 completionHandler(error)
@@ -34,7 +44,9 @@ class CartSystem{
     }
     
     func updateCartProduct(product: OrderProduct, completionHandler: @escaping (Error?)->Void){
-        
+        if !UserInfo.isLogin{
+            return
+        }
         let order_id = cart.order_id
         let item_id = product.item.item_id
         let item_count = product.item_count
@@ -52,6 +64,9 @@ class CartSystem{
     }
     
     func updateCart(shipment: Shipment?, payment:Payment?, completionHandler: @escaping (Error?)->Void){
+        if !UserInfo.isLogin{
+            return
+        }
         let order_id = cart.order_id
         if shipment != nil{
             let encodingStr = "\(NetWorkHandler.host)/updateOrder?order_id=\(order_id)&shipment=\(shipment!.rawValue)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
@@ -79,6 +94,9 @@ class CartSystem{
     }
     
     func sendCart(name: String, phone: String, address: String, mail: String?, completionHandler: @escaping (Error?)->Void){
+        if !UserInfo.isLogin{
+            return
+        }
         var encodingStr = ""
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd-HH-mm"
@@ -103,6 +121,9 @@ class CartSystem{
     }
     
     func newCart(completionHandler: @escaping ()->Void){
+        if !UserInfo.isLogin{
+            return
+        }
         let url = URL(string: "\(NetWorkHandler.host)/newCart?member_id_phone=\(UserInfo.member_id_phone)")!
         let request = URLRequest(url: url)//待更改
         let task = URLSession.shared.dataTask(with: request) {[unowned self] data, response, error in
@@ -114,6 +135,9 @@ class CartSystem{
     }
     
     func getCart(completionHandler: @escaping ()->Void){
+        if !UserInfo.isLogin{
+            return
+        }
         let url = URL(string: "\(NetWorkHandler.host)/getCart?member_id_phone=\(UserInfo.member_id_phone)")!
         let request = URLRequest(url: url)
         
@@ -150,6 +174,9 @@ class CartSystem{
     }
     
     func reloadCartImages(completionHandler: @escaping ()->Void){
+        if !UserInfo.isLogin{
+            return
+        }
         if cart.product_list.count == 0{
             completionHandler()
         }

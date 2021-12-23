@@ -123,6 +123,10 @@ class CollectionTableViewController: UITableViewController
             deleteItem(id: cell.item_id)
         }
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        Cooperative.goProductVC(rootVC: self, product: resultProductsInfo![indexPath.row])
+    }
 }
 
 
